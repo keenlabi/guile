@@ -1,0 +1,90 @@
+.formWrapper {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl); /* Matches "Welcome back" size */
+  font-weight: var(--fw-medium);
+  color: var(--color-text-main);
+  margin-bottom: 3.2rem;
+  text-align: center;
+}
+
+/* Social Buttons */
+.socialStack {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-bottom: 2.4rem;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.passwordWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.forgotPassword {
+  align-self: flex-end;
+  font-size: var(--text-sm);
+  color: var(--color-text-body);
+  font-weight: var(--fw-regular);
+  transition: color 0.2s;
+}
+
+.forgotPassword:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+/* Actions */
+.actionArea {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  margin-top: 0.8rem;
+}
+
+.apiError {
+  color: var(--color-error);
+  background-color: var(--color-error-bg);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
+.footerText {
+  text-align: center;
+  color: var(--color-text-body);
+  font-size: var(--text-base);
+}
+
+.signUpLink {
+  color: var(--brand-orange); /* Matches standard Nuvlon link color */
+  font-weight: var(--fw-medium);
+  margin-left: 0.4rem;
+}
+
+.signUpLink:hover {
+  text-decoration: underline;
+}

@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { onboardSeekerUseCase } from '../../../features/onboarding/application/onboarding-seeker.usecase';
-import type { SeekerOnboardingData } from '../../../features/onboarding/domain/schemas/seekerOnboarding.schema';
-import { onboardingRepository } from '../../../features/onboarding/infrastructure/onboarding.repository';
+import { onboardSeekerUseCase } from '../../../modules/onboarding/application/onboarding-seeker.usecase';
+import type { SeekerOnboardingData } from '../../../modules/onboarding/domain/schemas/seekerOnboarding.schema';
+import { onboardingRepository } from '../../../modules/onboarding/infrastructure/onboarding.repository';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../routes/routes';
 

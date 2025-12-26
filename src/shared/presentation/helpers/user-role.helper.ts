@@ -1,5 +1,5 @@
-import { UserRole } from "../../../features/auth/domain/models/roles";
-import type { UserProfile } from "../../../features/auth/domain/models/user";
+import { UserRole } from "../../../modules/auth/domain/models/roles";
+import type { UserProfile } from "../../../modules/auth/domain/models/user";
 
 export class UserRoleHelper {
   constructor() {}

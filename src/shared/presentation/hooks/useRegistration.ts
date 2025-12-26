@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../../../features/auth/application/use-cases/register-user';
-import authRepository from '../../../features/auth/infrastructure/repositories/auth.repository';
+import { registerUser } from '../../../modules/auth/application/use-cases/register-user';
+import authRepository from '../../../modules/auth/infrastructure/repositories/auth.repository';
 import { ROUTES } from '../routes/routes';
 
 export function useRegistration() {

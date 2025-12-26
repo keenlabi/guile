@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { onboardingRepository } from '../../../features/onboarding/infrastructure/onboarding.repository';
+import { onboardingRepository } from '../../../modules/onboarding/infrastructure/onboarding.repository';
 import type { MultiSelectOption } from '../components/FormFields/MultiSelectField/MultiSelectField';
-import { getHeritagesUseCase } from '../../../features/onboarding/application/get-heritages.usecase';
+import { getHeritagesUseCase } from '../../../modules/onboarding/application/get-heritages.usecase';
 
 // Query Keys for caching
 export const HERITAGE_KEYS = {

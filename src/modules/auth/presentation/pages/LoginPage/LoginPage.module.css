@@ -1,0 +1,70 @@
+.pageContainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white); /* Image shows clean white background */
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.4rem 4rem;
+  width: 100%;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  /* Adjust size if necessary based on svg viewBox */
+  width: 120px; 
+}
+
+/* Language Selector */
+.langSelector {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1.6rem;
+  background: transparent;
+  border: 1px solid var(--grey-200);
+  border-radius: 0.8rem; /* Matches input radius style */
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.langSelector:hover {
+  background-color: var(--grey-100);
+}
+
+.flag {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.langText {
+  font-family: var(--font-body);
+  font-weight: var(--fw-medium);
+  font-size: var(--text-sm);
+  color: var(--color-text-main);
+}
+
+.chevronDown {
+  display: flex;
+  align-items: center;
+  transform: rotate(90deg); /* Rotate standard chevron-right to point down */
+  width: 1.6rem;
+  height: 1.6rem;
+  color: var(--grey-500);
+}
+
+/* Content Layout */
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Center vertically */
+  padding: 2rem;
+  padding-bottom: 10vh; /* Visual offset to keep it slightly above true center */
+}

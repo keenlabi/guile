@@ -1,0 +1,171 @@
+.container {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Header */
+.header {
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.5;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Form Layout */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Input Fields */
+.inputGroup {
+  text-align: left;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  padding: 14px 16px;
+  padding-right: 40px; /* Space for icon */
+  border: 1px solid #E5E5E5;
+  border-radius: 8px;
+  background-color: #F8F8F8;
+  font-size: 1rem;
+  color: #333;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.input::placeholder {
+  color: #999;
+}
+
+.input:focus {
+  border-color: #5FCB71; /* Nuvlon Green */
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(95, 203, 113, 0.1);
+}
+
+.inputError {
+  border-color: #d93025;
+}
+
+/* Icons within Inputs */
+.iconRight, .iconBtn {
+  position: absolute;
+  right: 12px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.iconBtn:hover {
+  color: #333;
+}
+
+/* Validation Text */
+.errorText {
+  color: #d93025;
+  margin-top: 6px;
+  display: block;
+}
+
+.apiError {
+  color: #d93025;
+  background-color: #ffeaea;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+/* Checkbox */
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 10px;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 16px 0;
+  color: #888;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #eee;
+}
+
+.divider span {
+  padding: 0 10px;
+}
+
+/* Social Buttons */
+.socialButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Footer */
+.footer {
+  margin-top: 24px;
+  color: #666;
+}
+
+.footerText {
+  margin-right: 6px;
+}
+
+.footerLink {
+  color: #FF7A00; /* Orange Link */
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footerLink:hover {
+  text-decoration: underline;
+}

@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect, type ReactNode } from "react";
-import type { UserProfile } from "../../../features/auth/domain/models/user";
+import type { UserProfile } from "../../../modules/auth/domain/models/user";
 import { AuthContext } from "./AuthContext";
-import authRepository from "../../../features/auth/infrastructure/repositories/auth.repository";
+import authRepository from "../../../modules/auth/infrastructure/repositories/auth.repository";
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   

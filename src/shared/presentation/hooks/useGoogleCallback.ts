@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-// import authRepository from '../../../features/auth/infrastructure/repositories/auth.repository';
+// import authRepository from '../../../modules/auth/infrastructure/repositories/auth.repository';
 import { useAuth } from './useAuth';
-// import { GoogleExchangeCodeForTokenUseCase } from '../../../features/auth/application/use-cases/google-exchange-code-for-token';
+// import { GoogleExchangeCodeForTokenUseCase } from '../../../modules/auth/application/use-cases/google-exchange-code-for-token';
 
 export function useGoogleCallback() {
   const [searchParams] = useSearchParams();

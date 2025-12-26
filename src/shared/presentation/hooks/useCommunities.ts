@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getCommunitiesUseCase } from '../../../features/community/application/get-community.usecase';
-import communityRepository from '../../../features/community/infrastructure/repositories/community.repository';
+import { getCommunitiesUseCase } from '../../../modules/community/application/get-community.usecase';
+import communityRepository from '../../../modules/community/infrastructure/repositories/community.repository';
 
 export const COMMUNITY_KEYS = {
   all: ['communities'] as const,

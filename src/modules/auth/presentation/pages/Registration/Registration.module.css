@@ -1,0 +1,63 @@
+.pageContainer {
+  min-height: 100vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+/* Language Selector */
+.langSelector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid #E5E5E5;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #333;
+  transition: all 0.2s;
+}
+
+.langSelector:hover {
+  background-color: #f5f5f5;
+}
+
+.flagIcon {
+  font-size: 1.1rem;
+}
+
+.langText {
+  font-weight: 500;
+}
+
+.chevron {
+  color: #999;
+  font-weight: bold;
+  padding-bottom: 4px; /* Visual adjustment */
+}
+
+/* Main Content Center */
+.mainContent {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+}

@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import type { UserProfile } from '../../../features/auth/domain/models/user';
+import type { UserProfile } from '../../../modules/auth/domain/models/user';
 
 export interface AuthContextType {
   profile: UserProfile | null;
