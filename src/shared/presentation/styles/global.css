@@ -1,0 +1,67 @@
+/* 1. Modern Reset (Essential) */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 2. The 62.5% Font Scale Trick 
+   This sets 1rem = 10px. 
+   Now 1.6rem = 16px, 2.4rem = 24px, etc.
+*/
+html {
+  font-size: 62.5%; 
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background-color: var(--color-bg-page);
+}
+
+/* 3. Element Defaults */
+img, picture, video, canvas {
+  display: block;
+  max-width: 100%;
+}
+
+button, input, textarea, select {
+  font: inherit; /* Inherit font family/size from body */
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+main {
+  padding: var(--spacing-md);
+  /* You might want to remove this padding if you have full-width pages */
+}
+
+/* 4. Utility Classes */
+.shorten_with_ellipsis {
+  display: block;
+  width: 100%;      /* Changed from fixed 250px to be responsive */
+  max-width: 250px; /* Optional constraint */
+  white-space: nowrap;   
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

@@ -1,0 +1,37 @@
+/* Override the InputField container */
+.searchContainer {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+/* Hide the label element */
+.searchContainer label {
+  display: none;
+}
+
+/* Target the inner wrapper. 
+  Since this class is now passed via props and applied directly to the div,
+  we don't need !important unless there is a specificity conflict.
+*/
+.searchWrapper {
+  background-color: var(--grey-50);
+  border-color: transparent; 
+  border-radius: 8px; 
+  height: 44px;
+}
+
+/* Ensure focus state overrides the default InputField focus styles */
+.searchWrapper:focus-within {
+  background-color: var(--white);
+  border-color: var(--grey-300);
+  box-shadow: var(--shadow-subtle);
+}
+
+/* Target the input element inside */
+.searchInput {
+  background-color: transparent; /* Let wrapper handle bg */
+}
+
+.icon {
+  color: var(--slate-500);
+}

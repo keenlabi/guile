@@ -1,0 +1,75 @@
+:root {
+  /* ==============================
+     1. Primitives (Raw Palette)
+     ============================== */
+  
+  /* Brand Colors */
+  --brand-green: #73D373;   
+  --brand-orange: #FF6600;  
+  --brand-orange-light: #FFECE5; /* NEW: Active states/backgrounds */
+  --brand-orange-pale: #FFD7BD;
+
+  /* Neutrals / Greys */
+  --black: #000000;
+  --black-transparent: #00000005; 
+  
+  /* NEW DARK SHADE */
+  --slate-900: #101928; /* Deep/Dark text */
+  --slate-700: #344054;  
+  --slate-500: #667185;     
+  
+  --grey-400: #787880;      
+  --grey-300: #D0D5DD;      
+  --grey-200: #D1D1D1;      
+  --grey-100: #F3F3F3;
+  
+  /* NEW LIGHT BACKGROUND */
+  --grey-50: #F0F2F5; /* Page backgrounds */
+  --grey-25: #FAFAFA;
+  
+  --white: #FFFFFF;
+
+  /* Feedback */
+  --red-error: #D93025;
+  --red-bg: #FFEAEA;
+
+  /* --- Effects --- */
+  --shadow-subtle: 0px 5px 3px -2px var(--black-transparent);
+
+
+  /* ==============================
+   2. Semantic Tokens (Usage)
+   ============================== */
+  
+  /* --- Main --- */
+  --color-primary: var(--brand-green);
+  --color-primary-hover: #5FB060; 
+  --color-link: var(--brand-orange);
+  --color-accent: var(--brand-orange);
+  --color-bg-active: var(--brand-orange-light); /* Usage for active nav items */
+
+  /* --- Typography --- */
+  --color-text-main: var(--slate-900);    /* Updated to the new deeper dark */
+  --color-text-body: var(--slate-500);    
+  --color-text-placeholder: var(--grey-400);
+
+  /* --- Forms / Inputs --- */
+  --color-input-text: var(--black);
+  --color-input-bg: var(--grey-100);
+  --color-input-border: var(--grey-200);
+  --color-input-placeholder: var(--grey-400);
+
+  /* --- UI Elements --- */
+  /* --color-bg-page: var(--grey-25); */
+  --color-bg-page: var(--white);
+  --color-border-socials: var(--grey-300);
+  --color-bg-capsule: var(--brand-orange-pale);
+  --color-icon: var(--grey-400);
+
+  /* --- Feedback --- */
+  --color-error: var(--red-error);
+  --color-error-bg: var(--red-bg);
+
+  /* Effects */
+  --shadow-input-focus: var(--shadow-subtle)
+}

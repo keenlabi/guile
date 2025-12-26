@@ -1,0 +1,114 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.label {
+  font-size: var(--text-sm);
+  font-weight: var(--fw-medium);
+  color: var(--color-text-main);
+  cursor: pointer;
+}
+
+/* Wrapper handles border, background, and focus states */
+.textareaWrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+  background-color: var(--color-input-bg);
+  /* border: 1px solid var(--color-input-border); */
+  border-radius: 8px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+
+}
+
+.textareaWrapper:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-input-focus);
+}
+
+.wrapperError {
+  border-color: var(--color-error);
+  background-color: var(--color-error-bg);
+}
+
+.wrapperError:focus-within {
+  border-color: var(--color-error);
+  box-shadow: none;
+}
+
+.wrapperDisabled {
+  background-color: var(--grey-100);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.textarea {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: var(--text-base);
+  color: var(--color-input-text);
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.5;
+  display: block;
+}
+
+.textarea::placeholder {
+  color: var(--color-input-placeholder);
+}
+
+/* Padding adjustments for icons */
+.hasPrefix {
+  padding-left: 40px;
+}
+
+.hasSuffix {
+  padding-right: 40px;
+}
+
+/* Icons are absolutely positioned to stay at the top */
+.prefixIcon {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  width: 20px;
+  height: 20px;
+  color: var(--color-text-placeholder);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.suffixIcon {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 20px;
+  height: 20px;
+  color: var(--color-text-placeholder);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hintText {
+  font-size: var(--text-xs);
+  color: var(--color-text-body);
+  margin-top: 2px;
+}
+
+.errorText {
+  font-size: var(--text-xs);
+  color: var(--color-error);
+  margin-top: 2px;
+}

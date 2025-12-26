@@ -1,0 +1,134 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 24px 16px;
+  gap: 32px;
+  /* width: 272px; */
+}
+
+/* User Profile Mini-Section */
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.userProfile:hover {
+  background-color: var(--grey-100);
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--grey-300);
+  object-fit: cover;
+}
+
+.userInfo {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userName {
+  font-family: var(--font-heading);
+  font-weight: var(--fw-semi-bold);
+  font-size: var(--text-m);
+  color: var(--color-text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userRole {
+  font-size: 1.2rem;
+  color: var(--color-text-body);
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Nav Item Styling */
+.navItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--color-text-body);
+  transition: all 0.2s;
+}
+
+.navItem:hover {
+  background-color: var(--grey-100);
+  color: var(--color-text-main);
+  text-decoration: none;
+}
+
+.navItemContent {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.label {
+  font-weight: var(--fw-regular);
+  font-size: var(--text-base);
+}
+.label.mainNav {
+  font-family: var(--font-heading); 
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge {
+  background-color: #5FCB71; /* Brand Green */
+  color: white;
+  font-size: 1.1rem;
+  font-weight: var(--fw-bold);
+  padding: 2px 8px;
+  border-radius: 12px;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* Active State */
+.active {
+  background-color: #FFF2EB; /* Light Orange/Peach background */
+  color: var(--color-primary); 
+}
+
+/* Override hover for active items */
+.active:hover {
+  background-color: #FFF2EB;
+}
+
+.active .label {
+  color: #FF6600; /* Brand Orange for text */
+  font-weight: var(--fw-medium);
+}
+
+.active .icon path {
+  fill: #FF6600;
+}

@@ -1,0 +1,138 @@
+/* --- Base Styles --- */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  
+  padding: 1.2rem 2.4rem; /* Standard sizing */
+  border-radius: var(--radius-md);
+
+  height: 55px;
+  
+  font-family: var(--font-body);
+  font-size: var(--text-m);
+  font-weight: var(--fw-medium);
+  line-height: 1.5;
+  
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid transparent; /* Reserve space for border */
+  outline: none;
+  border-radius: 12px;
+  user-select: none;
+}
+
+/* .button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+} */
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.button:focus-visible {
+  box-shadow: var(--shadow-input-focus);
+}
+
+.fullWidth {
+  width: 100%;
+  display: flex;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  gap: 1.6rem;
+}
+.content .startIcon,
+.content .endIcon {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 1px solid; */
+}
+
+/* --- Variants --- */
+
+/* 1. Primary (Green Background) */
+.primary {
+  background-color: var(--color-primary); /* #73D373 */
+  color: var(--white);
+  border-color: transparent;
+}
+
+.primary:hover:not(:disabled) {
+  /* background-color: var(--color-primary-hover); */
+  /* Optional: Add slight shadow */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  */
+}
+
+/* 2. Social (White BG, Grey Border) */
+.social {
+  border-width: 1.5px;
+  background-color: var(--white);
+  color: var(--slate-700);
+  border-color: var(--color-border-socials); /* #D0D5DD */
+  
+  font-weight: var(--fw-regular);
+  font-size: var(--text-base);
+}
+
+.social:hover:not(:disabled) {
+  background-color: var(--color-bg-surface); /* #F8F9FA */
+  border-color: var(--grey-400);
+}
+
+/* 3. Text (Ghost button, mostly for "Cancel" or secondary actions) */
+.text {
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  padding: 0.8rem 1.6rem; /* Slightly smaller padding */
+}
+
+.text:hover:not(:disabled) {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--color-text-main);
+}
+
+/* --- Loading Spinner --- */
+.loading {
+  color: transparent !important; /* Hide text color but keep spacing */
+  pointer-events: none;
+}
+
+.spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--white); /* Default spinner color */
+  display: flex;
+}
+
+/* Override spinner color for Social variant (since background is white) */
+.social .spinner {
+  color: var(--grey-600);
+}
+
+.spinner svg {
+  width: 2rem;
+  height: 2rem;
+  animation: rotate 1s linear infinite;
+}
+
+.spinnerPath {
+  opacity: 0.75;
+  stroke-dasharray: 80;
+  stroke-dashoffset: 60;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

@@ -1,0 +1,114 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 100%;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.8rem;
+  font-weight: var(--fw-semi-bold);
+  font-size: var(--text-base);
+  color: var(--color-input-text);
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 56px;
+  background-color: var(--color-input-bg);
+  border: 1px solid var(--color-input-bg);
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease-in-out;
+  border-radius: 1.2rem;
+}
+
+.inputWrapper:focus-within {
+  /* background-color: var(--white); */
+  /* border-color: var(--color-primary); */
+  border: 1px solid var(--color-input-border);
+  box-shadow: var(--shadow-input-focus);
+}
+
+/* Error State */
+.wrapperError {
+  border-color: var(--color-error);
+  background-color: var(--color-error-bg);
+}
+
+.wrapperError:focus-within {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(217, 48, 37, 0.1); /* Red glow */
+}
+
+/* Disabled/Readonly State */
+.wrapperDisabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background-color: #EFEFEF;
+}
+
+/* Actual Input Element */
+.input {
+  width: 100%;
+  padding: 1.4rem 1.6rem;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-input-text);
+  background: transparent;
+  border: none;
+  outline: none;
+  border-radius: var(--radius-md); /* Inherit radius so background doesn't bleed */
+}
+
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus,
+.input:-webkit-autofill:active {
+  /* Remove Chrome’s default autofill bg and set your own */
+  -webkit-box-shadow: 0 0 0 1000px var(transparent, transparent) inset !important;
+  box-shadow: 0 0 0 1000px var(transparent, transparent) inset !important;
+  -webkit-text-fill-color: var(transparent, transparent) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+
+.input::placeholder {
+  color: var(--color-input-placeholder);
+}
+
+/* Icons */
+.prefixIcon, .suffixIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--grey-600);
+  padding: 0 1.2rem;
+  flex-shrink: 0; /* Prevent icon from squishing */
+}
+
+/* Adjust padding if icons are present */
+.inputWrapper:has(.prefixIcon) .input {
+  padding-left: 0;
+}
+
+.inputWrapper:has(.suffixIcon) .input {
+  padding-right: 0;
+}
+
+.hintText {
+  margin-top: 0.6rem;
+  font-size: 1.0rem;
+  font-weight: var(--fw-medium);
+  color: var(--color-text-body);
+}
+
+.errorText {
+  margin-top: 0.6rem;
+  color: var(--color-error);
+  font-size: var(--text-sm);
+  font-weight: var(--fw-medium);
+}

@@ -1,0 +1,78 @@
+.container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-inline: 24px;
+  height: 104px;
+}
+
+/* Left Section: Page Title */
+.title {
+  margin: auto 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--fw-medium);
+  color: var(--color-text-main);
+  white-space: nowrap;
+}
+
+/* Right Section: Actions */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+/* Search Bar */
+.searchField {
+  max-width: 360px;
+}
+
+/* Notification Button */
+.iconBtn {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background-color: transparent; /* Or white if prefered */
+  color: var(--slate-500);
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s;
+}
+
+.iconBtn:hover {
+  background-color: var(--grey-200);
+  color: var(--color-text-main);
+}
+
+/* Red Dot Badge */
+.notificationBadge {
+  position: absolute;
+  top: 10px;
+  right: 13px;
+  width: 8px;
+  height: 8px;
+  background-color: var(--brand-orange);
+  border: 1px solid var(--white);
+  border-radius: 50%;
+}
+
+.createBtn {
+  font-family: var(--font-heading);
+  font-weight: var(--fw-medium);
+  font-size: var(--text-base);
+  height: 45px;
+  background-color: var(--black); /* Based on image, it looks black/dark */
+  color: var(--white);
+  border-radius: 12px;
+}
+
+.createBtn:hover {
+  background-color: var(--slate-900);
+}
