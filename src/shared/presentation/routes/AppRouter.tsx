@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         element: <AppLayout />, // 2. If OK, render Layout (Sidebar + Header)
         children: [
           // { path: ROUTES.COMMUNITIES, element: <CommunityFeedPage /> },
-          // { path: '/jobs', element: <JobsPage /> },
+          // { path: ROUTES.OVERVIEW, element: < /> },
         ]
       }
     ]

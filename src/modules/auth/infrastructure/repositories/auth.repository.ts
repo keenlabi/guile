@@ -10,13 +10,8 @@ const authRepository: IAuthRepository = {
   },
 
   async register(data: { email: string; password: string; }): Promise<AuthResponseUser> {
-    try {
-      const response = await apiClient.post<{ user: AuthResponseUser; }>('/api/users/register', data);
-      return response.data.user;
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
+    const response = await apiClient.post<{ user: AuthResponseUser; }>('/api/users/register', data);
+    return response.data.user;
   },
 
   async login(data: { email: string; password: string; }): Promise<AuthResponseUser> {

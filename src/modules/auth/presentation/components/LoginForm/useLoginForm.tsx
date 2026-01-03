@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useGoogleAuth } from '../../../../../shared/presentation/hooks/useGoogleAuth';
 import { loginSchema, type LoginFormData } from '../../../domain/schemas/login.schema';
 import { useAuth } from '../../../../../shared/presentation/hooks/useAuth';
 import { useState } from 'react';
@@ -9,7 +8,6 @@ import { ROUTES } from '../../../../../shared/presentation/routes/routes';
 
 export default function useLoginForm() {
   const { loginWithPassword } = useAuth();
-  const { startGoogleLogin } = useGoogleAuth();
   const navigate = useNavigate();
 
   const [isLoginLoading, setIsLoginLoading] = useState(false);
@@ -26,7 +24,7 @@ export default function useLoginForm() {
     setError(null);
     try {
       await loginWithPassword({ email: data.email, password: data.password });
-      navigate({ pathname: ROUTES.COMMUNITIES });
+      navigate({ pathname: ROUTES.DASHBOARD });
     } catch(error) {
       if (error instanceof Error) {
         setError(error.message);
@@ -49,6 +47,5 @@ export default function useLoginForm() {
     isValid: formState.isValid,
     isLoginLoading,
     loginError: error,
-    startGoogleLogin,
   };
 }

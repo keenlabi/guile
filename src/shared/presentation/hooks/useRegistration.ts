@@ -16,8 +16,9 @@ export function useRegistration() {
 
     try {
       await registerUser(authRepository, data);
-      navigate(ROUTES.CHOOSE_PATH);
+      navigate(ROUTES.DASHBOARD);
     } catch (error) {
+      
       if(error instanceof Error) {
         setError(error.message || 'An unknown error occurred during registration.');
       }

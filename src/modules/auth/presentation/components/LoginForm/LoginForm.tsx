@@ -6,10 +6,10 @@ import Form from '../../../../../shared/presentation/components/FormFields/Form/
 import InputField from '../../../../../shared/presentation/components/FormFields/InputField/InputField';
 import PasswordField from '../../../../../shared/presentation/components/FormFields/PasswordField/PasswordField';
 import Button from '../../../../../shared/presentation/components/Button/Button';
-import GoogleAuthButton from '../../../../../shared/presentation/components/GoogleAuthButton/GoogleAuthButton';
 
 // Logic
 import useLoginForm from './useLoginForm';
+import { ROUTES } from 'src/shared/presentation/routes/routes';
 
 export function LoginForm() {
   const {
@@ -18,24 +18,16 @@ export function LoginForm() {
     errors,
     isLoginLoading,
     loginError,
-    startGoogleLogin
   } = useLoginForm();
 
   return (
     <div className={styles.formWrapper}>
-      <h1 className={styles.title}>Welcome back</h1>
-
-      <div className={styles.socialStack}>
-        <GoogleAuthButton 
-          onClick={startGoogleLogin} 
-          isLoading={false}
-        />
-      </div>
+      <h2 className={styles.title}>Log In</h2>
 
       <Form submit={submit} className={styles.form}>
         <div className={styles.inputs}>
           <InputField
-            label=""
+            label="Email"
             placeholder="email@example.com" // Matches image cursor implication
             type="email"
             error={errors.email?.message}
@@ -45,8 +37,8 @@ export function LoginForm() {
 
           <div className={styles.passwordWrapper}>
             <PasswordField
-              label=""
-              placeholder="Enter Password"
+              label="Password"
+              placeholder="**********"
               error={errors.password?.message}
               register={register('password')}
             />
@@ -68,9 +60,11 @@ export function LoginForm() {
             Sign in
           </Button>
 
-          <p className={styles.footerText}>
-            Don’t have an Account <Link to="/signup" className={styles.signUpLink}>Sign up</Link>
-          </p>
+          {/* Footer */}
+          <div className={styles.footer}>
+            <span className={styles.footerText}>Don’t have an Account</span>
+            <Link to={ROUTES.SIGNUP} className={styles.footerLink}>Sign up</Link>
+          </div>
         </div>
       </Form>
     </div>

@@ -6,15 +6,20 @@ const apiClient = axios.create({
 });
 
 // Interceptor to handle API errors globally
-// apiClient.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     console.log(error)
-//     // You can add logic here to handle 401 Unauthorized errors,
-//     // like redirecting to the login page.
-//     const message = error.response?.data?.message || 'An unknown error occurred';
-//     return Promise.reject(new Error(message));
-//   }
-// );
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.data) {
+      // 1. Check if the error comes from the backend (has a response & data)
+      const apiErrorMessage = error.response.data.message;
+      // console.error(error)
+      // 2. Reject with a standard JS Error containing ONLY that message
+      return Promise.reject(new Error(apiErrorMessage));
+    }
+
+    // 3. Fallback for network errors (no response from server)
+    return Promise.reject(new Error(error.message || 'An unexpected network error occurred'));
+  }
+);
 
 export default apiClient;

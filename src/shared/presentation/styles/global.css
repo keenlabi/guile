@@ -17,7 +17,14 @@ html {
 body {
   height: 100%;
   background-color: var(--color-bg-page);
+  color: var(--color-text-main);
+  font-family: 'DM Sans', sans-serif; 
+  -webkit-font-smoothing: antialiased;
 }
+
+/* Add a class for specific Green/Red text we need for trading */
+.text-up { color: var(--brand-green); }
+.text-down { color: var(--brand-red); }
 
 /* 3. Element Defaults */
 img, picture, video, canvas {

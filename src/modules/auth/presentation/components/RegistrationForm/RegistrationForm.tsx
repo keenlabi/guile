@@ -1,6 +1,6 @@
 import styles from './RegistrationForm.module.css';
 // Icons
-import MailIcon from '../../../../../shared/presentation/assets/icons/envelope.svg?react';
+import MailIcon from 'src/shared/presentation/assets/icons/envelope.svg?react';
 // form fields
 import InputField from '../../../../../shared/presentation/components/FormFields/InputField/InputField';
 import Button from '../../../../../shared/presentation/components/Button/Button';
@@ -8,7 +8,7 @@ import PasswordField from '../../../../../shared/presentation/components/FormFie
 import Form from '../../../../../shared/presentation/components/FormFields/Form/Form';
 import useRegistrationForm from './useRegistrationForm';
 import { Link } from 'react-router-dom';
-import GoogleAuthButton from '../../../../../shared/presentation/components/GoogleAuthButton/GoogleAuthButton';
+import { ROUTES } from 'src/shared/presentation/routes/routes';
 
 export function RegistrationForm() {
   const {
@@ -18,23 +18,19 @@ export function RegistrationForm() {
     isValid,
     isLoading,
     apiError,
-    startGoogleLogin,
   } = useRegistrationForm();
 
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <div className={'heading-medium'}>Build your life in canada</div>
-        <p className={'subtitle-regular'}>
-          Real connections, local support, and opportunities that matter.
-        </p>
+        <h2 className={styles.title}>Welcome to Guile</h2>
       </header>
 
       <Form submit={submit} className={styles.form}>
         
         <InputField
-          label=""
-          placeholder="Enter your email"
+          label="Email"
+          placeholder="email@example.com"
           type="email"
           error={errors.email?.message}
           suffixIcon={<MailIcon />}
@@ -43,8 +39,8 @@ export function RegistrationForm() {
         />
 
         <PasswordField
-          label=""
-          placeholder="Enter Password"
+          label="Password"
+          placeholder="*********"
           error={errors.password?.message}
           register={register('password')}
         />
@@ -77,27 +73,10 @@ export function RegistrationForm() {
 
         {apiError && <p className={styles.apiError}>{apiError}</p>}
 
-        <div className={styles.divider}>
-          <span>Or</span>
-        </div>
-
-        {/* Social Login */}
-        <div className={styles.socialButtons}>
-          <GoogleAuthButton
-            isLoading={false}
-            onClick={startGoogleLogin}
-          />
-
-          {/* <LinkedInAuthButton
-            isLoading={false}
-            onClick={() => {}}
-          /> */}
-        </div>
-
         {/* Footer */}
         <div className={styles.footer}>
           <span className={styles.footerText}>I have an Account</span>
-          <Link to="/login" className={styles.footerLink}>Sign In</Link>
+          <Link to={ROUTES.LOGIN} className={styles.footerLink}>Sign In</Link>
         </div>
       </Form>
     </div>
