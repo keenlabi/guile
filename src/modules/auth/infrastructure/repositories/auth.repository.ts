@@ -24,8 +24,8 @@ const authRepository: IAuthRepository = {
   },
 
   async getProfile(): Promise<UserProfile> {
-    const response = await apiClient.get<ApiResponse<{ profile: UserProfile }>>('/api/users/me');
-    return response.data.data.profile;
+    const response = await apiClient.get<ApiResponse<UserProfile>>('/api/users/me');
+    return response.data.data;
   }
 };
 

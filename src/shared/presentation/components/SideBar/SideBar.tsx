@@ -1,28 +1,26 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Sidebar.module.css';
+import { ROUTES } from '../../routes/routes';
 
-// Assets
-import NuvlonLogo from 'src/shared/presentation/assets/images/nuvlon-logo.svg?react';
-import DemoAvatar from 'src/shared/presentation/assets/images/sarah-demo-user.png'; 
-// --- Icons ---
-import ExpandIcon from 'src/shared/presentation/assets/icons/expand.svg?react';
-import CommunityIcon from 'src/shared/presentation/assets/icons/people.svg?react';
-import JobsIcon from 'src/shared/presentation/assets/icons/briefcase.svg?react';
-import BusinessIcon from 'src/shared/presentation/assets/icons/skyscraper.svg?react';
-import MessagesIcon from 'src/shared/presentation/assets/icons/chat-bubbles.svg?react';
+// Icons (Mapped to new features)
+import OverviewIcon from 'src/shared/presentation/assets/icons/expand.svg?react';
+import MarketIcon from 'src/shared/presentation/assets/icons/skyscraper.svg?react'; 
+import TradeIcon from 'src/shared/presentation/assets/icons/people.svg?react';
+import PortfolioIcon from 'src/shared/presentation/assets/icons/briefcase.svg?react';
 import SettingsIcon from 'src/shared/presentation/assets/icons/settings.svg?react';
-import HelpIcon from 'src/shared/presentation/assets/icons/question-mark-circle.svg?react';
+import { useAuth } from '../../hooks/useAuth';
+import { UserRoleHelper } from '../../helpers/user-role.helper';
 
 interface SidebarItemProps {
   to: string;
   icon: React.ReactNode;
   label: string;
   badgeCount?: number;
-  isMainNav?: boolean;
 }
 
-function SidebarItem({ to, icon, label, badgeCount, isMainNav = false }: SidebarItemProps) {
+function SidebarItem({ to, icon, label, badgeCount }: SidebarItemProps) {
+
   return (
     <NavLink 
       to={to} 
@@ -32,7 +30,7 @@ function SidebarItem({ to, icon, label, badgeCount, isMainNav = false }: Sidebar
     >
       <div className={styles.navItemContent}>
         <div className={styles.icon}>{icon}</div>
-        <span className={[styles.label, isMainNav ? styles.mainNav : ""].join(" ")}>{label}</span>
+        <span className={styles.label}>{label}</span>
       </div>
       {badgeCount !== undefined && badgeCount > 0 && (
         <span className={styles.badge}>{badgeCount}</span>
@@ -42,76 +40,67 @@ function SidebarItem({ to, icon, label, badgeCount, isMainNav = false }: Sidebar
 }
 
 export function Sidebar() {
-  // TODO: Replace with real user data from AuthContext
-  const user = {
-    name: "Sarah Tanner",
-    avatarUrl: DemoAvatar
-  };
+  const { profile } = useAuth();
+  const isAdmin = UserRoleHelper.isAdmin(profile!.role);
 
   return (
     <div className={styles.container}>
       {/* 1. Logo */}
-      <div style={{ paddingLeft: '8px' }}>
-        <NuvlonLogo width={110} />
+      <div className={styles.logoWrapper}>
+        {/* <NuvlonLogo width={110} /> */}
+        GUILE
       </div>
 
-      {/* 2. Profile Snippet */}
-      <div className={styles.userProfile}>
-        <img src={user.avatarUrl} alt={user.name} className={styles.avatar} />
-        
-        <div className={styles.userInfo}>
-          <span className={styles.userName}>{user.name}</span>
-          <ExpandIcon />
-        </div>
-      </div>
-
-      {/* 3. Main Navigation */}
+      {/* 2. Main Features */}
       <nav className={styles.nav}>
         <SidebarItem 
-          to="/communities" 
-          label="Communities" 
-          icon={<CommunityIcon />} 
-          badgeCount={10}
-          isMainNav={true}
+          to={ROUTES.DASHBOARD} 
+          label="Overview" 
+          icon={<OverviewIcon />} 
         />
 
         <SidebarItem 
-          to="/jobs" 
-          label="Jobs" 
-          icon={<JobsIcon />} 
-          isMainNav={true}
+          to={ROUTES.MARKET} 
+          label="Market" 
+          icon={<MarketIcon />} 
         />
 
         <SidebarItem 
-          to="/businesses" 
-          label="Businesses" 
-          icon={<BusinessIcon />} 
-          badgeCount={10} 
-          isMainNav={true}
+          to={ROUTES.TRADE} 
+          label="Trade" 
+          icon={<TradeIcon />} 
         />
 
         <SidebarItem 
-          to="/messages" 
-          label="Messages" 
-          icon={<MessagesIcon />} 
-          isMainNav={true}
+          to={ROUTES.PORTFOLIO} 
+          label="Portfolio" 
+          icon={<PortfolioIcon />} 
         />
       </nav>
 
+      {/* 4. Admin Navigation (Conditional) */}
+      {isAdmin && (
+        <>
+          <div className={styles.divider} /> {/* Optional CSS divider */}
+          <div className={styles.sectionLabel}>Admin</div>
+          <nav className={styles.nav}>
+            <SidebarItem 
+              to={ROUTES.ADMIN_TRADERS} 
+              label="Traders Directory" 
+              icon={<OverviewIcon />} 
+            />
+          </nav>
+        </>
+      )}
+
       <div style={{ flex: 1 }} />
 
-      {/* 4. Bottom Navigation */}
+      {/* 3. Bottom Actions */}
       <nav className={styles.nav}>
         <SidebarItem 
-          to="/settings" 
+          to={ROUTES.SETTINGS} 
           label="Settings" 
           icon={<SettingsIcon />} 
-        />
-
-        <SidebarItem 
-          to="/help" 
-          label="Help" 
-          icon={<HelpIcon />} 
         />
       </nav>
     </div>

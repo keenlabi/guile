@@ -1,15 +1,19 @@
-export interface AssetConfig {
+export interface WalletAsset {
   symbol: string;
   name: string;
   decimals: number;
-  type: 'crypto' | 'fiat' | 'stablecoin';
+  balance: number;
+  balanceUsd: number;
+  rate: number;
+  depositAddress: string;
+  iconUrl?: string;
   isDepositEnabled: boolean;
   isTradingEnabled: boolean;
-  iconUrl?: string;
+  isWithdrawalEnabled: boolean;
 }
 
 export interface Wallet {
   id: string;
-  balance: number; // The USD balance
-  assets: Record<string, number>; // e.g. { "BTC": 0.5 }
+  usdBalance: number; // The total balance from backend
+  assets: WalletAsset[];
 }

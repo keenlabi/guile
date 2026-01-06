@@ -1,0 +1,163 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6); /* Slightly darker for focus */
+  backdrop-filter: blur(4px); /* Modern blur effect */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal {
+  background-color: var(--white);
+  border-radius: 24px; /* More rounded, modern look */
+  width: 100%;
+  max-width: 440px;
+  padding: 3.2rem;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  animation: slideUp 0.3s ease-out;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-main);
+  line-height: 1.2;
+}
+
+.closeBtn {
+  background: transparent;
+  border: none;
+  color: var(--grey-400);
+  cursor: pointer;
+  padding: 0.8rem;
+  margin: -0.8rem; /* Increase hit area without moving visual center */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.closeBtn:hover {
+  background-color: var(--grey-50);
+  color: var(--color-text-main);
+}
+
+/* Warning Box */
+.warning {
+  background-color: #FFF2F0; /* Soft red bg */
+  border: 1px solid #FFCCC7;
+  color: var(--brand-red);
+  padding: 1.2rem 1.6rem;
+  border-radius: 12px;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* QR Section */
+.qrContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2.4rem;
+  background-color: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: 16px;
+}
+
+.qrPlaceholder {
+  width: 180px;
+  height: 180px;
+  background-color: var(--grey-100);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--grey-400);
+  font-weight: var(--fw-medium);
+  font-size: var(--text-sm);
+}
+
+/* Address Field */
+.addressGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.label {
+  font-size: var(--text-sm);
+  font-weight: var(--fw-semi-bold);
+  color: var(--color-text-main);
+}
+
+.addressBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4rem 1.6rem;
+  background-color: var(--grey-50);
+  border-radius: 12px;
+  border: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.addressBox:hover {
+  border-color: var(--grey-300);
+}
+
+.addressText {
+  font-family: 'Roboto Mono', monospace; /* Monospace for addresses */
+  font-size: var(--text-sm);
+  color: var(--color-text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 1.6rem;
+}
+
+.copyBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-primary); /* Green or Black depending on your primary */
+  font-weight: var(--fw-bold);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+.copyBtn:hover {
+  text-decoration: underline;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

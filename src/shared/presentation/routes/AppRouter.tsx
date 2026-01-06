@@ -6,6 +6,12 @@ import { AppLayout } from '../layouts/AppLayout';
 import { ProtectedRoute } from './ProtectedRoute';
 import { PublicRoute } from './PublicRoute';
 import { ROUTES } from './routes';
+import { PortfolioPage } from 'src/modules/wallet/presentation/pages/PortfolioPage';
+import { OverviewPage } from 'src/modules/dashboard/pages/OverviewPage/OverviewPage';
+import { TradersListPage } from 'src/modules/admin/presentation/pages/Traders/TradersListPage/TradersListPage';
+import { TraderProfileLayout } from 'src/modules/admin/presentation/layouts/TraderProfileLayout/TraderProfileLayout';
+import { TraderWalletsPage } from 'src/modules/admin/presentation/pages/Traders/TradersWalletPage/TraderWalletPage';
+import { MarketPage } from 'src/modules/market/presentation/pages/MarketPage/MarketPage';
 
 const router = createBrowserRouter([
   {
@@ -18,15 +24,34 @@ const router = createBrowserRouter([
   
   // --- Protected App Routes ---
   {
-    element: <ProtectedRoute />, // 1. Check Auth & Profile Status
+    element: <ProtectedRoute />,
     children: [
       { 
-        element: <AppLayout />, // 2. If OK, render Layout (Sidebar + Header)
+        element: <AppLayout />,
         children: [
-          // { path: ROUTES.COMMUNITIES, element: <CommunityFeedPage /> },
-          // { path: ROUTES.OVERVIEW, element: < /> },
+          { index: true, element: <Navigate to={ROUTES.OVERVIEW} replace /> },
+          { path: ROUTES.OVERVIEW, element: <OverviewPage /> }, 
+          { path: ROUTES.PORTFOLIO, element: <PortfolioPage /> },
+          // { path: ROUTES.TRADE, element: <TradePage /> },
+          // --- Admin Routes ---
+          { 
+            path: ROUTES.ADMIN_TRADERS, 
+            element: <TradersListPage /> 
+          },
+          {
+            path: ROUTES.ADMIN_TRADER_DETAIL,
+            element: <TraderProfileLayout />, // Acts as the layout for the specific trader
+            children: [
+              // Default view for a trader is their wallet
+              { index: true, element: <Navigate to="wallets" replace /> },
+              { path: 'wallets', element: <TraderWalletsPage /> },
+              { path: 'overview', element: <div>Trader Overview (Coming Soon)</div> },
+              { path: 'activity', element: <div>Trader Activity (Coming Soon)</div> },
+            ]
+          }
         ]
-      }
+      },
+      { path: ROUTES.MARKET, element: <MarketPage /> },
     ]
   },
 

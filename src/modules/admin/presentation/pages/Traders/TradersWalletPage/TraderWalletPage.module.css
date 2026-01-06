@@ -1,0 +1,96 @@
+.container {
+  padding: 3.2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  border: none;
+  background: none;
+  color: var(--grey-500);
+  font-weight: var(--fw-medium);
+  cursor: pointer;
+  margin-bottom: 2.4rem;
+  padding: 0;
+  font-size: var(--text-sm);
+  transition: color 0.2s;
+}
+
+.backBtn:hover {
+  color: var(--color-text-main);
+}
+
+/* Header Profile Section */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+  margin-bottom: 4rem;
+}
+
+.avatarPlaceholder {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: var(--brand-black);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.2rem;
+  font-family: var(--font-heading);
+  font-weight: var(--fw-bold);
+}
+
+.info h1 {
+  font-size: 2.8rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-text-main);
+  margin-bottom: 0.4rem;
+  line-height: 1.2;
+}
+
+.meta {
+  color: var(--color-text-body);
+  font-size: var(--text-base);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #027A48; /* Active Green */
+}
+
+/* Horizontal Navigation */
+.nav {
+  display: flex;
+  gap: 3.2rem;
+  border-bottom: 1px solid var(--grey-200);
+  margin-bottom: 3.2rem;
+}
+
+.navItem {
+  padding: 1.2rem 0.4rem;
+  font-size: var(--text-m);
+  color: var(--grey-500);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  font-weight: var(--fw-medium);
+}
+
+.navItem:hover {
+  color: var(--color-text-main);
+}
+
+.active {
+  color: var(--color-text-main);
+  border-bottom-color: var(--brand-black); /* Black underline for active state */
+}

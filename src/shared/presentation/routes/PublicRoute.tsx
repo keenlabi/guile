@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { ROUTES } from './routes';
 
 export function PublicRoute() {
   const { isAuthenticated, isFetchProfileLoading } = useAuth();
@@ -29,7 +30,7 @@ export function PublicRoute() {
 
   // 2. If user is logged in, redirect to home
   if (isAuthenticated) {
-    return <Navigate to="/communities" replace />;
+    return <Navigate to={ROUTES.OVERVIEW} replace />;
   }
 
   // 3. Otherwise, render the public page (Login/Signup)

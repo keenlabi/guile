@@ -1,0 +1,73 @@
+.container {
+  background-color: #131722; /* Deep Dark Theme */
+  color: #d1d4dc;
+  font-family: 'Roboto Mono', monospace; /* Monospace for numbers alignment */
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.header {
+  padding: 8px 12px;
+  color: #777e90;
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #2a2e39;
+}
+
+.scrollArea {
+  flex: 1;
+  overflow-y: hidden; /* Hide scrollbar for cleaner look */
+}
+
+/* Row Styling */
+.row {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 12px;
+  position: relative;
+  cursor: pointer;
+}
+
+.row:hover {
+  background-color: #2a2e39;
+}
+
+/* The "Depth Bar" Background */
+.depthBar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  opacity: 0.15;
+}
+
+.rowContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Colors */
+.askPrice { color: #f6465d; } /* Red */
+.bidPrice { color: #0ecb81; } /* Green */
+.text { color: #d1d4dc; }
+.lightText { color: #777e90; }
+
+.spreadContainer {
+  padding: 8px 0;
+  text-align: center;
+  border-top: 1px solid #2a2e39;
+  border-bottom: 1px solid #2a2e39;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.up { color: #0ecb81; }
+.down { color: #f6465d; }

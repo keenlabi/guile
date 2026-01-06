@@ -1,0 +1,96 @@
+.container {
+  padding: 3.2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tableWrapper {
+  margin-top: 2.4rem;
+  background-color: var(--white);
+  border-radius: 12px;
+  border: 1px solid var(--grey-200);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.table th {
+  padding: 1.6rem 2.4rem;
+  background-color: var(--grey-50);
+  border-bottom: 1px solid var(--grey-200);
+  font-size: var(--text-sm);
+  font-weight: var(--fw-medium);
+  color: var(--color-text-body);
+}
+
+.table td {
+  padding: 1.6rem 2.4rem;
+  border-bottom: 1px solid var(--grey-100);
+  color: var(--color-text-main);
+  font-size: var(--text-base);
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.table tr:hover {
+  background-color: var(--grey-50);
+}
+
+/* Status Badges */
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 1rem;
+  border-radius: 16px;
+  font-size: 1.2rem;
+  font-weight: var(--fw-medium);
+  text-transform: capitalize;
+}
+
+.active {
+  background-color: #ECFDF3;
+  color: #027A48;
+}
+
+.suspended {
+  background-color: #FEF3F2;
+  color: #B42318;
+}
+
+.traderName {
+  font-weight: var(--fw-bold);
+  color: var(--color-text-main);
+}
+
+.traderEmail {
+  color: var(--grey-500);
+  font-size: var(--text-sm);
+}
+
+.dateText {
+  color: var(--grey-400);
+  font-size: var(--text-sm);
+}
+
+/* Status Badge Colors */
+.active {
+  background-color: #ECFDF3;
+  color: #027A48;
+}
+
+.suspended {
+  background-color: #FEF3F2;
+  color: #B42318;
+}

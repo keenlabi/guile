@@ -1,0 +1,94 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem; /* Space between cards */
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.4rem;
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius-md);
+  background-color: var(--white);
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-sm);
+  border-color: var(--grey-300);
+}
+
+/* Left Side: Info */
+.assetInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.assetName {
+  font-family: var(--font-heading);
+  font-weight: var(--fw-bold);
+  font-size: var(--text-base);
+  color: var(--color-text-main);
+}
+
+.symbol {
+  font-weight: var(--fw-regular);
+  color: var(--color-text-body);
+}
+
+.balanceRow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+}
+
+.balance {
+  font-family: var(--font-heading);
+  font-size: 2.4rem; /* Large balance text */
+  font-weight: var(--fw-medium);
+  color: var(--color-text-main);
+}
+
+.fiatValue {
+  font-size: var(--text-sm);
+  color: var(--color-text-body);
+}
+
+/* Right Side: Actions */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+/* Responsive: Stack on mobile */
+@media (max-width: 768px) {
+  .card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+  .actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+  .actions > button {
+    flex: 1;
+  }
+}

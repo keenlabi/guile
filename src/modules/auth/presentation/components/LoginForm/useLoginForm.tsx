@@ -24,7 +24,7 @@ export default function useLoginForm() {
     setError(null);
     try {
       await loginWithPassword({ email: data.email, password: data.password });
-      navigate({ pathname: ROUTES.DASHBOARD });
+      navigate({ pathname: ROUTES.OVERVIEW });
     } catch(error) {
       if (error instanceof Error) {
         setError(error.message);

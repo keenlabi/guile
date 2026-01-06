@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import styles from './Button.module.css';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'social' | 'text';
+  variant?: 'primary' | 'social' | 'text' | 'secondary';
   isLoading?: boolean;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;

@@ -12,4 +12,7 @@ export const ROUTES = {
   TRADE: '/trade',        // The trading terminal
   PORTFOLIO: '/portfolio', // Balances
   SETTINGS: '/settings',
+
+  ADMIN_TRADERS: '/admin/traders',
+  ADMIN_TRADER_DETAIL: '/admin/traders/:id',
 };

@@ -1,0 +1,45 @@
+/* src/modules/dashboard/presentation/pages/OverviewPage/OverviewPage.module.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  background-color: var(--color-bg-page);
+}
+
+.content {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px; /* Aligns with the previous Portfolio max-width */
+  margin: 0 auto;
+  padding: 3.2rem;
+}
+
+.welcomeSection {
+  margin-bottom: 4rem;
+}
+
+.welcomeTitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-main);
+  margin-bottom: 0.8rem;
+}
+
+.welcomeSubtitle {
+  font-size: var(--text-m);
+  color: var(--color-text-body);
+  font-weight: var(--fw-regular);
+}
+
+/* Currently a simple container for the Portfolio, 
+  but ready to become a Grid when we add the "Market Summary" or "Recent Activity" widgets 
+*/
+.dashboardGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  width: 100%;
+}

@@ -1,0 +1,88 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+
+.modal {
+  background-color: var(--white);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 480px;
+  padding: 3.2rem;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  animation: slideUp 0.3s ease-out;
+}
+
+.modal h2 {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-main);
+  margin-bottom: 0.4rem;
+}
+
+.modal p {
+  font-size: var(--text-sm);
+  color: var(--color-text-body);
+  margin-bottom: 0.8rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+/* Highlighted conversion area */
+.estimate {
+  background-color: var(--grey-50);
+  border: 1px solid var(--grey-200);
+  padding: 1.6rem;
+  border-radius: 12px;
+  font-size: var(--text-sm);
+  color: var(--color-text-main);
+  text-align: center;
+}
+
+.estimate strong {
+  display: block;
+  font-size: var(--text-lg);
+  color: var(--brand-green); /* Highlights the amount the user will get */
+  margin-top: 0.4rem;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.error {
+  color: var(--color-error);
+  background-color: var(--color-error-bg);
+  text-align: center;
+}

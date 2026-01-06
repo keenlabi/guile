@@ -1,0 +1,86 @@
+.header {
+  height: 60px;
+  background-color: #131722;
+  border-bottom: 1px solid #2a2e39;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  color: #d1d4dc;
+}
+
+.leftGroup, .rightGroup {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Navigation Buttons */
+.backBtn {
+  background: none;
+  border: none;
+  color: #848e9c;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+.backBtn:hover { background-color: #2a2e39; color: white; }
+
+.separator {
+  width: 1px;
+  height: 24px;
+  background-color: #2a2e39;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  color: white;
+}
+.logoIcon {
+  width: 24px;
+  height: 24px;
+  background-color: #f0b90b; /* Brand Color */
+  border-radius: 4px;
+}
+
+/* Ticker Data */
+.tickerInfo {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.symbol { margin: 0; font-size: 18px; color: white; }
+.price { font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.change { font-size: 12px; color: #848e9c; }
+.green { color: #0ecb81; }
+.red { color: #f6465d; }
+
+/* Right Actions */
+.depositBtn {
+  background-color: #f0b90b;
+  color: black;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.avatar {
+  width: 32px;
+  height: 32px;
+  background-color: #2a2e39;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #848e9c;
+}

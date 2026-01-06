@@ -136,3 +136,14 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.secondary {
+  background-color: transparent;
+  border-color: var(--grey-200); /* Light grey border */
+  color: var(--color-text-main);
+}
+
+.secondary:hover:not(:disabled) {
+  background-color: var(--grey-50);
+  border-color: var(--grey-300);
+}

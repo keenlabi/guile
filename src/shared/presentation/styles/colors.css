@@ -9,6 +9,7 @@
   --brand-green: #00d563;       /* Vibrant "Buy/Up" Green */
   --brand-green-hover: #00b353;
   --brand-red: #f6465d;         /* "Sell/Down" Red */
+  --brand-red-bg: #f6465e2b;         /* "Sell/Down" Red */
 
   /* NEW DARK SHADE */
   --slate-900: #101928; /* Deep/Dark text */
@@ -41,6 +42,7 @@
   /* Feedback */
   --color-success: var(--brand-green);
   --color-error: var(--brand-red);
+  --color-error-bg: var(--brand-red-bg);
   --color-warning: #f0b90b; /* Binance Yellow */
   
   /* Forms */
