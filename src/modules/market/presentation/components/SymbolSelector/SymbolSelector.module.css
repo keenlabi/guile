@@ -1,0 +1,143 @@
+.container {
+  position: relative;
+  min-width: 150px; /* Fixed width prevents header jumping when symbols change */
+}
+
+/* --- Trigger Button (The part you see in the header) --- */
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.trigger:hover {
+  background-color: #2a2e39;
+}
+
+.triggerInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.symbol {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.name {
+  font-size: 11px;
+  color: #848e9c;
+}
+
+.arrow {
+  color: #848e9c;
+  font-size: 10px;
+  margin-left: 8px;
+}
+
+/* --- The Dropdown Menu --- */
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 8px;
+  width: 280px;
+  background-color: #1e222d;
+  border: 1px solid #2a2e39;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  overflow: hidden;
+  animation: fadeIn 0.1s ease-out;
+}
+
+/* Search Bar Area */
+.searchWrapper {
+  padding: 12px;
+  border-bottom: 1px solid #2a2e39;
+  background-color: #1e222d;
+}
+
+.searchInput {
+  width: 100%;
+  background-color: #131722;
+  border: 1px solid #2a2e39;
+  border-radius: 4px;
+  padding: 8px 12px;
+  color: #fff;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.searchInput:focus {
+  border-color: #f0b90b; /* Brand Focus Color */
+}
+
+/* Scrollable List */
+.list {
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+/* Individual List Items */
+.item {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: background 0.1s;
+  border-left: 2px solid transparent; /* Reserve space for active border */
+}
+
+.item:hover {
+  background-color: #2a2e39;
+}
+
+.activeItem {
+  background-color: #2a2e39;
+  border-left-color: #f0b90b; /* Yellow strip on left for active */
+}
+
+.coinIcon, .selectedCoinIcon {
+  width: 24px;
+  height: 24px;
+  background-color: #f0b90b;
+  color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 10px;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.itemInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.itemSymbol {
+  font-weight: 600;
+  color: #d1d4dc;
+  font-size: 14px;
+}
+
+.itemName {
+  color: #848e9c;
+  font-size: 12px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

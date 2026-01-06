@@ -1,14 +1,28 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './MarketHeader.module.css';
+import { ROUTES } from 'src/shared/presentation/routes/routes';
+import type { MarketPair } from 'src/modules/market/domain/market.constants';
+import { SymbolSelector } from '../SymbolSelector/SymbolSelector';
+import { useAuth } from 'src/shared/presentation/hooks/useAuth';
 
 interface Props {
-  symbol: string;
+  currentSymbol: string;
+  pairs: MarketPair[];
   price: string;
   priceChange: string;
   isPositive: boolean;
+  onSymbolChange: (pair: MarketPair) => void;
 }
 
-export const MarketHeader = ({ symbol, price, priceChange, isPositive }: Props) => {
+export const MarketHeader = ({ 
+  currentSymbol, 
+  pairs, 
+  price, 
+  priceChange, 
+  isPositive, 
+  onSymbolChange 
+}: Props) => {
+  const { profile } = useAuth();
   const navigate = useNavigate();
 
   return (
@@ -25,14 +39,19 @@ export const MarketHeader = ({ symbol, price, priceChange, isPositive }: Props) 
         
         <div className={styles.logo} onClick={() => navigate('/')}>
           <div className={styles.logoIcon} /> 
-          <span className={styles.logoText}>CryptoApp</span>
+          <span className={styles.logoText}>GUILE</span>
         </div>
         
         <div className={styles.separator} />
         
         {/* Symbol Info (Moved from old text header to here) */}
         <div className={styles.tickerInfo}>
-          <h1 className={styles.symbol}>{symbol}</h1>
+          <SymbolSelector 
+            currentSymbol={currentSymbol}
+            pairs={pairs}
+            onSelect={onSymbolChange} 
+          />
+
           <span className={`${styles.price} ${isPositive ? styles.green : styles.red}`}>
             {price}
           </span>
@@ -44,8 +63,8 @@ export const MarketHeader = ({ symbol, price, priceChange, isPositive }: Props) 
 
       {/* 2. RIGHT: Account / Wallet (Optional) */}
       <div className={styles.rightGroup}>
-        <button className={styles.depositBtn}>Deposit</button>
-        <div className={styles.avatar}>U</div>
+        <button className={styles.depositBtn} onClick={()=> navigate(ROUTES.PORTFOLIO)}>Deposit</button>
+        <div className={styles.avatar}>{profile?.email[0]}</div>
       </div>
     </header>
   );
