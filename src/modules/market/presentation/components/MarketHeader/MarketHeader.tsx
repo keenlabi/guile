@@ -4,6 +4,7 @@ import { ROUTES } from 'src/shared/presentation/routes/routes';
 import type { MarketPair } from 'src/modules/market/domain/market.constants';
 import { SymbolSelector } from '../SymbolSelector/SymbolSelector';
 import { useAuth } from 'src/shared/presentation/hooks/useAuth';
+import { formatCurrency } from 'src/shared/utils/format.utils';
 
 interface Props {
   currentSymbol: string;
@@ -11,6 +12,7 @@ interface Props {
   price: string;
   priceChange: string;
   isPositive: boolean;
+  balance: number | null;
   onSymbolChange: (pair: MarketPair) => void;
 }
 
@@ -20,11 +22,12 @@ export const MarketHeader = ({
   price, 
   priceChange, 
   isPositive, 
+  balance,
   onSymbolChange 
 }: Props) => {
   const { profile } = useAuth();
   const navigate = useNavigate();
-
+console.log(balance)
   return (
     <header className={styles.header}>
       {/* 1. LEFT: Navigation */}
@@ -63,6 +66,13 @@ export const MarketHeader = ({
 
       {/* 2. RIGHT: Account / Wallet (Optional) */}
       <div className={styles.rightGroup}>
+        <div className={styles.walletBadge}>
+          <span className={styles.walletLabel}>Real Account</span>
+          <div className={styles.walletAmount}>
+            {balance !== null ? formatCurrency(balance) : '---'}
+          </div>
+          <button className={styles.depositBtn}>+</button>
+        </div>
         <button className={styles.depositBtn} onClick={()=> navigate(ROUTES.PORTFOLIO)}>Deposit</button>
         <div className={styles.avatar}>{profile?.email[0]}</div>
       </div>

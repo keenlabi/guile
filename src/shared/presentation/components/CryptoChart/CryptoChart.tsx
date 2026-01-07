@@ -74,7 +74,6 @@ export const CryptoChart = forwardRef<CryptoChartHandle, Props>(({ symbol, chart
       height: chartContainerRef.current.clientHeight,
       localization: {
         priceFormatter: (price: number) => {
-          // Formats 90600 -> "90,600.00"
           return new Intl.NumberFormat('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
@@ -180,7 +179,7 @@ export const CryptoChart = forwardRef<CryptoChartHandle, Props>(({ symbol, chart
       const updateData = isLine ? { time: candle.time, value: candle.close } : candle;
 
       seriesRef.current.update(updateData);
-    }, 2000);
+    }, 500);
 
     return () => clearInterval(pollInterval);
   }, [symbol, interval]); // Only runs if these change (not chartType!)

@@ -33,7 +33,7 @@ export const adminRepository = {
 
   creditUserWalletNaira: async (userId: string, symbol: string, amountUsd: number) => {
     const response = await apiClient.post<ApiResponse<void>>('/api/wallets/credit', { 
-      userId, 
+      userId,
       symbol, 
       amountUsd
     });

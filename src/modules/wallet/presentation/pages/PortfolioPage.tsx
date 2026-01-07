@@ -33,18 +33,7 @@ export const PortfolioPage = () => {
   const totalBalanceUSD = useMemo(() => {
     if (!wallet) return 0;
     // Use backend total if reliable, otherwise recalc:
-    // return wallet.usdBalance; 
-    
-    // Frontend Recalc example (using mock prices for now):
-    return wallet.assets.reduce((total, asset) => {
-       let price = 0;
-       if (['USD', 'USDT', 'USDC'].includes(asset.symbol)) price = 1;
-       else if (asset.symbol === 'BTC') price = 96000;
-       else if (asset.symbol === 'ETH') price = 3600;
-       else if (asset.symbol === 'SOL') price = 200;
-       
-       return total + (asset.balance * price);
-    }, 0);
+    return wallet.usdBalance;
   }, [wallet]);
 
   // Open modal with the specific asset data
@@ -55,7 +44,7 @@ export const PortfolioPage = () => {
     }
   };
 
-  const handleWithdraw = (symbol: string) => {
+  const handleWithdraw = () => {
     showError("Withdrawals disabled");
   }
   // const handleTransfer = (symbol: string) => showError("Transfers disabled");

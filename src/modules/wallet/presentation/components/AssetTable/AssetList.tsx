@@ -17,7 +17,7 @@ interface AssetListProps {
 export const AssetList = ({ assets, isTraderPortfolio = false, onDeposit, onWithdraw, onCredit, onDebit }: AssetListProps) => {
   const { profile } = useAuth();
   const isAdmin = UserRoleHelper.isAdmin(profile!.role);
-
+console.log(assets)
   return (
     <div className={styles.container}>
       {assets.map((asset) => {
@@ -54,8 +54,22 @@ export const AssetList = ({ assets, isTraderPortfolio = false, onDeposit, onWith
                 </>
               ) : (
                 <>
-                  <Button variant="secondary" onClick={() => onWithdraw?.(asset.symbol)}>Withdrawal</Button>
-                  <Button variant="primary" onClick={() => onDeposit?.(asset.symbol)}>Deposit</Button>
+                  {
+                    asset.isWithdrawalEnabled
+                    ? <Button variant="secondary" onClick={() => onWithdraw?.(asset.symbol)}>Withdrawal</Button>
+                    : null
+                  }
+                  
+                  {
+                    asset.isDepositEnabled
+                    ? <Button 
+                        variant="primary" 
+                        onClick={() => onDeposit?.(asset.symbol)}
+                      >
+                        Deposit
+                      </Button>
+                    : null
+                  }
                 </>
               )}
             </div>

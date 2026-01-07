@@ -7,15 +7,18 @@ import type { ChartStyleType } from '../../components/ChatTypeDropdown/ChartType
 import { MarketHeader } from '../../components/MarketHeader/MarketHeader';
 import type { MarketPair } from 'src/modules/market/domain/market.constants';
 import { walletRepository } from 'src/modules/wallet/infrastructure/repositories/wallet.repository';
+import { OrderForm } from 'src/modules/trade/presentation/components/OrderForm/OrderForm';
+import { UserPredictionHistory } from 'src/modules/prediction/presentation/components/UserPredictionHistory/UserPredictionHistory';
 
 export const MarketPage = () => {
   const [stats, setStats] = useState<any>(null);
   // State for the View
-  const [chartType, setChartType] = useState<ChartStyleType>('candle');
+  const [chartType, setChartType] = useState<ChartStyleType>('area');
   const [chartInterval, setChartInterval] = useState<string>('1h');
   
   const [activeSymbol, setActiveSymbol] = useState('BTCUSDT');
   const [walletAssets, setWalletAssets] = useState<any[]>([]);
+  const [balance, setBalance] = useState<number | null>(null);
   
   // Ref to control the chart
   const chartRef = useRef<CryptoChartHandle>(null);
@@ -58,6 +61,7 @@ export const MarketPage = () => {
     const loadWallet = async () => {
       try {
         const wallet = await walletRepository.getMyWallet();
+        setBalance(wallet.usdBalance);
         setWalletAssets(wallet.assets);
       } catch (e) {
         console.error("Failed to load wallet for market pairs", e);
@@ -85,6 +89,8 @@ export const MarketPage = () => {
     { symbol: 'BTCUSDT', baseAsset: 'BTC', quoteAsset: 'USDT', name: 'Bitcoin' }
   ];
 
+  const activePairObj = safePairs.find(p => p.symbol === activeSymbol) || safePairs[0];
+
   return (
     <div className={styles.container}>
       {/* 1. APP HEADER (Full Width, No Sidebar) */}
@@ -95,6 +101,7 @@ export const MarketPage = () => {
           price={currentPrice}
           priceChange={changeText}
           isPositive={isPositive}
+          balance={balance}
           onSymbolChange={(pair) => setActiveSymbol(pair.symbol)}
         />
       </div>
@@ -110,7 +117,7 @@ export const MarketPage = () => {
             onTimeframeChange={(newInterval) => setChartInterval(newInterval)}
           />
         </div>
-
+        
         <div className={styles.chartWrapper}>
           <CryptoChart 
             ref={chartRef} 
@@ -121,12 +128,15 @@ export const MarketPage = () => {
         </div>
       </div>
 
-      {/* 3. Bottom Panel (Positions) */}
-      <div className={styles.bottomPanel}>
-        <div style={{ padding: '16px', color: '#848e9c', fontSize: '14px', borderBottom: '1px solid #2a2e39' }}>
-          Open Positions (0)
-        </div>
-        {/* Table content goes here */}
+      <div className={styles.rightPanel}>
+        {/* Middle: Order Form */}
+          <OrderForm
+            pair={activePairObj} 
+            currentPrice={parseFloat(stats?.lastPrice || '0')} 
+          />
+          <div className={styles.history}>
+            <UserPredictionHistory />
+          </div>
       </div>
     </div>
   );

@@ -15,4 +15,5 @@ export const ROUTES = {
 
   ADMIN_TRADERS: '/admin/traders',
   ADMIN_TRADER_DETAIL: '/admin/traders/:id',
+  ADMIN_PREDICTION_LIST: '/admin/prediction/list'
 };

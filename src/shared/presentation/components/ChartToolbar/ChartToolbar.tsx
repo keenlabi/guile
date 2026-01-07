@@ -24,7 +24,7 @@ export const ChartToolbar = ({
   onScaleChange,
   onTimeframeChange
 }: Props) => {
-  const [currentType, setCurrentType] = useState<ChartStyleType>('candle');
+  const [currentType, setCurrentType] = useState<ChartStyleType>('area');
   const [activeTimeframe, setActiveTimeframe] = useState('1h');
   const [isLog, setIsLog] = useState(false);
   const [isAuto, setIsAuto] = useState(true);

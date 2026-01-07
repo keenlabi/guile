@@ -12,6 +12,7 @@ import { TradersListPage } from 'src/modules/admin/presentation/pages/Traders/Tr
 import { TraderProfileLayout } from 'src/modules/admin/presentation/layouts/TraderProfileLayout/TraderProfileLayout';
 import { TraderWalletsPage } from 'src/modules/admin/presentation/pages/Traders/TradersWalletPage/TraderWalletPage';
 import { MarketPage } from 'src/modules/market/presentation/pages/MarketPage/MarketPage';
+import { AdminPredictionList } from 'src/modules/prediction/presentation/components/AdminPredictionList/AdminPredictionList';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
               { path: 'overview', element: <div>Trader Overview (Coming Soon)</div> },
               { path: 'activity', element: <div>Trader Activity (Coming Soon)</div> },
             ]
+          },
+          {
+            path: ROUTES.ADMIN_PREDICTION_LIST,
+            element: <AdminPredictionList />,
           }
         ]
       },

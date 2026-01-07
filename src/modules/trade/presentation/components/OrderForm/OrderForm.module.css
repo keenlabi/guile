@@ -1,0 +1,136 @@
+.container {
+  padding: 16px;
+  color: #d1d4dc;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Input Fields */
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.labelRow {
+  font-size: 12px;
+  color: #848e9c;
+  font-weight: 600;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  background-color: #2a2e39;
+  border-radius: 4px;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  height: 44px; /* Taller touch targets */
+}
+
+.inputWrapper:focus-within {
+  border-color: #f0b90b;
+}
+
+.input {
+  flex: 1;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  text-align: right;
+  outline: none;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.suffix {
+  margin-right: 8px;
+  color: #848e9c;
+  font-weight: 600;
+}
+
+/* Duration Grid */
+.durationGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.durationBtn {
+  background-color: #2a2e39;
+  border: 1px solid transparent;
+  color: #848e9c;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.durationBtn:hover {
+  background-color: #363a45;
+}
+
+.activeDuration {
+  background-color: #2a2e39;
+  border-color: #f0b90b;
+  color: #f0b90b;
+}
+
+/* Profit Info */
+.profitInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1e2329;
+  padding: 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #848e9c;
+}
+
+.profitValue {
+  color: #0ecb81;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Action Buttons */
+.actionButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.predictBtn {
+  padding: 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  color: white;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.predictBtn:active {
+  transform: scale(0.98);
+}
+
+.predictBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btnHigh {
+  background-color: #0ecb81; /* Green */
+  box-shadow: 0 4px 0 #0aa368;
+}
+
+.btnLow {
+  background-color: #f6465d; /* Red */
+  box-shadow: 0 4px 0 #ce3045;
+}

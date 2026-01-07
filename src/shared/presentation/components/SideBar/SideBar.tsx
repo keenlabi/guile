@@ -89,6 +89,11 @@ export function Sidebar() {
               label="Traders Directory" 
               icon={<OverviewIcon />} 
             />
+            <SidebarItem 
+              to={ROUTES.ADMIN_PREDICTION_LIST} 
+              label="Predictions"
+              icon={<OverviewIcon />} 
+            />
           </nav>
         </>
       )}
