@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './OrderForm.module.css';
 import type { MarketPair } from 'src/modules/market/domain/market.constants';
-import { predictionRepository } from 'src/modules/prediction/infrastructure/repositories/prediction.repository'; // Import Prediction Repo
+import { predictionRepository } from 'src/modules/prediction/infrastructure/repositories/prediction.repository';
 import { useToast } from 'src/shared/presentation/hooks/useToast';
+import { DurationPicker } from '../DurationPicker/DurationPicker';
 
 interface Props {
   pair: MarketPair;
@@ -10,20 +11,24 @@ interface Props {
   onSuccess?: () => void;
 }
 
-// Duration Options in Seconds
-const DURATION_OPTIONS = [
-  { label: '1m', value: 60 },
-  { label: '3m', value: 180 },
-  { label: '5m', value: 300 },
-];
-
 export const OrderForm = ({ pair, onSuccess }: Props) => {
   const { showSuccess, showError } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
-  // Form State
-  const [amount, setAmount] = useState<string>('');
-  const [duration, setDuration] = useState<number>(60); // Default 1 min
+  // 1. Initialize Amount from LocalStorage (or default to '10')
+  const [amount, setAmount] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('prediction_amount') || '10';
+    }
+    return '10';
+  });
+
+  // 2. Save to LocalStorage whenever amount changes
+  useEffect(() => {
+    localStorage.setItem('prediction_amount', amount);
+  }, [amount]);
+
+  const [duration, setDuration] = useState<number>(5); 
 
   // Handle Prediction Submission
   const handlePredict = async (direction: 'HIGH' | 'LOW') => {
@@ -43,8 +48,6 @@ export const OrderForm = ({ pair, onSuccess }: Props) => {
       });
 
       showSuccess(`${direction} Prediction Placed!`);
-      // Optional: Clear amount or keep it for rapid fire betting?
-      // setAmount(''); 
       
       if (onSuccess) onSuccess(); 
 
@@ -57,7 +60,6 @@ export const OrderForm = ({ pair, onSuccess }: Props) => {
 
   return (
     <div className={styles.container}>
-      {/* 1. Investment Amount */}
       <div className={styles.inputGroup}>
         <div className={styles.labelRow}><span>Amount ($)</span></div>
         <div className={styles.inputWrapper}>
@@ -66,6 +68,7 @@ export const OrderForm = ({ pair, onSuccess }: Props) => {
             type="number" 
             placeholder="0.00"
             className={styles.input} 
+            // Removed defaultValue, relying strictly on controlled state
             value={amount}
             onChange={e => setAmount(e.target.value)}
             disabled={isLoading}
@@ -73,24 +76,6 @@ export const OrderForm = ({ pair, onSuccess }: Props) => {
         </div>
       </div>
 
-      {/* 2. Duration Selector */}
-      <div className={styles.inputGroup}>
-        <div className={styles.labelRow}><span>Duration</span></div>
-        <div className={styles.durationGrid}>
-          {DURATION_OPTIONS.map((opt) => (
-            <button
-              key={opt.label}
-              type="button"
-              className={`${styles.durationBtn} ${duration === opt.value ? styles.activeDuration : ''}`}
-              onClick={() => setDuration(opt.value)}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* 4. Action Buttons (The Triggers) */}
       <div className={styles.actionButtons}>
         <button 
           disabled={isLoading}
@@ -107,6 +92,14 @@ export const OrderForm = ({ pair, onSuccess }: Props) => {
         >
           {isLoading ? '...' : `LOW ▼`}
         </button>
+      </div>
+
+      <div className={styles.inputGroup}>
+        <div className={styles.labelRow}><span>auto close</span></div>
+        <DurationPicker 
+          valueSeconds={duration} 
+          onChange={(newVal) => setDuration(newVal)} 
+        />
       </div>
     </div>
   );

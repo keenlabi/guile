@@ -24,5 +24,6 @@ export interface CreatePredictionDTO {
 // Payload for resolving (Admin/System use)
 export interface ResolvePredictionDTO {
   outcome: 'WIN' | 'LOSS';
-  closePrice: number;
+  // closePrice: number;
+  payout: number;
 }

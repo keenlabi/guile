@@ -1,0 +1,73 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  padding: 0 5px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: text;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Grouping Number + Label */
+.group {
+  display: flex;
+  align-items: baseline;
+}
+
+.group input {
+  background: transparent;
+  border: none;
+  color: #d1d4dc; /* Bright Text */
+  font-family: 'Roboto Mono', monospace; /* Digital Font */
+  font-size: 18px;
+  font-weight: 500;
+  width: 28px; /* Fixed width prevents jitter */
+  padding: 0;
+  margin: 0;
+  text-align: right;
+  outline: none;
+  caret-color: #2862ff;
+  font-variant-numeric: tabular-nums; /* Monospaced numbers */
+  transition: color 0.1s;
+  
+  /* Browser Reset for Number Inputs */
+  -moz-appearance: textfield; 
+}
+
+/* Highlight text color on focus */
+.group input:focus {
+  color: #ffffff; 
+}
+
+/* Remove Spinners (Chrome/Safari/Edge) */
+.group input::-webkit-outer-spin-button,
+.group input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.unit {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #5e6673;
+  margin-left: 2px;
+  margin-right: 8px; /* Spacing between groups */
+  user-select: none;
+  text-transform: lowercase;
+}
+
+.group:last-child .unit {
+  margin-right: 0; /* No margin on last item */
+}
+
+/* The Colon Separator (Optional - visually lighter) */
+.separator {
+  color: #5e6673; /* Very subtle */
+  font-weight: 300;
+  font-size: 18px;
+  margin: 0 4px;
+  user-select: none;
+  display: none; /* Hidden for cleaner look, un-comment to show */
+}

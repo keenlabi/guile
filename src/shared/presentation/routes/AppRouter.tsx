@@ -6,8 +6,7 @@ import { AppLayout } from '../layouts/AppLayout';
 import { ProtectedRoute } from './ProtectedRoute';
 import { PublicRoute } from './PublicRoute';
 import { ROUTES } from './routes';
-import { PortfolioPage } from 'src/modules/wallet/presentation/pages/PortfolioPage';
-import { OverviewPage } from 'src/modules/dashboard/pages/OverviewPage/OverviewPage';
+import { WalletPage } from 'src/modules/wallet/presentation/pages/WalletPage/WalletPage';
 import { TradersListPage } from 'src/modules/admin/presentation/pages/Traders/TradersListPage/TradersListPage';
 import { TraderProfileLayout } from 'src/modules/admin/presentation/layouts/TraderProfileLayout/TraderProfileLayout';
 import { TraderWalletsPage } from 'src/modules/admin/presentation/pages/Traders/TradersWalletPage/TraderWalletPage';
@@ -27,12 +26,13 @@ const router = createBrowserRouter([
   {
     element: <ProtectedRoute />,
     children: [
+      { path: ROUTES.MARKET, element: <MarketPage /> },
       { 
         element: <AppLayout />,
         children: [
-          { index: true, element: <Navigate to={ROUTES.OVERVIEW} replace /> },
-          { path: ROUTES.OVERVIEW, element: <OverviewPage /> }, 
-          { path: ROUTES.PORTFOLIO, element: <PortfolioPage /> },
+          { index: true, element: <Navigate to={ROUTES.MARKET} replace /> },
+          { path: ROUTES.OVERVIEW, element: <Navigate to={ROUTES.MARKET} replace /> }, 
+          { path: ROUTES.WALLET, element: <WalletPage /> },
           // { path: ROUTES.TRADE, element: <TradePage /> },
           // --- Admin Routes ---
           { 
@@ -56,7 +56,6 @@ const router = createBrowserRouter([
           }
         ]
       },
-      { path: ROUTES.MARKET, element: <MarketPage /> },
     ]
   },
 

@@ -1,12 +1,14 @@
-import { useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
+import { useEffect, useRef, useImperativeHandle, forwardRef, useCallback } from 'react';
 import { 
   createChart, 
   ColorType,
-  PriceScaleMode,
+  CrosshairMode,
   type ISeriesApi,
   type IChartApi,
+  type UTCTimestamp,
 } from 'lightweight-charts';
 import { binanceService } from 'src/modules/market/infrastructure/services/binance.service';
+import { useBinanceWebSocket } from 'src/shared/presentation/hooks/useBinanceWebSocket'; 
 import styles from './CryptoChart.module.css';
 import type { ChartStyleType } from 'src/modules/market/presentation/components/ChatTypeDropdown/ChartTypeDropdown';
 
@@ -22,13 +24,30 @@ interface Props {
   interval?: string;
 }
 
-export const CryptoChart = forwardRef<CryptoChartHandle, Props>(({ symbol, chartType = 'candle', interval = '1h' }, ref) => {
+// 1. CONFIGURATION
+const UPDATE_FREQUENCY_MS = 100; // 10 ticks per second
+
+const THEME = {
+  bg: '#0f0f0f',           
+  grid: '#242832',         
+  line: '#2862ff',         
+  areaTop: '#182545',      
+  areaBottom: 'rgba(24, 37, 69, 0.0)', 
+  text: '#848e9c',
+};
+
+export const CryptoChart = forwardRef<CryptoChartHandle, Props>(({ symbol, chartType = 'area', interval = '1m' }, ref) => {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
   const seriesRef = useRef<ISeriesApi<any> | null>(null);
-  const dataRef = useRef<any[]>([]); // Keeps local copy to avoid re-fetching on type switch
+  
+  const targetPriceRef = useRef<number | null>(null);
+  const displayedPriceRef = useRef<number | null>(null);
+  const dataCountRef = useRef<number>(0); 
+  
+  const currentCandleRef = useRef<any>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
 
-  // --- Exposed Methods ---
   useImperativeHandle(ref, () => ({
     takeScreenshot: () => { 
       if (chartRef.current && chartContainerRef.current) {
@@ -50,139 +69,242 @@ export const CryptoChart = forwardRef<CryptoChartHandle, Props>(({ symbol, chart
         document.exitFullscreen();
       }
     },
-    setScaleMode: (mode) => {
-      if (!chartRef.current) return;
-      if (mode === 'auto') {
-         chartRef.current.priceScale('right').applyOptions({ autoScale: true });
-         chartRef.current.timeScale().fitContent();
-      } else {
-         chartRef.current.priceScale('right').applyOptions({
-           mode: mode === 'log' ? PriceScaleMode.Logarithmic : PriceScaleMode.Normal,
-           autoScale: true,
-         });
-      }
-    }
+    setScaleMode: () => {} 
   }));
 
-  // --- EFFECT 1: Initialize Chart Instance (Runs ONCE) ---
+  const updateDotPosition = useCallback(() => {
+    if (!chartRef.current || !seriesRef.current || !dotRef.current || !currentCandleRef.current) {
+      if (dotRef.current) dotRef.current.style.display = 'none';
+      return;
+    }
+    const data = currentCandleRef.current;
+    const time = data.time;
+    // @ts-ignore
+    const coordinateX = chartRef.current.timeScale().timeToCoordinate(time);
+    const val = data.value !== undefined ? data.value : data.close;
+    const coordinateY = seriesRef.current.priceToCoordinate(val);
+
+    if (coordinateX === null || coordinateY === null) {
+      dotRef.current.style.display = 'none';
+    } else {
+      dotRef.current.style.display = 'block';
+      dotRef.current.style.transform = `translate(${coordinateX}px, ${coordinateY}px)`; 
+    }
+  }, []);
+
+  // --- INITIALIZE CHART ---
   useEffect(() => {
     if (!chartContainerRef.current) return;
 
-    // 1. Create Chart
     const chart = createChart(chartContainerRef.current, {
       width: chartContainerRef.current.clientWidth,
       height: chartContainerRef.current.clientHeight,
+      kineticScroll: { touch: true, mouse: true },
+      layout: { 
+        background: { type: ColorType.Solid, color: THEME.bg }, 
+        textColor: THEME.text,
+        fontFamily: "'Roboto Mono', monospace", 
+      },
+      grid: { 
+        vertLines: { color: THEME.grid, style: 1 }, 
+        horzLines: { color: THEME.grid, style: 1 } 
+      },
+      crosshair: { mode: CrosshairMode.Normal },
+      timeScale: { 
+        borderColor: THEME.grid, 
+        timeVisible: true, 
+        secondsVisible: true,
+        barSpacing: 6,
+        minBarSpacing: 1, 
+        rightOffset: 20, 
+        shiftVisibleRangeOnNewBar: true,
+        tickMarkFormatter: (tickTime: number) => {
+           const safeTick = Math.round(tickTime);
+           const date = new Date(safeTick * UPDATE_FREQUENCY_MS); 
+           const seconds = date.getSeconds();
+           // Show label at 00, 15, 30, 45
+           if (seconds % 15 === 0) {
+              return date.toLocaleTimeString('en-GB', { 
+                 hour12: false, minute: '2-digit', second: '2-digit' 
+              });
+           }
+           return '';
+        }
+      },
+      rightPriceScale: { 
+        borderColor: THEME.grid,
+        autoScale: true, 
+        // KEY CHANGE: Increased margins to dampen the auto-zoom
+        // The line will stay in the middle 40% of the screen.
+        scaleMargins: { top: 0.3, bottom: 0.3 } 
+      },
       localization: {
+        timeFormatter: (tickTime: number) => {
+          const date = new Date(tickTime * UPDATE_FREQUENCY_MS); 
+          return date.toLocaleTimeString('en-GB', { 
+             hour12: false, minute: '2-digit', second: '2-digit' 
+          });
+        },
         priceFormatter: (price: number) => {
           return new Intl.NumberFormat('en-US', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
+             minimumFractionDigits: 2,
+             maximumFractionDigits: 2,
           }).format(price);
-        },
+        }
       },
-      layout: { background: { type: ColorType.Solid, color: '#131722' }, textColor: '#d1d4dc' },
-      grid: { vertLines: { color: 'rgba(42, 46, 57, 0.2)' }, horzLines: { color: 'rgba(42, 46, 57, 0.2)' } },
-      timeScale: { borderColor: 'rgba(197, 203, 206, 0.1)', timeVisible: true },
     });
     chartRef.current = chart;
 
-    // 2. Resize Observer
+    chart.timeScale().subscribeVisibleLogicalRangeChange(() => {
+      updateDotPosition();
+    });
+
     const resizeObserver = new ResizeObserver((entries) => {
       if (entries[0]?.target) {
         const { width, height } = entries[0].contentRect;
         chart.applyOptions({ width, height });
+        setTimeout(updateDotPosition, 0);
       }
     });
     resizeObserver.observe(chartContainerRef.current);
 
-    // 3. Cleanup
     return () => {
       resizeObserver.disconnect();
       chart.remove();
       chartRef.current = null;
-      seriesRef.current = null; // Important: Clear series ref so other effects don't use dead series
+      seriesRef.current = null;
     };
-  }, []); // Empty dependency array = Only runs on mount/unmount
+  }, [updateDotPosition]);
 
-  // --- EFFECT 2: Manage Series Type (Runs on chartType change) ---
+  // --- SERIES SETUP ---
   useEffect(() => {
     if (!chartRef.current) return;
+    if (seriesRef.current) chartRef.current.removeSeries(seriesRef.current);
 
-    // 1. Remove Old Series
-    if (seriesRef.current) {
-      try {
-        chartRef.current.removeSeries(seriesRef.current);
-      } catch (e) { console.warn("Series removal error:", e); }
-    }
-
-    // 2. Add New Series
     let newSeries: ISeriesApi<any>;
+    const commonOptions: any = { lineWidth: 3 }; 
+    const precisionOptions = {
+        priceFormat: { minMove: 0.01, precision: 2 }
+    };
+
+    const seriesOptions = {
+        ...commonOptions,
+        ...precisionOptions,
+    };
+
     switch (chartType) {
       case 'bar':
-        newSeries = chartRef.current.addBarSeries({ upColor: '#0ecb81', downColor: '#f6465d' });
+        newSeries = chartRef.current.addBarSeries({ upColor: '#0ecb81', downColor: '#f6465d', ...seriesOptions });
         break;
       case 'line':
-        newSeries = chartRef.current.addLineSeries({ color: '#f0b90b', lineWidth: 2 });
+        newSeries = chartRef.current.addLineSeries({ color: THEME.line, ...seriesOptions });
         break;
       case 'area':
-        newSeries = chartRef.current.addAreaSeries({ 
-          topColor: 'rgba(240, 185, 11, 0.5)', bottomColor: 'rgba(240, 185, 11, 0.04)', lineColor: '#f0b90b', lineWidth: 2 
-        });
+        newSeries = chartRef.current.addAreaSeries({ topColor: THEME.areaTop, bottomColor: THEME.areaBottom, lineColor: THEME.line, ...seriesOptions });
         break;
       case 'hollow':
-        newSeries = chartRef.current.addCandlestickSeries({
-          upColor: 'transparent', downColor: '#f6465d', borderUpColor: '#0ecb81', borderDownColor: '#f6465d', wickUpColor: '#0ecb81', wickDownColor: '#f6465d'
-        });
-        break;
       case 'candle':
       default:
-        newSeries = chartRef.current.addCandlestickSeries({
-          upColor: '#0ecb81', downColor: '#f6465d', borderVisible: false, wickUpColor: '#0ecb81', wickDownColor: '#f6465d'
-        });
+        newSeries = chartRef.current.addCandlestickSeries({ upColor: '#0ecb81', downColor: '#f6465d', borderVisible: false, wickUpColor: '#0ecb81', wickDownColor: '#f6465d', ...seriesOptions });
         break;
     }
     seriesRef.current = newSeries;
+    
+    // Reset
+    dataCountRef.current = 0;
+    targetPriceRef.current = null;
+    displayedPriceRef.current = null;
+    setTimeout(updateDotPosition, 50);
+  }, [chartType, updateDotPosition]);
 
-    // 3. Restore Data (Instant, no fetch)
-    if (dataRef.current.length > 0) {
-      const isLine = chartType === 'line' || chartType === 'area';
-      const formattedData = isLine 
-        ? dataRef.current.map((d: any) => ({ time: d.time, value: d.close })) 
-        : dataRef.current;
-      newSeries.setData(formattedData);
-    }
-  }, [chartType]); // Only re-run if type changes
-
-  // --- EFFECT 3: Data Fetching & Live Updates (Runs on Symbol/Interval change) ---
+  // --- HEARTBEAT & PHYSICS ---
   useEffect(() => {
-    // A. Fetch Initial History
-    const fetchData = async () => {
-      const data = await binanceService.getCandles(symbol, interval);
-      dataRef.current = data; // Update local cache
+    const intervalId = setInterval(() => {
+      if (!seriesRef.current || !targetPriceRef.current) return;
 
-      if (seriesRef.current) {
-        const isLine = chartType === 'line' || chartType === 'area';
-        const formattedData = isLine ? data.map((d: any) => ({ time: d.time, value: d.close })) : data;
-        seriesRef.current.setData(formattedData);
-        chartRef.current?.timeScale().fitContent(); // Reset zoom on new data
-      }
-    };
-    fetchData();
-
-    // B. Start Live Polling
-    const pollInterval = setInterval(async () => {
-      const candle = await binanceService.getLatestCandle(symbol, interval);
+      if (displayedPriceRef.current === null) displayedPriceRef.current = targetPriceRef.current;
       
-      if (!seriesRef.current) return;
+      const factor = 0.2; 
+      const diff = targetPriceRef.current - displayedPriceRef.current;
+      
+      if (Math.abs(diff) > 0.00001) {
+         displayedPriceRef.current += diff * factor;
+      } else {
+         displayedPriceRef.current = targetPriceRef.current;
+      }
+
+      const nowTick = Math.floor(Date.now() / UPDATE_FREQUENCY_MS); 
+      const price = displayedPriceRef.current;
+
+      const newPoint = { 
+         time: nowTick as UTCTimestamp, 
+         open: price, high: price, low: price, close: price 
+      };
+
+      dataCountRef.current++;
 
       const isLine = chartType === 'line' || chartType === 'area';
-      const updateData = isLine ? { time: candle.time, value: candle.close } : candle;
+      if (isLine) {
+        seriesRef.current.update({ time: newPoint.time, value: newPoint.close });
+        currentCandleRef.current = { time: newPoint.time, value: newPoint.close };
+      } else {
+        seriesRef.current.update(newPoint);
+        currentCandleRef.current = newPoint;
+      }
 
-      seriesRef.current.update(updateData);
-    }, 500);
+      updateDotPosition();
 
-    return () => clearInterval(pollInterval);
-  }, [symbol, interval]); // Only runs if these change (not chartType!)
+    }, UPDATE_FREQUENCY_MS);
 
-  return <div ref={chartContainerRef} className={styles.chartContainer} />;
+    return () => clearInterval(intervalId);
+  }, [chartType, updateDotPosition]);
+
+  // --- WEBSOCKET ---
+  const handleSocketTick = useCallback((price: number) => {
+    targetPriceRef.current = price;
+  }, []);
+  useBinanceWebSocket(symbol, handleSocketTick);
+
+  // --- HISTORY ---
+  useEffect(() => {
+    const fetchHistory = async () => {
+      try {
+        const data = await binanceService.getCandles(symbol, interval);
+        if (seriesRef.current && data.length > 0) {
+           const formatted = data.map((d: any) => {
+             const tick = Math.floor(d.time / UPDATE_FREQUENCY_MS) as UTCTimestamp;
+             if (chartType === 'line' || chartType === 'area') {
+                return { time: tick, value: parseFloat(d.close) };
+             }
+             return {
+                 time: tick,
+                 open: parseFloat(d.open), high: parseFloat(d.high), low: parseFloat(d.low), close: parseFloat(d.close)
+             };
+           });
+           
+           formatted.sort((a: any, b: any) => a.time - b.time);
+           seriesRef.current.setData(formatted);
+
+           const lastData = formatted[formatted.length - 1];
+           const lastPrice = (chartType === 'line' || chartType === 'area') ? lastData.value : lastData.close;
+           
+           targetPriceRef.current = lastPrice;
+           displayedPriceRef.current = lastPrice;
+           currentCandleRef.current = lastData;
+
+           if (chartRef.current) {
+              chartRef.current.timeScale().fitContent(); 
+           }
+           requestAnimationFrame(updateDotPosition);
+        }
+      } catch (e) { console.error(e); }
+    };
+    fetchHistory();
+  }, [symbol, interval, chartType, updateDotPosition]);
+
+  return (
+    <div ref={chartContainerRef} className={styles.chartContainer}>
+      <div ref={dotRef} className={styles.pulsatingDot} />
+    </div>
+  );
 });

@@ -1,59 +1,81 @@
 :root {
   /* ==============================
-     1. Primitives (The Crypto Palette)
+     1. Primitives (The Crypto Dark Palette)
      ============================== */
   
-  /* Brand Identity */
-  --brand-black: #0f1216;       /* Deep background (Phemex style) */
-  --brand-black-soft: #1d2026;  /* Cards / Inputs */
-  --brand-green: #00d563;       /* Vibrant "Buy/Up" Green */
-  --brand-green-hover: #00b353;
-  --brand-red: #f6465d;         /* "Sell/Down" Red */
-  --brand-red-bg: #f6465e2b;         /* "Sell/Down" Red */
+  /* CORE BACKGROUNDS */
+  --brand-black: #0b0e11;       /* Deepest Page Background */
+  --brand-surface: #1e2329;     /* Cards / Modals */
+  --brand-surface-hover: #2a2f38; /* Hover states */
+  --brand-divider: #2b3139;     /* Subtle borders */
+  --brand-border-strong: #363c4e; /* Visible card borders */
 
-  /* NEW DARK SHADE */
-  --slate-900: #101928; /* Deep/Dark text */
-  --slate-700: #344054;  
-  --slate-500: #667185;     
+  /* BRAND ACCENTS */
+  --brand-yellow: #FCD535;      /* Binance Yellow (Primary Action) */
+  --brand-yellow-hover: #e6c230;
   
-  --grey-400: #787880;
-  --grey-300: #D0D5DD;      
-  --grey-200: #D1D1D1;      
-  --grey-100: #F3F3F3;
+  /* TRADING COLORS */
+  --brand-green: #0ecb81;       /* Trading "Buy/Win" */
+  --brand-green-bg: rgba(14, 203, 129, 0.15);
+  --brand-red: #f6465d;         /* Trading "Sell/Loss" */
+  --brand-red-bg: rgba(246, 70, 93, 0.15);
+
+  /* TEXT SHADES (Dark Mode Optimized) */
+  --text-primary: #EAECEF;      /* Main Headings / Values */
+  --text-secondary: #848e9c;    /* Labels / Subtitles */
+  --text-tertiary: #5e6673;     /* Disabled / Deep Subtext */
   
-  /* NEW LIGHT BACKGROUND */
-  --grey-50: #F0F2F5; /* Page backgrounds */
-  --grey-25: #FAFAFA;
-  
+  /* UTILITY GRAYS (Preserved for compatibility) */
+  --grey-800: #161a1e;          /* Input backgrounds */
+  --grey-400: #848e9c;
   --white: #FFFFFF;
 
-  /* Semantic Aliases (Usage) */
-  --color-primary: var(--brand-black); /* Primary buttons are black in this theme */
-  --color-accent: var(--brand-green);  /* Links, active states */
+  /* ==============================
+     2. Semantic Aliases (Usage)
+     ============================== */
+
+  /* BACKGROUNDS */
+  --color-bg-page: var(--brand-black); 
+  --color-bg-surface: var(--brand-surface);
+  --color-bg-surface-hover: var(--brand-surface-hover);
   
-  --color-bg-page: var(--white);       /* Light mode default, can swap to black for dark mode */
-  --color-bg-surface: var(--white);
-  --color-border: var(--grey-100);
+  /* BORDERS */
+  --color-border: var(--brand-divider);
+  --color-border-strong: var(--brand-border-strong);
 
-  --color-text-main: var(--brand-black);
-  --color-text-body: var(--grey-500);
-  --color-text-inverse: var(--white);
+  /* TYPOGRAPHY */
+  --color-text-main: var(--text-primary);
+  --color-text-body: var(--text-secondary);
+  --color-text-muted: var(--text-tertiary);
+  --color-text-inverse: var(--brand-black);
 
-  /* Feedback */
+  /* ACTIONS & BUTTONS */
+  --color-primary: var(--brand-yellow); 
+  --color-primary-hover: var(--brand-yellow-hover);
+  --color-accent: var(--brand-yellow);
+  
+  /* FEEDBACK */
   --color-success: var(--brand-green);
+  --color-success-bg: var(--brand-green-bg);
   --color-error: var(--brand-red);
   --color-error-bg: var(--brand-red-bg);
-  --color-warning: #f0b90b; /* Binance Yellow */
+  --color-warning: #F0B90B; 
   
-  /* Forms */
-  --color-input-bg: var(--grey-50);
-  --color-input-border: transparent; /* Modern look */
-  --color-input-focus: var(--brand-black);
-  --color-input-placeholder: var(--grey-400);
+  /* FORMS */
+  --color-input-bg: var(--grey-800);
+  --color-input-border: var(--brand-divider);
+  --color-input-focus: var(--brand-yellow);
+  --color-input-text: var(--text-primary);
+  --color-input-placeholder: var(--text-tertiary);
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --radius-pill: 9999px;
-  --radius-md: 8px;
+  /* SHADOWS & RADIUS */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.2);
+  --shadow-modal: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Global Reset Update for Dark Mode */
+body {
+  background-color: var(--color-bg-page);
+  color: var(--color-text-main);
 }

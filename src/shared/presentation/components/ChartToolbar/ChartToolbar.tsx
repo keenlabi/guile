@@ -1,11 +1,8 @@
 import { useState } from 'react';
 import styles from './ChartToolbar.module.css';
-import { ChartTypeDropdown, type ChartStyleType } from 'src/modules/market/presentation/components/ChatTypeDropdown/ChartTypeDropdown';
 
 interface Props {
-  onTypeChange: (type: ChartStyleType) => void;
   onScreenshot: () => void;
-  onFullscreen: () => void;
   onScaleChange: (mode: 'log' | 'normal' | 'auto') => void;
   onTimeframeChange: (interval: string) => void;
 }
@@ -18,21 +15,13 @@ const TIMEFRAMES = [
 ];
 
 export const ChartToolbar = ({ 
-  onTypeChange, 
   onScreenshot, 
-  onFullscreen, 
   onScaleChange,
   onTimeframeChange
 }: Props) => {
-  const [currentType, setCurrentType] = useState<ChartStyleType>('area');
   const [activeTimeframe, setActiveTimeframe] = useState('1h');
   const [isLog, setIsLog] = useState(false);
   const [isAuto, setIsAuto] = useState(true);
-
-  const handleTypeChange = (type: ChartStyleType) => {
-    setCurrentType(type);
-    onTypeChange(type);
-  };
 
   const handleTimeframeClick = (tf: string) => {
     setActiveTimeframe(tf);
@@ -56,7 +45,7 @@ export const ChartToolbar = ({
       {/* --- LEFT GROUP: Main Chart Controls --- */}
       <div className={styles.group}>
         {/* Chart Type Dropdown */}
-        <ChartTypeDropdown currentType={currentType} onChange={handleTypeChange} />
+        
         
         <div className={styles.dividerSmall} />
         
@@ -86,6 +75,7 @@ export const ChartToolbar = ({
         >
           log
         </button>
+        
         <button 
           className={`${styles.textBtn} ${isAuto ? styles.activeText : ''}`} 
           onClick={toggleAuto}
@@ -97,10 +87,6 @@ export const ChartToolbar = ({
         <div className={styles.dividerSmall} />
 
         {/* Action Icons */}
-        <button className={styles.iconBtn} onClick={onFullscreen} title="Fullscreen">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
-        </button>
-
         <button className={styles.iconBtn} onClick={onScreenshot} title="Take Screenshot">
            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z" /><path fillRule="evenodd" clipRule="evenodd" d="M9 2l-1.83 2H5a2 2 0 00-2 2v12a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2h-2.17L15 2H9zM5 18V6h14v12H5z" /></svg>
         </button>

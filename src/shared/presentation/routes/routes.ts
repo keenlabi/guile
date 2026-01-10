@@ -10,7 +10,7 @@ export const ROUTES = {
   
   MARKET: '/market',      // Price charts
   TRADE: '/trade',        // The trading terminal
-  PORTFOLIO: '/portfolio', // Balances
+  WALLET: '/wallet', // Balances
   SETTINGS: '/settings',
 
   ADMIN_TRADERS: '/admin/traders',

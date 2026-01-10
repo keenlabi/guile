@@ -1,132 +1,124 @@
 .header {
-  height: 60px;
-  background-color: #131722;
-  border-bottom: 1px solid #2a2e39;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  height: 100%;
   padding: 0 16px;
+  /* 1. Unified Background */
+  background-color: #0f0f0f;
+  /* 2. Seamless Border */
   color: #d1d4dc;
+  font-family: 'Roboto', sans-serif;
 }
 
-.leftGroup, .rightGroup {
+/* Left Group (Symbol Info) */
+.leftGroup {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 1rem;
 }
 
-/* Navigation Buttons */
-.backBtn {
-  background: none;
-  border: none;
-  color: #848e9c;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-}
-.backBtn:hover { background-color: #2a2e39; color: white; }
-
-.separator {
-  width: 1px;
-  height: 24px;
-  background-color: #2a2e39;
-}
-
-/* Logo */
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 16px;
+.avatar {
+  text-transform: capitalize;
+  width: 32px;
+  height: 32px;
+  background-color: #242832;
   color: white;
-}
-.logoIcon {
-  width: 24px;
-  height: 24px;
-  background-color: #f0b90b; /* Brand Color */
-  border-radius: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-/* Ticker Data */
-.tickerInfo {
+.symbolInfo {
+  height: 90%;
   display: flex;
-  align-items: baseline;
-  gap: 12px;
+  align-items: center;
+  gap: 2rem;
 }
-.symbol { margin: 0; font-size: 18px; color: white; }
-.price { font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; }
-.change { font-size: 12px; color: #848e9c; }
+
+.seperator {
+  height: 15px;
+  background-color: var(--grey-400);
+  width: 1px;
+}
+
 .green { color: #0ecb81; }
 .red { color: #f6465d; }
 
-/* Right Actions */
-.depositBtn {
-  background-color: #f0b90b;
-  color: black;
-  border: none;
-  padding: 6px 16px;
-  border-radius: 4px;
-  font-weight: 600;
-  cursor: pointer;
-}
-.avatar {
-  width: 32px;
-  height: 32px;
-  background-color: #2a2e39;
-  border-radius: 50%;
+/* Right Group (Wallet/Account) */
+.rightGroup {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: #848e9c;
+  gap: 16px;
+
+  margin-left: auto;
 }
 
+.iconBtn {
+  cursor: pointer;
+  fill: var(--grey-400)
+}
 
-/* --- NEW WALLET STYLES --- */
+/* --- WALLET STYLES --- */
 .walletBadge {
   display: flex;
   align-items: center;
-  background-color: #1e222d;
-  border: 1px solid #2a2e39;
+
+  width: auto;
+  background-color: #0f0f0f; 
+  border: 1px solid #242832; 
   border-radius: 4px;
-  padding: 4px 4px 4px 12px; /* Extra padding left for text */
+  padding: 4px 4px 4px 12px;
   gap: 12px;
+  transition: border-color 0.2s;
 }
 
-.walletLabel {
-  font-size: 10px;
-  color: #848e9c;
-  text-transform: uppercase;
-  font-weight: 700;
-  display: none; /* Hide on mobile, show on desktop */
-}
-
-@media (min-width: 768px) {
-  .walletLabel { display: block; }
+.walletBadge:hover {
+  border-color: #484d59;
 }
 
 .walletAmount {
-  color: #0ecb81; /* Green for money */
-  font-weight: 700;
+  color: var(--brand-green); /* Neutral white for amount, or green if preferred */
+  font-weight: 500;
   font-family: 'Roboto Mono', monospace;
-  font-size: 15px;
+  font-size: 16px;
+}
+
+/* Deposit Plus Button */
+.depositBtn {
+  background-color: #f0b90b; /* Binance Yellow */
+  color: #1e2329;
+  border: none;
+  border-radius: 4px;
+  font-weight: medium;
+  font-size: 12px;
+  height: 24px;
+  padding-inline: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 1.6rem;
 }
 
 .depositBtn:hover {
-  background-color: #0aa368;
+  background-color: #d9a506;
 }
 
+/* Profile Icon */
 .profileIcon {
   width: 32px;
   height: 32px;
-  background: #2a2e39;
+  background: #242832; /* Grid color for avatar bg */
+  color: #848e9c;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
 }

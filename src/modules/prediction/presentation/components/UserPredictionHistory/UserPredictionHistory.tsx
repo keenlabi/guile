@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import styles from './UserPredictionHistory.module.css';
 import { predictionRepository } from 'src/modules/prediction/infrastructure/repositories/prediction.repository';
 import type { Prediction } from 'src/modules/prediction/domain/prediction.types';
 import { formatCurrency } from 'src/shared/utils/format.utils';
 import { formatTime } from 'src/shared/utils/date.utils';
+import { useToast } from 'src/shared/presentation/hooks/useToast';
 
 export const UserPredictionHistory = () => {
   const [predictions, setPredictions] = useState<Prediction[]>([]);
@@ -41,6 +42,10 @@ export const UserPredictionHistory = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const handleRefresh = () => {
+    fetchData(); 
+  };
+
   return (
     <>
       <div className={styles.container}>
@@ -54,11 +59,12 @@ export const UserPredictionHistory = () => {
           )}
 
           {predictions.map((item) => (
-            <HistoryCard 
-              key={item.id} 
-              prediction={item} 
-              onClick={() => item.status === 'RESOLVED' && setSelectedPrediction(item)}
-            />
+              <HistoryCard 
+                key={item.id} 
+                prediction={item} 
+                onClick={() => item.status === 'RESOLVED' && setSelectedPrediction(item)}
+                onCancelSuccess={handleRefresh} // <--- NEW PROP
+              />
           ))}
         </div>
       </div>
@@ -75,15 +81,62 @@ export const UserPredictionHistory = () => {
 };
 
 // --- HISTORY CARD ---
-const HistoryCard = ({ prediction, onClick }: { prediction: Prediction, onClick: () => void }) => {
-  const isHigh = prediction.direction === 'HIGH';
-  const isWin = prediction.result === 'WIN';
-  const isPending = prediction.status === 'PENDING';
+const HistoryCard = ({ prediction, onClick, onCancelSuccess}: { prediction: Prediction; onClick: () => void; onCancelSuccess: () => void;}) => {
   
-  // Expiry check for "Resolving..." status
-  const now = new Date().getTime();
-  const expireTime = new Date(prediction.expiresAt).getTime();
-  const isExpired = prediction.status === 'PENDING' || now >= expireTime;
+  const { showSuccess, showError } = useToast();
+  const [now, setNow] = useState(Date.now());
+  const [isCancelling, setIsCancelling] = useState(false);
+
+  const isHigh = prediction.direction === 'HIGH';
+  const isPending = prediction.status === 'PENDING';
+
+  useEffect(() => {
+    if (!isPending) return;
+    const interval = setInterval(() => setNow(Date.now()), 100); // 10Hz updates
+    return () => clearInterval(interval);
+  }, [isPending]);
+
+  // 2. Calculate Progress & Refund
+  const stats = useMemo(() => {
+    if (!isPending) return { width: 0, refund: 0, isExpired: true };
+
+    const start = new Date(prediction.createdAt).getTime();
+    const end = new Date(prediction.expiresAt).getTime();
+    const totalDuration = end - start;
+    const elapsed = now - start;
+    const timeLeft = end - now;
+
+    // Percent of time passed (0 to 100)
+    let pct = (elapsed / totalDuration) * 100;
+    pct = Math.min(Math.max(pct, 0), 100); // Clamp
+
+    // Refund Value: Linear Decay
+    // Starts at 100% of investment, drops to 0% at expiry
+    const refundRatio = Math.max(0, timeLeft / totalDuration); 
+    const refund = prediction.investment * refundRatio;
+
+    return { 
+      width: pct, 
+      refund, 
+      isExpired: now >= end 
+    };
+  }, [now, prediction, isPending]);
+  
+  const handleCancel = async (e: React.MouseEvent) => {
+    e.stopPropagation(); // Don't trigger the card click (Modal)
+    if (stats.isExpired || stats.refund < 1) return; // Can't cancel if expired or value too low
+
+    setIsCancelling(true);
+    try {
+      await predictionRepository.cancelPrediction(prediction.id);
+      showSuccess(`Cancelled! Refunded ${formatCurrency(stats.refund)}`);
+      onCancelSuccess();
+    } catch (err) {
+      showError(err, "Cancel failed");
+    } finally {
+      setIsCancelling(false);
+    }
+  };
 
   // Visuals
   const dirColor = isHigh ? styles.greenText : styles.redText;
@@ -93,21 +146,18 @@ const HistoryCard = ({ prediction, onClick }: { prediction: Prediction, onClick:
   let mainColor = styles.text;
 
   if (!isPending) {
-    // RESOLVED
-    if (isWin) {
-       mainValue = `+$${prediction.payout?.toFixed(2) ?? '0.00'}`;
-       mainColor = styles.greenText;
-    } else {
-       mainValue = `-$${prediction.investment.toFixed(2)}`;
-       mainColor = styles.redText;
-    }
+    // RESOLVED (Static)
+    const isWin = prediction.result === 'WIN';
+    mainValue = isWin 
+      ? `+$${(prediction.payout ?? 0).toFixed(2)}`
+      : `-$${prediction.investment.toFixed(2)}`;
+    mainColor = isWin ? styles.greenText : styles.redText;
   } else {
-    // PENDING
-    if (isExpired) {
+    // PENDING (Active)
+    if (stats.isExpired) {
        mainValue = "Resolving..."; 
        mainColor = styles.pendingText;
     } else {
-       // Show potential payout
        mainValue = `$${(prediction.payout ?? 0).toFixed(2)}`;
        mainColor = styles.greenText; 
     }
@@ -118,17 +168,38 @@ const HistoryCard = ({ prediction, onClick }: { prediction: Prediction, onClick:
       className={`${styles.card} ${!isPending ? styles.clickable : ''}`} 
       onClick={onClick}
     >
+      {/* BACKGROUND PROGRESS BAR */}
+      {isPending && !stats.isExpired && (
+        <div 
+          className={styles.progressBar} 
+          style={{ width: `${stats.width}%` }} 
+        />
+      )}
+
       <div className={styles.leftCol}>
         <span className={`${styles.directionIcon} ${dirColor}`}>{arrowIcon}</span>
         <div className={styles.infoGroup}>
-          <span className={styles.symbol}>{prediction.symbol} / USD</span>
+          <span className={styles.symbol}>{prediction.symbol}</span>
           <span className={styles.time}>{formatTime(prediction.expiresAt)}</span>
         </div>
       </div>
 
       <div className={styles.rightCol}>
         <span className={`${styles.payout} ${mainColor}`}>{mainValue}</span>
-        <span className={styles.investment}>{formatCurrency(prediction.investment)}</span>
+        
+        {/* If Active & Not Expired: Show Cancel Button */}
+        {isPending && !stats.isExpired ? (
+          <button 
+            className={styles.cancelBtn} 
+            onClick={handleCancel}
+            disabled={isCancelling}
+          >
+            {isCancelling ? '...' : `Cancel ${formatCurrency(stats.refund, false)}`}
+          </button>
+        ) : (
+          /* If History or Expired: Show Investment amount */
+          <span className={styles.investment}>{formatCurrency(prediction.investment)}</span>
+        )}
       </div>
     </div>
   );
@@ -193,12 +264,12 @@ const PredictionDetailModal = ({ prediction, onClose }: { prediction: Prediction
                 <div className={styles.priceVal}>{prediction.openPrice}</div>
              </div>
              <div className={styles.arrow}>→</div>
-             <div className={styles.priceBox}>
+             {/* <div className={styles.priceBox}>
                 <label>Close Price</label>
                 <div className={`${styles.priceVal} ${pnlColor}`}>
                   {prediction.closePrice ?? '---'}
                 </div>
-             </div>
+             </div> */}
           </div>
         </div>
       </div>

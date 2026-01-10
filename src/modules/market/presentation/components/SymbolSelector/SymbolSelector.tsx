@@ -33,13 +33,15 @@ export const SymbolSelector = ({ currentSymbol, pairs, onSelect }: Props) => {
           {activePair.icon ? (
             <img src={activePair.icon} alt={activePair.baseAsset} className={styles.iconImg} />
           ) : (
-            activePair.baseAsset[0] // Fallback to first letter
+            activePair.baseAsset[0]
           )}
         </div>
+
         <div className={styles.triggerInfo}>
-          <span className={styles.symbol}>{activePair.baseAsset}/{activePair.quoteAsset}</span>
-          <span className={styles.name}>{activePair.name}</span>
+          <span className={styles.symbol}>{activePair.baseAsset}USD</span>
+          {/* <span className={styles.name}> {activePair.name} </span> */}
         </div>
+        
         <span className={styles.arrow}>▼</span>
       </div>
 

@@ -1,0 +1,151 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal {
+  background-color: #1e2329;
+  border: 1px solid #363c4e;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  animation: slideUp 0.2s ease-out;
+  overflow: hidden;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid #2b3139;
+}
+
+.header h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #EAECEF;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: #848e9c;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.closeBtn:hover { color: #fff; }
+
+/* HERO SECTION */
+.heroSection {
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #2b3139;
+}
+
+.iconCircle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.bgGreen { background: rgba(14, 203, 129, 0.1); color: #0ecb81; }
+.bgRed { background: rgba(246, 70, 93, 0.1); color: #f6465d; }
+
+.amountWrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.amountWrapper span:first-child {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.usdLabel {
+  color: #848e9c;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.statusBadge {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background-color: #161a1e;
+}
+
+/* DETAILS LIST */
+.detailsList {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.label {
+  color: #848e9c;
+  font-size: 13px;
+  min-width: 80px;
+}
+
+.value {
+  color: #EAECEF;
+  font-size: 13px;
+  text-align: right;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.mono { font-family: 'Roboto Mono', monospace; font-size: 12px; }
+.breakAll { word-break: break-all; }
+.link { color: #FCD535; text-decoration: none; }
+.link:hover { text-decoration: underline; }
+
+.divider { height: 1px; background: #2b3139; width: 100%; }
+
+/* UTILS */
+.textGreen { color: #0ecb81; }
+.textRed { color: #f6465d; }
+.textYellow { color: #F0B90B; }
+.textGrey { color: #848e9c; }

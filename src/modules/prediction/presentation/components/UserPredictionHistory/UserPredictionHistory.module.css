@@ -2,70 +2,92 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: #131722;
+  background-color: #0f0f0f; /* Unified BG */
   color: #b2b5be;
   font-size: 16px;
 }
 
-.tab {
-  flex: 1;
-  padding: 14px;
-  background: none;
-  border: none;
-  color: #848e9c;
-  cursor: pointer;
-  font-weight: 600;
-  border-bottom: 2px solid transparent;
-  text-align: center;
-}
-
-.activeTab {
-  color: #f0b90b;
-  border-bottom-color: #f0b90b;
+.headerTitle {
+  padding: 12px 16px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #d1d4dc;
+  border-bottom: 1px solid #242832;
+  background: #0f0f0f;
 }
 
 /* List Area */
 .list {
   flex: 1;
   overflow-y: auto;
-  padding: 10px 5px; /* Add side padding for cards */
+  padding: 10px 16px; 
 }
 
-/* --- THE NEW CARD STYLE --- */
+/* Card Style */
 .card {
+  position: relative; 
+  overflow: hidden;   
   display: flex;
-  justify-content: space-between; /* Push Left and Right apart */
+  justify-content: space-between; 
   align-items: center;
   
-  background-color: #1e222d; /* Slightly lighter card bg */
-  border: 1px solid #2a2e39;
-  border-radius: 6px;
+  /* Blends with background, defined by border */
+  background-color: #0f0f0f; 
+  border: 1px solid #242832;
   
-  padding: 12px 16px;
-  margin-bottom: 8px; /* Spacing between cards */
+  border-radius: 6px;
+  padding: 12px 12px;
+  margin-bottom: 8px; 
   transition: background-color 0.2s;
+  cursor: default;
+  isolation: isolate; 
+}
+
+.clickable {
   cursor: pointer;
 }
-
-.card:hover {
-  background-color: #262b38;
+.clickable:hover {
+  background-color: #13151a; /* Subtle Highlight on hover */
 }
 
-/* Left Side Grouping */
+/* THE COUNTDOWN BAR */
+.progressBar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  /* Yellow tint */
+  background-color: rgba(240, 185, 11, 0.08); 
+  z-index: -1; 
+  transition: width 0.1s linear; 
+  pointer-events: none;
+}
+
+/* Columns */
 .leftCol {
   display: flex;
   align-items: center;
   gap: 12px;
+  z-index: 1;
 }
 
+.rightCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; 
+  gap: 4px;
+  z-index: 1;
+}
+
+/* Typography */
 .directionIcon {
-  font-size: 16px; /* Arrow size */
+  font-size: 16px; 
 }
 
 .infoGroup {
   display: flex;
   flex-direction: column;
-  gap: 4px; /* Space between Symbol and Time */
+  gap: 4px; 
 }
 
 .symbol {
@@ -78,14 +100,6 @@
   font-size: 12px;
   color: #848e9c;
   font-family: 'Roboto Mono', monospace;
-}
-
-/* Right Side Grouping */
-.rightCol {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end; /* Align numbers to the right */
-  gap: 4px;
 }
 
 .payout {
@@ -104,57 +118,62 @@
 .greenText { color: #0ecb81; }
 .redText { color: #f6465d; }
 .text { color: #d1d4dc; }
+.pendingText { color: #f0b90b; font-style: italic; font-size: 13px; }
+
+/* Cancel Button */
+.cancelBtn {
+  margin-top: 6px;
+  background: #0f0f0f;
+  border: 1px solid #f6465d;
+  color: #f6465d;
+  font-size: 10px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cancelBtn:hover {
+  background: #f6465d;
+  color: white;
+}
+
+.cancelBtn:disabled {
+  border-color: #5e6673;
+  color: #5e6673;
+  cursor: not-allowed;
+  background: transparent;
+}
 
 .empty {
   padding: 40px;
   text-align: center;
   color: #5e6673;
 }
-.greenText { color: #0ecb81; }
-.redText { color: #f6465d; }
-.text { color: #d1d4dc; }
 
-/* NEW: Processing Color */
-.pendingText { 
-  color: #f0b90b; /* Binance Yellow */
-  font-style: italic;
-  font-size: 13px; /* Slightly smaller to fit */
-}
-.headerTitle {
-  padding: 12px 16px;
-  font-weight: bold;
-  font-size: 14px;
-  color: #d1d4dc;
-  border-bottom: 1px solid #2a2e39;
-  background: #1e222d;
-}
-
-.clickable {
-  cursor: pointer;
-}
-.clickable:hover {
-  background-color: #262b38;
-}
-
-/* --- MODAL STYLES --- */
+/* Modal Styles */
 .modalOverlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.85); /* Darker overlay */
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(4px);
 }
 
 .modalContent {
-  background: #1e222d;
+  background: #0f0f0f;
   width: 90%;
   max-width: 320px;
   border-radius: 8px;
-  border: 1px solid #2a2e39;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  border: 1px solid #242832;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.8);
   animation: popIn 0.2s ease-out;
 }
 
@@ -168,7 +187,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  border-bottom: 1px solid #2a2e39;
+  border-bottom: 1px solid #242832;
 }
 
 .modalHeader h3 { margin: 0; color: white; font-size: 16px; }
@@ -180,64 +199,7 @@
   padding: 20px;
 }
 
-/* Result Area */
-.resultRow {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.bigBadge {
-  padding: 4px 12px;
-  border-radius: 4px;
-  font-weight: bold;
-  font-size: 12px;
-}
-.bgGreen { background: rgba(14, 203, 129, 0.2); color: #0ecb81; }
-.bgRed { background: rgba(246, 70, 93, 0.2); color: #f6465d; }
-
-.bigPnl {
-  font-size: 24px;
-  font-weight: bold;
-  font-family: 'Roboto Mono', monospace;
-}
-
-/* Detail Grid */
-.detailGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.detailItem {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.detailItem label { color: #848e9c; font-size: 11px; }
-.detailItem span { color: #d1d4dc; font-size: 13px; font-weight: 500; }
-
 .divider {
-  border-bottom: 1px solid #2a2e39;
+  border-bottom: 1px solid #242832;
   margin: 16px 0;
 }
-
-/* Price Comp */
-.priceComparison {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.priceBox {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.priceBox label { color: #848e9c; font-size: 11px; }
-.priceVal { font-family: 'Roboto Mono'; font-size: 13px; color: white; }
-
-.arrow { color: #848e9c; }

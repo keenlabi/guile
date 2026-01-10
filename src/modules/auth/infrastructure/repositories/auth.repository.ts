@@ -20,7 +20,7 @@ const authRepository: IAuthRepository = {
   },
 
   async logout(): Promise<void> {
-    await apiClient.post('/auth/logout');
+    await apiClient.post('/api/auth/logout');
   },
 
   async getProfile(): Promise<UserProfile> {

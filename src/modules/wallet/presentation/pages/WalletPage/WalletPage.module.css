@@ -1,0 +1,204 @@
+.container {
+  padding: 32px;
+  /* Removed 'margin: 0 auto' to stop centering */
+  /* Increased max-width to allow the card to stretch */
+  max-width: 900px; 
+  width: 100%;
+  color: #EAECEF;
+}
+
+.loadingContainer {
+  padding: 40px;
+  text-align: left; /* Aligned left to match */
+  color: #848e9c;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.pageTitle {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #EAECEF;
+}
+
+/* --- UNIFIED WALLET PANEL --- */
+.walletPanel {
+  background: linear-gradient(135deg, #1e2329 0%, #2b3139 100%);
+  border-radius: 16px;
+  border: 1px solid #363c4e;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  
+  /* Ensure it fills the available space up to the container limit */
+  width: 100%; 
+}
+
+/* TOP HALF: BALANCE */
+.balanceSection {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label { 
+  font-size: 13px; 
+  color: #848e9c; 
+  font-weight: 600; 
+  text-transform: uppercase; 
+  letter-spacing: 1px; 
+}
+
+.statusPill {
+  font-size: 10px;
+  background-color: rgba(14, 203, 129, 0.15);
+  color: #0ecb81;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.balanceRow { 
+  display: flex; 
+  align-items: baseline; 
+  gap: 6px; 
+  margin-top: 4px;
+}
+
+.symbol { font-size: 28px; color: #848e9c; font-weight: 400; }
+.amount { font-size: 48px; font-weight: 700; color: #ffffff; letter-spacing: -1px; line-height: 1; }
+.currency { font-size: 16px; color: #848e9c; font-weight: 600; margin-left: 4px; }
+.subtext { font-size: 13px; color: #5e6673; }
+
+
+/* MIDDLE: DIVIDER */
+.divider {
+  height: 1px;
+  background-color: #2b3139;
+  margin: 0 32px;
+}
+
+
+/* BOTTOM HALF: DEPOSIT */
+.depositSection {
+  padding: 24px 32px 32px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.depositLabel {
+  display: block;
+  font-size: 12px;
+  color: #5e6673;
+  margin-bottom: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.assetGrid {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 12px;
+  align-items: center;
+}
+
+.assetCard {
+  display: flex;
+  align-items: center;
+  background-color: #1e2329;
+  border: 1px solid #363c4e;
+  border-radius: 8px;
+  padding: 8px 16px; /* Wider padding for horizontal look */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  gap: 12px;
+  min-width: 140px; /* Ensure they are wide enough to not look cramped */
+}
+
+.assetCard:hover {
+  background-color: #2a2f38;
+  border-color: #474d57;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.assetCard:active {
+  transform: translateY(0);
+}
+
+.iconWrapper {
+  width: 24px;  
+  height: 24px;
+  border-radius: 50%;
+  background-color: #2b3139;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.assetIcon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.placeholderIcon {
+  font-weight: 700;
+  color: #848e9c;
+  font-size: 10px;
+}
+
+.assetInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0px; /* Tighter vertical spacing */
+}
+
+.assetSymbol {
+  font-size: 13px; 
+  font-weight: 700;
+  color: #EAECEF;
+  line-height: 1.2;
+}
+
+.networkLabel {
+  font-size: 10px;
+  color: #848e9c;
+  text-transform: uppercase;
+}
+
+/* ... existing styles ... */
+
+/* UPDATED: Colorful Withdraw Button */
+.withdrawBtn {
+  background-color: #2b3139; /* Dark surface start */
+  color: #FCD535;            /* Brand Yellow Text */
+  border: 1px solid #FCD535; /* Yellow Border */
+  padding: 6px 20px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.withdrawBtn:hover {
+  background-color: #FCD535; /* Fill on hover */
+  color: #1e2329;            /* Dark Text on hover */
+  box-shadow: 0 0 12px rgba(252, 213, 53, 0.2);
+}
+
+/* ... rest of styles ... */

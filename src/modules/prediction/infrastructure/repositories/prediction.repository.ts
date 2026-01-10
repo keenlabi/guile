@@ -8,12 +8,17 @@ import type { ApiResponse } from "src/shared/domain/model/api-response.model";
 
 export interface ResolvePayload {
   outcome: 'WIN' | 'LOSS';
-  openPrice: number;
-  closePrice: number;
-  payout?: number; // Optional: if you want to override the calculated PnL
+//   openPrice: number;
+//   closePrice: number;
+  payout: number; // Optional: if you want to override the calculated PnL
 }
 
 export const predictionRepository = {
+    cancelPrediction: async (id: string): Promise<void> => {
+        // Assuming DELETE or specialized endpoint
+        await apiClient.patch(`/api/predictions/${id}`);
+    },
+
     /**
      * 1. Place a Prediction (User Action)
      * POST /predictions

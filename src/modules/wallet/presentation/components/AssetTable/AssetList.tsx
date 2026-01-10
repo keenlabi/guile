@@ -7,14 +7,14 @@ import { UserRoleHelper } from 'src/shared/presentation/helpers/user-role.helper
 interface AssetListProps {
   assets: WalletAsset[];
   // balances: Record<string, number>;
-  isTraderPortfolio?: boolean;
+  isTraderWallet?: boolean;
   onDeposit?: (symbol: string) => void;
   onWithdraw?: (symbol: string) => void;
   onDebit?: (symbol: string) => void;
   onCredit?: (symbol: string) => void;
 }
 
-export const AssetList = ({ assets, isTraderPortfolio = false, onDeposit, onWithdraw, onCredit, onDebit }: AssetListProps) => {
+export const AssetList = ({ assets, isTraderWallet = false, onDeposit, onWithdraw, onCredit, onDebit }: AssetListProps) => {
   const { profile } = useAuth();
   const isAdmin = UserRoleHelper.isAdmin(profile!.role);
 console.log(assets)
@@ -47,7 +47,7 @@ console.log(assets)
             </div>
 
             <div className={styles.actions}>
-              {isAdmin && !isTraderPortfolio ? (
+              {isAdmin && !isTraderWallet ? (
                 <>
                   <Button variant="secondary" onClick={() => onDebit?.(asset.symbol)}> Debit </Button>
                   <Button variant="primary" onClick={() => onCredit?.(asset.symbol)}> Credit </Button>

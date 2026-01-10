@@ -2,9 +2,11 @@
   padding: 16px;
   color: #d1d4dc;
   font-size: 14px;
-  display: flex;
-  flex-direction: column;
   gap: 20px;
+  background-color: transparent;
+  
+  display: flex;
+  justify-content: center;
 }
 
 /* Input Fields */
@@ -12,26 +14,40 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+
+  background-color: #13151a;
+  border: 1px solid #242832; 
+  padding: 3px;
+  padding-top: 5px;
+  border-radius: 8px;
+  width: 150px;
+}
+
+.inputGroup:focus-within {
+  border-color: #2862ff;
+}
+
+.suffix {
+  margin-right: 8px;
+  color: #848e9c;
+  font-weight: 600;
 }
 
 .labelRow {
   font-size: 12px;
   color: #848e9c;
   font-weight: 600;
+  margin-left: 10px;
 }
 
 .inputWrapper {
   display: flex;
   align-items: center;
-  background-color: #2a2e39;
+  background-color: #13151a; 
   border-radius: 4px;
   padding: 0 10px;
-  border: 1px solid transparent;
-  height: 44px; /* Taller touch targets */
-}
-
-.inputWrapper:focus-within {
-  border-color: #f0b90b;
+  height: 40px;
+  transition: border-color 0.2s;
 }
 
 .input {
@@ -39,16 +55,10 @@
   background: none;
   border: none;
   color: white;
-  font-size: 16px;
-  text-align: right;
+  font-size: 2rem;
   outline: none;
   font-family: 'Roboto Mono', monospace;
-}
-
-.suffix {
-  margin-right: 8px;
-  color: #848e9c;
-  font-weight: 600;
+  border: none;
 }
 
 /* Duration Grid */
@@ -59,8 +69,8 @@
 }
 
 .durationBtn {
-  background-color: #2a2e39;
-  border: 1px solid transparent;
+  background-color: #13151a; /* Slight lift */
+  border: 1px solid #242832;
   color: #848e9c;
   padding: 10px;
   border-radius: 4px;
@@ -70,13 +80,14 @@
 }
 
 .durationBtn:hover {
-  background-color: #363a45;
+  background-color: #242832;
+  color: white;
 }
 
 .activeDuration {
-  background-color: #2a2e39;
-  border-color: #f0b90b;
-  color: #f0b90b;
+  background-color: #242832; 
+  border-color: #2862ff; 
+  color: #2862ff;
 }
 
 /* Profit Info */
@@ -84,7 +95,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1e2329;
+  background-color: #13151a; /* Slight lift */
+  border: 1px solid #242832;
   padding: 12px;
   border-radius: 4px;
   font-size: 12px;
@@ -99,16 +111,17 @@
 
 /* Action Buttons */
 .actionButtons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 8px;
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 300px;
 }
 
 .predictBtn {
+  width: 50%;
   padding: 16px;
   border: none;
-  border-radius: 6px;
+  border-radius: 0;
   font-weight: 700;
   font-size: 16px;
   cursor: pointer;
@@ -126,11 +139,11 @@
 }
 
 .btnHigh {
-  background-color: #0ecb81; /* Green */
+  background-color: #0ecb81; 
   box-shadow: 0 4px 0 #0aa368;
 }
 
 .btnLow {
-  background-color: #f6465d; /* Red */
+  background-color: #f6465d; 
   box-shadow: 0 4px 0 #ce3045;
 }

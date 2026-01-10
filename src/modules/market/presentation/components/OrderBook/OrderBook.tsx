@@ -11,7 +11,6 @@ interface OrderBookItem {
 export const OrderBook = ({ symbol }: { symbol: string }) => {
   const [bids, setBids] = useState<OrderBookItem[]>([]);
   const [asks, setAsks] = useState<OrderBookItem[]>([]);
-  const [activeTab, setActiveTab] = useState<'book' | 'trades'>('book');
 
   function processOrderBookData (
     data: string[][], 
@@ -45,12 +44,6 @@ export const OrderBook = ({ symbol }: { symbol: string }) => {
 
     return processed;
   };
-  
-  // Calculate max total for the progress bars
-  const maxTotal = Math.max(
-    (bids[bids.length - 1]?.total || 0), 
-    (asks[0]?.total || 0) // Asks are reversed, so max total is at index 0
-  );
 
   useEffect(() => {
     const fetchBook = async () => {

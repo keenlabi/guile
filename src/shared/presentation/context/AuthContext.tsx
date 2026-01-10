@@ -7,7 +7,7 @@ export interface AuthContextType {
   // profile: UserProfile | null;
   isAuthenticated: boolean;
   // setLogin: (profileData: UserProfile) => void;
-  // setLogout: () => void;
+  setLogout: () => void;
   refreshProfile: ()=> Promise<void>;
 }
 

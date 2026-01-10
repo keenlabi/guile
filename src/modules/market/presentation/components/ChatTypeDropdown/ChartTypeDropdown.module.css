@@ -7,18 +7,23 @@
   background: transparent;
   border: none;
   color: #848e9c;
-  padding: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 4px;
   border-radius: 4px;
   transition: all 0.2s;
+  padding: 6px;
 }
 
 .trigger:hover, .trigger.active {
   background-color: #2a2e39;
   color: #f0b90b;
+}
+
+.selectedIcon {
+  width: 22px;
+  height: 22px;
 }
 
 .arrow {

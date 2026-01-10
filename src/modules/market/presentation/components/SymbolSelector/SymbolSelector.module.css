@@ -1,16 +1,17 @@
 .container {
   position: relative;
-  min-width: 150px; /* Fixed width prevents header jumping when symbols change */
 }
 
 /* --- Trigger Button (The part you see in the header) --- */
 .trigger {
+  border: 0.5px solid silver;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 1rem;
+  /* justify-content: space-between; */
   cursor: pointer;
   padding: 4px 8px;
-  border-radius: 6px;
+  border-radius: 25px;
   transition: background-color 0.2s;
 }
 
@@ -24,21 +25,15 @@
 }
 
 .symbol {
-  font-size: 16px;
+  font-size: 1.4rem;
   font-weight: 700;
   color: #fff;
   line-height: 1.2;
 }
 
-.name {
-  font-size: 11px;
-  color: #848e9c;
-}
-
 .arrow {
   color: #848e9c;
-  font-size: 10px;
-  margin-left: 8px;
+  font-size: 8px;
 }
 
 /* --- The Dropdown Menu --- */
@@ -94,6 +89,7 @@
   cursor: pointer;
   transition: background 0.1s;
   border-left: 2px solid transparent; /* Reserve space for active border */
+  gap: 1rem;
 }
 
 .item:hover {
@@ -116,7 +112,6 @@
   justify-content: center;
   font-weight: bold;
   font-size: 10px;
-  margin-right: 12px;
   flex-shrink: 0;
 }
 

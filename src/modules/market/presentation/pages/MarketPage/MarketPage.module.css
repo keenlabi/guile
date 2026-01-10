@@ -1,81 +1,75 @@
 .container {
-  display: grid;
-  /* changed from "1fr 320px" to just "1fr" */
-  grid-template-columns: 1fr; 
-  /* Header | Chart */
-  grid-template-rows: 64px 1fr; 
-  height: calc(100vh);
-  background-color: #131722;
-  overflow: hidden;
-}
-
-.header {
-  grid-column: 1;
-  grid-row: 1;
-  border-bottom: 1px solid #2a2e39;
-}
-
-/* Update the chartArea class */
-.chartArea {
-  grid-column: 1;
-  grid-row: 2;
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;        /* Turn this into a Flex Column */
+  display: flex;
   flex-direction: column;
-}
-
-.toolbarContainer {
-  height: 40px;         /* Fixed height for the toolbar strip */
-  border-bottom: 1px solid #2a2e39;
-  background-color: #131722;
-  flex-shrink: 0;       /* Prevent it from shrinking */
-}
-
-.chartWrapper {
-  flex: 1;              /* Takes up all remaining vertical space */
-  position: relative;
-  overflow: hidden;
-}
-
-/* Standard Syntax */
-.chartArea:fullscreen {
-  width: 100vw;
   height: 100vh;
-  display: flex;        /* MUST re-declare flex for the fullscreen context */
-  flex-direction: column;
-  background-color: #131722; /* Critical: Prevent default white/black background */
+  
+  /* UNIFIED DARK BACKGROUND */
+  background-color: #0f0f0f; 
+  color: #d1d4dc;
+  overflow: hidden;
 }
 
-/* Safari / Chrome / older browsers */
-.chartArea:-webkit-full-screen {
+/* Header spanning full width */
+.headerArea {
+  border-bottom: 1px solid #242832;
+  background-color: #0f0f0f; 
+  z-index: 10;
+  height: 50px;
+}
+
+/* Main Chart Area */
+.chartArea {
+  position: relative;
+  background-color: #0f0f0f;
+  border-right: 1px solid #242832; 
+  height: 100%;
+  
+  display: flex;
+}
+
+/* Renamed from sidebarArea */
+.railArea {
+  background-color: transparent;
+
+  position: relative;
+  left: 0px;
+  top: 0px;
+  height: 100%;
+
+  display: flex;
+  align-items: flex-start;
+  overflow: none;
+  z-index: 100;
+
+  >.market_activity {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.historyPanel {
+  position: absolute;
+  left: 50px;
+  top: 0px;
+  width: 300px;
+  height: 100%;
+  /* margin-left: 300px; */
+  z-index: 1000;
+}
+
+.chartWrapper {
+  flex: 1;
+  position: relative;
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: #131722;
 }
 
-/* Ensure the wrapper inside grows to fill the new big screen */
-.chartWrapper {
-  flex: 1;              /* Grow to fill remaining space */
-  position: relative;   /* Anchor for the chart canvas */
-  min-height: 0;        /* Prevents flex items from overflowing */
+.orderForm {
   width: 100%;
-}
-
-/* NEW: Right Panel for OrderBook + Form */
-.rightPanel {
-  grid-column: 2;
-  grid-row: 2;
-  display: flex;
-  flex-direction: column;
-  background-color: #131722;
-  overflow-y: auto;
-}
-
-/* Fix Fullscreen to cover everything */
-.container:fullscreen {
-  overflow: scroll;
+  position: absolute;
+  bottom: 30px;
+  /* width: 200px; */
+  background-color: transparent;
+  /* height: 40px; */
+  z-index: 100000;
 }

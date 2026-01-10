@@ -59,40 +59,40 @@ export const AdminPredictionList = () => {
 const ResolutionCard = ({ prediction, onResolve }: { prediction: Prediction, onResolve: (id: string) => void }) => {
   const { showError } = useToast();
   const [outcome, setOutcome] = useState<'WIN' | 'LOSS' | null>(null);
-  const [openPrice, setOpenPrice] = useState<number>(prediction.openPrice);
-  const [closePrice, setClosePrice] = useState<number>(0);
+  // const [openPrice, setOpenPrice] = useState<number>(prediction.openPrice);
+  // const [closePrice, setClosePrice] = useState<number>(0);
   const [pnl, setPnl] = useState<number>(0); 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const calculateResult = (manualPrice: number) => {
-    let isWin = false;
+  // const calculateResult = (manualPrice: number) => {
+  //   let isWin = false;
 
-    if (prediction.direction === 'HIGH') {
-      isWin = manualPrice > openPrice;
-    } else {
-      // LOW
-      isWin = manualPrice < openPrice;
-    }
+  //   if (prediction.direction === 'HIGH') {
+  //     isWin = manualPrice > openPrice;
+  //   } else {
+  //     // LOW
+  //     isWin = manualPrice < openPrice;
+  //   }
 
-    // 1. Set Outcome
-    const newOutcome = isWin ? 'WIN' : 'LOSS';
-    setOutcome(newOutcome);
+  //   // 1. Set Outcome
+  //   const newOutcome = isWin ? 'WIN' : 'LOSS';
+  //   setOutcome(newOutcome);
 
-    // 2. Auto-Calculate PnL
-    if (isWin) {
-      setPnl(0);
-    } else {
-      setPnl(prediction.investment);
-    }
-  };
+  //   // 2. Auto-Calculate PnL
+  //   if (isWin) {
+  //     setPnl(0);
+  //   } else {
+  //     setPnl(prediction.investment);
+  //   }
+  // };
 
   // A. If Admin manually types a price (Real Scenario)
-  const handlePriceChange = (val: number) => {
-    setClosePrice(val);
-    if (val && !isNaN(parseFloat(val.toString()))) {
-      calculateResult(val);
-    }
-  };
+  // const handlePriceChange = (val: number) => {
+  //   setClosePrice(val);
+  //   if (val && !isNaN(parseFloat(val.toString()))) {
+  //     calculateResult(val);
+  //   }
+  // };
 
   // FIXED: Logic moved from useEffect to this handler
   const handleSelectOutcome = (selectedOutcome: 'WIN' | 'LOSS') => {
@@ -122,14 +122,14 @@ const ResolutionCard = ({ prediction, onResolve }: { prediction: Prediction, onR
   };
 
   const handleSubmit = async () => {
-    if (!outcome || !closePrice) return;
+    if (!outcome || !pnl) return;
     setIsSubmitting(true);
     
     try {
       const payload: ResolvePayload = {
         outcome,
-        openPrice,
-        closePrice,
+        // openPrice,
+        // closePrice,
         payout: pnl
       };
       
@@ -182,7 +182,7 @@ const ResolutionCard = ({ prediction, onResolve }: { prediction: Prediction, onR
 
 
           <div className={styles.inputs}>
-            <div className={styles.field}>
+            {/* <div className={styles.field}>
               <label>Open Price</label>
               <input
                 type="number"
@@ -193,15 +193,16 @@ const ResolutionCard = ({ prediction, onResolve }: { prediction: Prediction, onR
                     setOpenPrice(value)
                 }}
               />
-            </div>
-            <div className={styles.field}>
+            </div> */}
+
+            {/* <div className={styles.field}>
               <label>Close Price</label>
               <input 
                 type="number" 
                 value={closePrice} 
                 onChange={e => handlePriceChange(parseInt(e.target.value))}
               />
-            </div>
+            </div> */}
             
             <div className={styles.field}>
                 <label>Net PnL ($)</label>
@@ -221,7 +222,7 @@ const ResolutionCard = ({ prediction, onResolve }: { prediction: Prediction, onR
 
             <button 
               className={styles.submitBtn} 
-              disabled={isSubmitting}
+              disabled={(!pnl || outcome === null) || isSubmitting}
               onClick={handleSubmit}
             >
               {isSubmitting ? 'Saving...' : 'Confirm Resolution'}

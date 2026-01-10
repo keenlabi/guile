@@ -1,0 +1,128 @@
+.container {
+  margin-top: 32px;
+  width: 100%;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #EAECEF;
+  margin-bottom: 16px;
+}
+
+.loading, .empty {
+  color: #848e9c;
+  font-size: 14px;
+  padding: 20px 0;
+  text-align: left;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* CARD STYLES */
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1e2329;
+  border: 1px solid #2b3139;
+  border-radius: 12px;
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.card:hover {
+  border-color: #474d57;
+}
+
+/* LEFT COLUMN */
+.leftCol {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.iconBox {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.iconGreen { background-color: rgba(14, 203, 129, 0.1); color: #0ecb81; }
+.iconRed { background-color: rgba(246, 70, 93, 0.1); color: #f6465d; }
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.type {
+  font-size: 14px;
+  font-weight: 600;
+  color: #EAECEF;
+  text-transform: capitalize;
+}
+
+.date {
+  font-size: 11px;
+  color: #848e9c;
+}
+
+/* MIDDLE COLUMN */
+.midCol {
+  flex: 1;
+  padding: 0 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.tokenInfo {
+  font-size: 12px;
+  color: #848e9c;
+  background: #161a1e;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* RIGHT COLUMN */
+.rightCol {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.amount {
+  font-size: 15px;
+  font-weight: 700;
+  color: #EAECEF;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.statusBadge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.statusSuccess { color: #0ecb81; }
+.statusPending { color: #F0B90B; }
+.statusFailed { color: #f6465d; }
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .midCol { display: none; }
+  .card { padding: 12px 16px; }
+}

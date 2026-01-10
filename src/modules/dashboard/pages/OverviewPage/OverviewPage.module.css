@@ -11,7 +11,7 @@
 .content {
   flex: 1;
   width: 100%;
-  max-width: 1200px; /* Aligns with the previous Portfolio max-width */
+  max-width: 1200px; /* Aligns with the previous Wallet max-width */
   margin: 0 auto;
   padding: 3.2rem;
 }
@@ -34,7 +34,7 @@
   font-weight: var(--fw-regular);
 }
 
-/* Currently a simple container for the Portfolio, 
+/* Currently a simple container for the Wallet, 
   but ready to become a Grid when we add the "Market Summary" or "Recent Activity" widgets 
 */
 .dashboardGrid {

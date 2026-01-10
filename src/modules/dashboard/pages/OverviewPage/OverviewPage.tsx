@@ -1,5 +1,5 @@
 import { AppHeader } from 'src/shared/presentation/components/AppHeader/AppHeader';
-// import { PortfolioPage } from './PortfolioPage';
+// import { WalletPage } from './WalletPage';
 // import styles from './OverviewPage.module.css';
 
 export const OverviewPage = () => {
@@ -11,7 +11,7 @@ export const OverviewPage = () => {
         searchPlaceholder="Search assets..." 
       />
       <div style={{ padding: '0 3.2rem' }}>
-        {/* <PortfolioPage />  */}
+        {/* <WalletPage />  */}
       </div>
     </>
   );

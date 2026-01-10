@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import styles from './ChartTypeDropdown.module.css';
+import ArrowDown from "src/shared/presentation/assets/icons/arrow-bottom.svg?react";
 
 export type ChartStyleType = 'candle' | 'bar' | 'hollow' | 'line' | 'area';
 
@@ -42,10 +43,10 @@ export const ChartTypeDropdown = ({ currentType, onChange }: Props) => {
         title="Chart Style"
       >
         {/* Render a simplified SVG icon based on type */}
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+        <svg className={styles.selectedIcon} viewBox="0 0 24 24" fill="currentColor">
           <path d={selectedOption?.icon} />
         </svg>
-        <span className={styles.arrow}>▼</span>
+        <ArrowDown className={styles.arrow} />
       </button>
 
       {/* The Dropdown Menu */}
