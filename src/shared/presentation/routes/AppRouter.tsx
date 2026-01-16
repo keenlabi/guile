@@ -12,12 +12,14 @@ import { TraderProfileLayout } from 'src/modules/admin/presentation/layouts/Trad
 import { TraderWalletsPage } from 'src/modules/admin/presentation/pages/Traders/TradersWalletPage/TraderWalletPage';
 import { MarketPage } from 'src/modules/market/presentation/pages/MarketPage/MarketPage';
 import { AdminPredictionList } from 'src/modules/prediction/presentation/components/AdminPredictionList/AdminPredictionList';
+import LandingPage from 'src/modules/landing/pages/LandingPage';
 
 const router = createBrowserRouter([
   {
     element: <PublicRoute />,
     children: [
-      { path: ROUTES.LOGIN, element: <LoginPage />, index: true },
+      { path: ROUTES.ROOT, element: <LandingPage />, index: true },
+      { path: ROUTES.LOGIN, element: <LoginPage /> },
       { path: ROUTES.SIGNUP, element: <RegistrationPage /> },
     ]
   },
@@ -33,6 +35,7 @@ const router = createBrowserRouter([
           { index: true, element: <Navigate to={ROUTES.MARKET} replace /> },
           { path: ROUTES.OVERVIEW, element: <Navigate to={ROUTES.MARKET} replace /> }, 
           { path: ROUTES.WALLET, element: <WalletPage /> },
+          // { path: ROUTES.PROFILE, element: <UserProfile /> },
           // { path: ROUTES.TRADE, element: <TradePage /> },
           // --- Admin Routes ---
           { 

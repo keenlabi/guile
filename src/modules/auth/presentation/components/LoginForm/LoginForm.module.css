@@ -7,9 +7,9 @@
 
 .title {
   font-family: var(--font-heading);
-  font-size: var(--text-3xl); /* Matches "Welcome back" size */
+  font-size: var(--text-3xl);
   font-weight: var(--fw-bold);
-  color: var(--color-text-main);
+  color: var(--color-text-inverse);
   margin-bottom: 3.2rem;
 }
 
@@ -47,11 +47,12 @@
   color: var(--color-text-body);
   font-weight: var(--fw-regular);
   transition: color 0.2s;
+  cursor: pointer;
 }
 
 .forgotPassword:hover {
   color: var(--color-primary);
-  text-decoration: underline;
+  text-decoration: none; /* Usually cleaner without underline on hover if color changes */
 }
 
 /* Actions */
@@ -69,12 +70,17 @@
   border-radius: var(--radius-md);
   font-size: var(--text-sm);
   text-align: center;
+  border: 1px solid var(--color-error); /* Optional: adds definition */
 }
 
 /* Footer */
 .footer {
   margin-top: 24px;
-  color: #666;
+  color: var(--color-text-body); /* Fixed: Was #666 */
+  font-size: var(--text-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .footerText {
@@ -82,11 +88,14 @@
 }
 
 .footerLink {
-  color: #FF7A00; /* Orange Link */
+  color: var(--color-primary); /* Fixed: Was #FF7A00 */
   text-decoration: none;
-  font-weight: 500;
+  font-weight: var(--fw-medium);
+  transition: color 0.2s;
+  cursor: pointer;
 }
 
 .footerLink:hover {
+  color: var(--color-primary-hover);
   text-decoration: underline;
 }

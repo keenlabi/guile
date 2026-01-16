@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../../../modules/auth/application/use-cases/register-user';
-import authRepository from '../../../modules/auth/infrastructure/repositories/auth.repository';
 import { ROUTES } from '../routes/routes';
+import { useAuth } from './useAuth';
 
 export function useRegistration() {
   
+  const { registerUser } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -15,8 +15,9 @@ export function useRegistration() {
     setError(null);
 
     try {
-      await registerUser(authRepository, data);
-      navigate(ROUTES.DASHBOARD);
+      await registerUser(data);
+      navigate(ROUTES.MARKET);
+
     } catch (error) {
       
       if(error instanceof Error) {

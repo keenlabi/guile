@@ -5,12 +5,13 @@
   width: 100%;
 }
 
+
 .label {
   display: block;
   margin-bottom: 0.8rem;
-  font-weight: var(--fw-semi-bold);
+  font-weight: var(--fw-medium);
   font-size: var(--text-base);
-  color: var(--color-input-text);
+  color: var(--color-text-inverse);
 }
 
 .inputWrapper {
@@ -57,7 +58,7 @@
   padding: 1.4rem 1.6rem;
   font-family: var(--font-body);
   font-size: var(--text-base);
-  color: var(--color-input-text);
+  color: var(--color-input-text-alt);
   background: transparent;
   border: none;
   outline: none;

@@ -3,6 +3,7 @@
   min-height: 100vh;
   width: 100%;
   background-color: var(--color-bg-page); /* Defaults to white */
+  margin-top: 64px;
 }
 
 /* --- LEFT SIDE: The Brand Banner --- */
@@ -21,12 +22,12 @@
 }
 
 .bannerContent {
-
+  margin-top: 30%;
 }
 
 .bannerTitle {
   font-family: var(--font-heading);
-  font-size: var(--text-3xl);
+  font-size: var(--text-4xl);
   font-weight: 700; /* Bold */
   margin-bottom: 1.6rem;
   line-height: 1.1;
@@ -38,6 +39,7 @@
   color: var(--grey-300); /* Muted text on black bg */
   margin-bottom: 4rem;
   line-height: 1.6;
+  font-size: var(--text-xl);
 }
 
 /* The "Gift Box" or Hero Image */
@@ -101,6 +103,11 @@
   width: 14px;
   height: 14px;
   color: var(--brand-green); /* Subtle green lock */
+}
+
+.giftImage {
+  width: 70%;
+  margin-inline: auto;
 }
 
 /* Responsive Breakpoints */

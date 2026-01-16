@@ -11,7 +11,7 @@ export const ROUTES = {
   MARKET: '/market',      // Price charts
   TRADE: '/trade',        // The trading terminal
   WALLET: '/wallet', // Balances
-  SETTINGS: '/settings',
+  PROFILE: '/profile',
 
   ADMIN_TRADERS: '/admin/traders',
   ADMIN_TRADER_DETAIL: '/admin/traders/:id',

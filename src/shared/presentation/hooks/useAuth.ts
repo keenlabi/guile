@@ -2,8 +2,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import authRepository from '../../../modules/auth/infrastructure/repositories/auth.repository';
 import { LoginUserUseCase } from '../../../modules/auth/application/use-cases/login-user.usecase';
-// Import your use cases here in the future
-// import { loginUser } from '../../modules/auth/application/use-cases/loginUser';
+import { RegisterUserUseCase } from 'src/modules/auth/application/use-cases/register-user.usecase';
 
 export function useAuth() {
 
@@ -11,6 +10,15 @@ export function useAuth() {
   if (!context) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
+
+  async function registerUser(data: {
+    email: string, 
+    password: string
+  }){
+    await RegisterUserUseCase(authRepository, data);
+    // context?.setLogin(user);
+    await context?.refreshProfile();
+  };
   
   async function loginWithPassword(data: {email: string, password: string}){
     await LoginUserUseCase(authRepository, data);
@@ -26,6 +34,7 @@ export function useAuth() {
   return {
     ...context,
     loginWithPassword,
+    registerUser,
     logoutUser,
   };
 }

@@ -26,13 +26,25 @@
   --text-tertiary: #5e6673;     /* Disabled / Deep Subtext */
   
   /* UTILITY GRAYS (Preserved for compatibility) */
-  --grey-800: #161a1e;          /* Input backgrounds */
-  --grey-400: #848e9c;
+  --slate-900: #101928; /* Deep/Dark text */
+  --slate-700: #344054;
+  --slate-600: #475367;  
+  --slate-500: #667185;     
+  
+  --grey-400: #787880;
+  --grey-300: #D0D5DD;      
+  --grey-200: #D1D1D1;      
+  --grey-100: #F3F3F3;
+  
+  /* NEW LIGHT BACKGROUND */
+  --grey-50: #F0F2F5; /* Page backgrounds */
+  --grey-25: #FAFAFA;
+  
   --white: #FFFFFF;
 
   /* ==============================
-     2. Semantic Aliases (Usage)
-     ============================== */
+    2. Semantic Aliases (Usage)
+  ============================== */
 
   /* BACKGROUNDS */
   --color-bg-page: var(--brand-black); 
@@ -50,9 +62,11 @@
   --color-text-inverse: var(--brand-black);
 
   /* ACTIONS & BUTTONS */
-  --color-primary: var(--brand-yellow); 
-  --color-primary-hover: var(--brand-yellow-hover);
-  --color-accent: var(--brand-yellow);
+  --primary-green: #22c55e; 
+  --primary-green-hover: #16a34a;
+  --color-primary: var(--primary-green);
+  --color-primary-hover: var(--primary-green-hover);
+  --color-accent: var(--primary-green);
   
   /* FEEDBACK */
   --color-success: var(--brand-green);
@@ -62,8 +76,9 @@
   --color-warning: #F0B90B; 
   
   /* FORMS */
-  --color-input-bg: var(--grey-800);
-  --color-input-border: var(--brand-divider);
+  --color-input-bg: var(--grey-100);
+  --color-input-text-alt: var(--slate-900);
+  --color-input-border: var(--grey-200);
   --color-input-focus: var(--brand-yellow);
   --color-input-text: var(--text-primary);
   --color-input-placeholder: var(--text-tertiary);

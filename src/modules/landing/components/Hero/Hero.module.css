@@ -1,0 +1,211 @@
+/* --- HERO SECTION --- */
+.heroSection {
+  position: relative;
+  background-color: var(--bg-secondary);
+  overflow: hidden;
+  padding-top: 8rem;
+  padding-bottom: 5rem;
+  padding-inline: 10px;
+}
+
+.heroGlow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.glowGreen { background-color: var(--primary-green); top: -10%; left: -10%; }
+.glowBlue { background-color: #3b82f6; bottom: -10%; right: -10%; }
+
+.maxWidthWrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+.heroContent {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+}
+
+.heroText {
+  text-align: center;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.gradientText {
+  background: linear-gradient(to right, #4ade80, #059669);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  color: var(--text-gray);
+  font-size: 1.125rem;
+  max-width: 32rem;
+  margin: 0 auto 2.5rem;
+}
+
+.heroForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.emailInput {
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  background-color: #111827;
+  border: 1px solid #374151;
+  color: var(--text-white);
+  min-width: 300px;
+}
+
+.emailInput:focus {
+  outline: none;
+  border-color: var(--primary-green);
+}
+
+.ctaButton {
+  padding: 1rem 2rem;
+  background-color: var(--primary-green);
+  color: #000;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+  transition: transform 0.2s;
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+}
+
+.trustBadges {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  color: var(--text-gray);
+  font-size: 1.6rem;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Floating Visual Animation */
+.heroVisual {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  /* background: linear-gradient(135deg, #1f2937, #000); */
+  /* border-radius: 1.5rem; */
+  /* border: 1px solid #374151; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); */
+  animation: float 6s ease-in-out infinite;
+}
+
+.floatingCard {
+  position: absolute;
+  padding: 1rem;
+  background: rgba(17, 24, 39, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid #374151;
+  border-radius: 0.75rem;
+  animation: bounce 3s infinite;
+}
+
+.cardTopRight { top: 2.5rem; right: 2.5rem; }
+.cardBottomLeft { bottom: 2.5rem; left: 2.5rem; animation-delay: 1.5s; }
+
+
+@media (min-width: 768px) {
+  .heroContent {
+    flex-direction: row;
+    text-align: left;
+  }
+  
+  .heroText { text-align: left; width: 50%; }
+  .heroVisualWrapper { width: 50%; display: flex; justify-content: center; }
+  .subtitle { margin-left: 0; }
+  .trustBadges { justify-content: flex-start; }
+  
+  .title { font-size: 7rem; }
+  .heroVisual { width: 500px; height: 500px; }
+  
+  .heroForm { 
+    flex-direction: row;
+    justify-content: flex-start;
+    border: 1px solid;
+    width: max-content;
+    border: 1px solid #333;
+    width: 450px;
+    height: 50px;
+    gap: 0;
+    border-radius: 25px;
+    overflow: hidden;
+    padding: 0.5rem;
+  }
+
+  .emailInput {
+    padding: 2rem;
+    background-color: #111827;
+    background-color: transparent;
+    border: none;
+    color: var(--text-white);
+    width: 70%;
+  }
+
+  .ctaButton {
+    height: 100%;
+    background-color: var(--white);
+    color: #000;
+    font-weight: 700;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ctaButton:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* --- ANIMATIONS --- */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(0.8,0,1,1); }
+  50% { transform: none; animation-timing-function: cubic-bezier(0,0,0.2,1); }
+}

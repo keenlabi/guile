@@ -65,6 +65,10 @@ export function Sidebar() {
     navigate('/login');
   };
 
+  function handleProfileClick() {
+    navigate(ROUTES.PROFILE);
+  }
+
   return (
     <aside className={styles.container}>
       
@@ -127,7 +131,7 @@ export function Sidebar() {
         <div className={styles.divider} />
 
         {/* User Profile Card */}
-        <div className={styles.userProfile}>
+        <div className={styles.userProfile} onClick={handleProfileClick}>
           <div className={styles.avatar}>
             {profile?.email?.[0] || 'U'}
           </div>

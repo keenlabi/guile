@@ -2,7 +2,6 @@
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
-  /* text-align: center; */
 }
 
 /* Header */
@@ -13,9 +12,18 @@
   gap: 8px;
 }
 
+.title {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-inverse);
+  margin-bottom: 3.2rem;
+}
+
+
 .subtitle {
-  font-size: 1rem;
-  color: #666;
+  font-size: var(--text-sm);
+  color: var(--color-text-body);
   line-height: 1.5;
   max-width: 400px;
   margin: 0 auto;
@@ -43,34 +51,35 @@
   width: 100%;
   padding: 14px 16px;
   padding-right: 40px; /* Space for icon */
-  border: 1px solid #E5E5E5;
-  border-radius: 8px;
-  background-color: #F8F8F8;
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-md, 8px);
+  background-color: var(--color-input-bg);
   font-size: 1rem;
-  color: #333;
+  color: var(--color-input-text);
   transition: all 0.2s ease;
   outline: none;
 }
 
 .input::placeholder {
-  color: #999;
+  color: var(--color-input-placeholder);
 }
 
 .input:focus {
-  border-color: #5FCB71; /* Nuvlon Green */
-  background-color: #fff;
-  box-shadow: 0 0 0 3px rgba(95, 203, 113, 0.1);
+  border-color: var(--color-input-focus);
+  background-color: var(--color-bg-surface); /* Optional: slightly lighter on focus */
+  /* If you have a specific shadow variable, use it, otherwise simple glow */
+  box-shadow: 0 0 0 1px var(--color-input-focus); 
 }
 
 .inputError {
-  border-color: #d93025;
+  border-color: var(--color-error);
 }
 
 /* Icons within Inputs */
 .iconRight, .iconBtn {
   position: absolute;
   right: 12px;
-  color: #666;
+  color: var(--color-text-muted);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,21 +93,25 @@
 }
 
 .iconBtn:hover {
-  color: #333;
+  color: var(--color-text-main);
 }
 
 /* Validation Text */
 .errorText {
-  color: #d93025;
+  color: var(--color-error);
   margin-top: 6px;
   display: block;
+  font-size: var(--text-xs, 12px);
 }
 
 .apiError {
-  color: #d93025;
-  background-color: #ffeaea;
-  padding: 10px;
-  border-radius: 4px;
+  color: var(--color-error);
+  background-color: var(--color-error-bg);
+  padding: 1rem;
+  border-radius: var(--radius-md, 4px);
+  font-size: var(--text-sm);
+  text-align: center;
+  border: 1px solid var(--color-error);
 }
 
 /* Checkbox */
@@ -114,14 +127,18 @@
   align-items: center;
   cursor: pointer;
   gap: 10px;
+  color: var(--color-text-body);
+  font-size: var(--text-sm);
 }
 
 .checkbox {
   width: 18px;
   height: 18px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-input-border);
+  background-color: var(--color-input-bg);
   border-radius: 4px;
   cursor: pointer;
+  accent-color: var(--color-primary);
 }
 
 /* Divider */
@@ -129,14 +146,15 @@
   display: flex;
   align-items: center;
   margin: 16px 0;
-  color: #888;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
 }
 
 .divider::before,
 .divider::after {
   content: "";
   flex: 1;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .divider span {
@@ -153,7 +171,11 @@
 /* Footer */
 .footer {
   margin-top: 24px;
-  color: #666;
+  color: var(--color-text-body);
+  font-size: var(--text-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .footerText {
@@ -161,11 +183,14 @@
 }
 
 .footerLink {
-  color: #FF7A00; /* Orange Link */
+  color: var(--color-primary);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: var(--fw-medium, 500);
+  transition: color 0.2s;
+  cursor: pointer;
 }
 
 .footerLink:hover {
+  color: var(--color-primary-hover);
   text-decoration: underline;
 }
