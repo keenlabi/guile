@@ -6,6 +6,7 @@ export interface UserProfile {
   emailVerified: boolean;
   status: string;
   role: UserRole;
+  isManaged: boolean;
   firstName: string | null;
   lastName: string | null;
   dateOfBirth: string | null;

@@ -112,6 +112,11 @@ export function Sidebar() {
               label="Predictions"
               icon={<OverviewIcon />} 
             />
+            <SidebarItem 
+              to={ROUTES.ADMIN_WITHDRAWALS} 
+              label="Withdrawals"
+              icon={<WalletIcon />} // Reusing WalletIcon for now
+            />
           </nav>
         )}
       </div>

@@ -48,6 +48,7 @@ export const WithdrawModal = ({ isOpen, onClose, usdBalance, assets, onSuccess }
       handleClose();
       
     } catch (error) {
+      console.log(error)
       showError(error, "Withdrawal failed");
     } finally {
       setIsLoading(false);

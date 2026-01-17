@@ -1,0 +1,232 @@
+/* Container & Layout */
+.container {
+  width: 100%;
+  max-width: 700px; /* Slightly wider for the banner */
+  margin: 0 auto;
+  padding: 3.2rem 1rem;
+}
+
+.card {
+  background-color: #1e2329;
+  border: 1px solid #363c4e;
+  border-radius: 16px;
+  padding: 3.2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+
+/* Header Section */
+.header {
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #EAECEF;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 1.4rem;
+  color: #848e9c;
+  margin-top: 0.5rem;
+}
+
+/* Status Badge */
+.verifiedBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background-color: rgba(14, 203, 129, 0.1);
+  color: #0ecb81;
+  border: 1px solid rgba(14, 203, 129, 0.2);
+}
+
+/* Profile Avatar Area */
+.avatarSection {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #2b3139;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #FCD535;
+  color: #1e2329;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.2rem;
+  font-weight: 800;
+  border: 4px solid #0b0e11;
+  box-shadow: 0 0 0 1px #363c4e;
+}
+
+.idBadge {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.userIdLabel {
+  font-size: 1.2rem;
+  color: #5e6673;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.userIdValue {
+  font-family: 'Roboto Mono', monospace;
+  color: #EAECEF;
+  background-color: #0b0e11;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 1.4rem;
+  border: 1px solid #2b3139;
+}
+
+/* Form Layout */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.label {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #848e9c;
+  display: flex;
+  justify-content: space-between;
+}
+
+.readOnlyTag {
+  font-size: 1.1rem;
+  color: #5e6673;
+  font-style: italic;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  padding: 14px 16px;
+  padding-right: 45px; 
+  border: 1px solid #2b3139; 
+  border-radius: 8px;
+  background-color: #0b0e11; 
+  font-size: 1.4rem;
+  color: #5e6673;
+  cursor: not-allowed;
+  outline: none;
+}
+
+.lockIcon {
+  position: absolute;
+  right: 16px;
+  color: #5e6673;
+  pointer-events: none;
+}
+
+/* --- NEW: Elaborate Verification Banner --- */
+.verificationBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  /* Gradient Background */
+  background: linear-gradient(135deg, #163300 0%, #051806 100%);
+  border: 1px solid #22c55e;
+  
+  border-radius: 12px;
+  padding: 2.4rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(34, 197, 94, 0.15);
+}
+
+.bannerContent {
+  position: relative;
+  z-index: 2;
+  max-width: 65%;
+}
+
+.bannerContent h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bannerContent p {
+  font-size: 1.4rem;
+  color: #a8cfb0; /* Light greenish text */
+  margin: 0;
+  line-height: 1.5;
+}
+
+.bannerBtn {
+  position: relative;
+  z-index: 2;
+  background-color: #22c55e;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  padding: 1.2rem 2.4rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.bannerBtn:hover {
+  background-color: #4ade80;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+}
+
+/* Decorative background elements for the banner */
+.bannerDecor {
+  position: absolute;
+  right: -20px;
+  bottom: -20px;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.2) 0%, rgba(0,0,0,0) 70%);
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+}

@@ -12,8 +12,10 @@ export const ROUTES = {
   TRADE: '/trade',        // The trading terminal
   WALLET: '/wallet', // Balances
   PROFILE: '/profile',
+  KYC: '/kyc',
 
   ADMIN_TRADERS: '/admin/traders',
   ADMIN_TRADER_DETAIL: '/admin/traders/:id',
-  ADMIN_PREDICTION_LIST: '/admin/prediction/list'
+  ADMIN_PREDICTION_LIST: '/admin/prediction/list',
+  ADMIN_WITHDRAWALS: '/admin/withdrawals',
 };

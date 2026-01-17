@@ -19,6 +19,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       setIsFetchProfileLoading(true);
       const profile = await authRepository.getProfile();
+      console.log(profile)
       setProfile(profile);
     } catch (error) {
       console.log(error)

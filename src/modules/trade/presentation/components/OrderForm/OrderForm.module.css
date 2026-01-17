@@ -2,14 +2,157 @@
   padding: 16px;
   color: #d1d4dc;
   font-size: 14px;
-  gap: 20px;
   background-color: transparent;
   
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* Changed to Column to stack Header + Body */
+  gap: 16px;
+  min-height: 140px; /* Prevents layout jump when switching modes */
 }
 
-/* Input Fields */
+/* --- HEADER & TOGGLE --- */
+.formHeader {
+  display: flex;
+  justify-content: flex-end; /* Align toggle to right */
+  align-items: center;
+  padding-bottom: 0px;
+  /* margin-bottom: 8px; */
+}
+
+.aiToggleWrapper {
+  height: 100%;
+  width: 100px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid;
+  background-color: #13151a;
+  border: 1px solid #242832;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.aiLabel { font-size: 12px; color: #848e9c; font-weight: 600; }
+.aiLabelActive { font-size: 12px; color: #FCD535; font-weight: 700; }
+
+/* Switch Styles */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+}
+
+.switch input { opacity: 0; width: 0; height: 0; }
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #363c4e;
+  border-radius: 20px;
+  transition: .3s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: .3s;
+}
+
+input:checked + .slider { background-color: #FCD535; }
+input:checked + .slider:before { transform: translateX(16px); }
+
+
+/* --- FORM BODY (The Inputs) --- */
+.formBody {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /* Aligns inputs to bottom if heights differ */
+  gap: 20px;
+  width: 100%;
+  height: 70px;
+}
+
+
+/* --- AI OVERLAY ANIMATION --- */
+.aiOverlay {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+  padding: 10px 0;
+}
+
+@keyframes fadeIn { 
+  from { opacity: 0; } 
+  to { opacity: 1; } 
+}
+
+.pulseRing {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(252, 213, 53, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  border: 1px solid rgba(252, 213, 53, 0.3);
+  box-shadow: 0 0 20px rgba(252, 213, 53, 0.1);
+}
+
+.aiIcon { font-size: 24px; }
+
+.aiTitle {
+  font-size: 14px;
+  color: #FCD535;
+  margin: 0 0 4px 0;
+  text-transform: uppercase;
+}
+
+.aiDesc {
+  font-size: 11px;
+  color: #848e9c;
+  line-height: 1.4;
+  margin: 0 0 16px 0;
+}
+
+.scanningBar {
+  width: 60%;
+  height: 2px;
+  background-color: #2b3139;
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.scanningLine {
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, #FCD535, transparent);
+  position: absolute;
+  animation: scan 2s infinite linear;
+}
+
+@keyframes scan {
+  0% { left: -40%; }
+  100% { left: 100%; }
+}
+
+
+/* --- EXISTING INPUT STYLES (Unchanged) --- */
 .inputGroup {
   display: flex;
   flex-direction: column;
@@ -21,6 +164,7 @@
   padding-top: 5px;
   border-radius: 8px;
   width: 150px;
+  height: 100%;
 }
 
 .inputGroup:focus-within {
@@ -61,60 +205,12 @@
   border: none;
 }
 
-/* Duration Grid */
-.durationGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-
-.durationBtn {
-  background-color: #13151a; /* Slight lift */
-  border: 1px solid #242832;
-  color: #848e9c;
-  padding: 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.2s;
-}
-
-.durationBtn:hover {
-  background-color: #242832;
-  color: white;
-}
-
-.activeDuration {
-  background-color: #242832; 
-  border-color: #2862ff; 
-  color: #2862ff;
-}
-
-/* Profit Info */
-.profitInfo {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #13151a; /* Slight lift */
-  border: 1px solid #242832;
-  padding: 12px;
-  border-radius: 4px;
-  font-size: 12px;
-  color: #848e9c;
-}
-
-.profitValue {
-  color: #0ecb81;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-/* Action Buttons */
 .actionButtons {
   display: flex;
   border-radius: 8px;
   overflow: hidden;
   width: 300px;
+  height: 100%;
 }
 
 .predictBtn {

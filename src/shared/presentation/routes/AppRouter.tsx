@@ -13,6 +13,9 @@ import { TraderWalletsPage } from 'src/modules/admin/presentation/pages/Traders/
 import { MarketPage } from 'src/modules/market/presentation/pages/MarketPage/MarketPage';
 import { AdminPredictionList } from 'src/modules/prediction/presentation/components/AdminPredictionList/AdminPredictionList';
 import LandingPage from 'src/modules/landing/pages/LandingPage';
+import { UserProfilePage } from 'src/modules/user/presentation/pages/UserProfilePage/UserProfilePage';
+import { KycPage } from 'src/modules/user/presentation/pages/KycPage/KycPage';
+import { WithdrawalsPage } from 'src/modules/admin/presentation/pages/Withdrawals/WithdrawalsPage';
 
 const router = createBrowserRouter([
   {
@@ -35,16 +38,14 @@ const router = createBrowserRouter([
           { index: true, element: <Navigate to={ROUTES.MARKET} replace /> },
           { path: ROUTES.OVERVIEW, element: <Navigate to={ROUTES.MARKET} replace /> }, 
           { path: ROUTES.WALLET, element: <WalletPage /> },
-          // { path: ROUTES.PROFILE, element: <UserProfile /> },
-          // { path: ROUTES.TRADE, element: <TradePage /> },
+          { path: ROUTES.PROFILE, element: <UserProfilePage /> },
+          { path: ROUTES.KYC, element: <KycPage /> },
+
           // --- Admin Routes ---
-          { 
-            path: ROUTES.ADMIN_TRADERS, 
-            element: <TradersListPage /> 
-          },
+          {  path: ROUTES.ADMIN_TRADERS,  element: <TradersListPage />  },
           {
             path: ROUTES.ADMIN_TRADER_DETAIL,
-            element: <TraderProfileLayout />, // Acts as the layout for the specific trader
+            element: <TraderProfileLayout />,
             children: [
               // Default view for a trader is their wallet
               { index: true, element: <Navigate to="wallets" replace /> },
@@ -56,7 +57,11 @@ const router = createBrowserRouter([
           {
             path: ROUTES.ADMIN_PREDICTION_LIST,
             element: <AdminPredictionList />,
-          }
+          },
+          { 
+            path: ROUTES.ADMIN_WITHDRAWALS, 
+            element: <WithdrawalsPage /> 
+          },
         ]
       },
     ]

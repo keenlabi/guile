@@ -1,0 +1,88 @@
+.container {
+  padding: 3.2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tableWrapper {
+  margin-top: 2.4rem;
+  background-color: #1e2329; /* Dark Card Background */
+  border-radius: 12px;
+  border: 1px solid #363c4e; /* Dark Border */
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.table th {
+  padding: 1.6rem 2.4rem;
+  background-color: #0b0e11; /* Darker Header Background */
+  border-bottom: 1px solid #363c4e;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #848e9c; /* Muted Text */
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.table td {
+  padding: 1.6rem 2.4rem;
+  border-bottom: 1px solid #2b3139; /* Subtle Row Divider */
+  color: #EAECEF; /* Primary Light Text */
+  font-size: 1.4rem;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.table tr:hover {
+  background-color: #2a2f38; /* Dark Hover State */
+}
+
+/* Status Badges */
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 1rem;
+  border-radius: 16px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.active {
+  background-color: rgba(14, 203, 129, 0.15);
+  color: #0ecb81;
+}
+
+.suspended {
+  background-color: rgba(246, 70, 93, 0.15);
+  color: #f6465d;
+}
+
+.traderName {
+  font-weight: 700;
+  color: #EAECEF;
+}
+
+.traderEmail {
+  color: #848e9c;
+  font-size: 1.4rem;
+}
+
+.dateText {
+  color: #5e6673;
+  font-size: 1.3rem;
+  font-family: 'Roboto Mono', monospace;
+}

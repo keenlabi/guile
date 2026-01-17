@@ -1,0 +1,274 @@
+/* ... existing container/card styles ... */
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3.2rem 1rem;
+}
+
+.card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 3.2rem;
+  box-shadow: var(--shadow-card);
+}
+
+.header {
+  margin-bottom: 3rem;
+  text-align: left;
+  border-bottom: 1px solid #2b3139; /* Explicit dark border */
+  padding-bottom: 1.5rem;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.8rem 0;
+}
+
+.subtitle {
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.sectionTitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1.6rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.6rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.label {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.required {
+  color: var(--brand-red);
+  margin-left: 4px;
+}
+
+/* FIX: Explicit Dark Mode Colors for Inputs */
+.input, .select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  
+  /* Dark Background & Light Text */
+  background-color: #0b0e11; 
+  color: #EAECEF; 
+  
+  font-size: 1.4rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input:focus, .select:focus {
+  border-color: var(--brand-yellow);
+}
+
+/* Placeholder fix */
+.input::placeholder {
+  color: #5e6673;
+}
+
+/* File Upload Styles */
+.uploadGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .uploadGrid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+.uploadBox {
+  border: 2px dashed var(--color-border);
+  border-radius: 8px;
+  padding: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background-color: #0b0e11; /* Dark bg for upload box */
+  height: 200px;
+}
+
+.uploadBox:hover {
+  border-color: var(--brand-yellow);
+  background-color: rgba(252, 213, 53, 0.05);
+}
+
+.uploadIcon {
+  color: var(--text-secondary);
+  margin-bottom: 1.2rem;
+}
+
+.uploadText {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.uploadHint {
+  font-size: 1.2rem;
+  color: var(--text-tertiary);
+  margin-top: 0.4rem;
+}
+
+.previewContainer {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  background-color: #000;
+}
+
+.previewImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Ensure ID is visible */
+}
+
+.filePreview {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: var(--text-primary);
+}
+
+.clearBtn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.clearBtn:hover {
+  background-color: var(--brand-red);
+}
+
+.submitBtn {
+  padding: 1.6rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  background-color: var(--brand-yellow);
+  border: none;
+  color: #000; /* Black text on yellow button */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.submitBtn:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--brand-surface-hover);
+  color: var(--text-tertiary);
+}
+
+.errorAlert {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem;
+  background-color: rgba(246, 70, 93, 0.1);
+  border: 1px solid var(--brand-red);
+  border-radius: 8px;
+  color: var(--brand-red);
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
+}
+
+/* Success State */
+.successCard {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 4rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.successIcon {
+  color: var(--brand-green);
+  margin-bottom: 2rem;
+}
+
+.successTitle {
+  font-family: var(--font-heading);
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.2rem;
+}
+
+.successMessage {
+  font-size: 1.6rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
