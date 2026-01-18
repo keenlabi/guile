@@ -1,28 +1,26 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getCommunitiesUseCase } from '../../../modules/community/application/get-community.usecase';
-import communityRepository from '../../../modules/community/infrastructure/repositories/community.repository';
+// import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-export const COMMUNITY_KEYS = {
-  all: ['communities'] as const,
-  lists: () => [...COMMUNITY_KEYS.all, 'list'] as const,
-  details: (id: string) => [...COMMUNITY_KEYS.all, 'detail', id] as const,
-};
+// export const COMMUNITY_KEYS = {
+//   all: ['communities'] as const,
+//   lists: () => [...COMMUNITY_KEYS.all, 'list'] as const,
+//   details: (id: string) => [...COMMUNITY_KEYS.all, 'detail', id] as const,
+// };
 
-export function useCommunities() {
-  return useQuery({
-    queryKey: COMMUNITY_KEYS.lists(),
-    queryFn: () => getCommunitiesUseCase(communityRepository),
-  });
-}
+// export function useCommunities() {
+//   return useQuery({
+//     queryKey: COMMUNITY_KEYS.lists(),
+//     queryFn: () => getCommunitiesUseCase(communityRepository),
+//   });
+// }
 
-export function useJoinCommunity() {
-  const queryClient = useQueryClient();
+// export function useJoinCommunity() {
+//   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: (communityId: string) => communityRepository.joinCommunity(communityId),
-    onSuccess: () => {
-      // Invalidate the list so it refetches (to update member count/joined status)
-      queryClient.invalidateQueries({ queryKey: COMMUNITY_KEYS.lists() });
-    },
-  });
-}
+//   return useMutation({
+//     mutationFn: (communityId: string) => communityRepository.joinCommunity(communityId),
+//     onSuccess: () => {
+//       // Invalidate the list so it refetches (to update member count/joined status)
+//       queryClient.invalidateQueries({ queryKey: COMMUNITY_KEYS.lists() });
+//     },
+//   });
+// }

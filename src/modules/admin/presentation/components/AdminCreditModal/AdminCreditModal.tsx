@@ -23,7 +23,7 @@ export const AdminCreditModal = ({ userId, symbol, isOpen, onClose, onSuccess }:
   const onSubmit = async (data: { amountUsd: number }) => {
     setLoading(true);
     try {
-      await adminRepository.creditUserWalletNaira(userId, symbol, data.amountUsd);
+      await adminRepository.creditUserWallet(userId, symbol, data.amountUsd);
       onSuccess();
     } catch (error) {
       const message = parseError(error);

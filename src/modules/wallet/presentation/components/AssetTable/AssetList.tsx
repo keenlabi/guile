@@ -1,11 +1,11 @@
-import type { WalletAsset } from 'src/modules/wallet/domain/wallet.types';
+import type { Asset } from 'src/modules/wallet/domain/wallet.types';
 import styles from './AssetList.module.css';
-import Button from 'src/shared/presentation/components/Button/Button';
 import { useAuth } from 'src/shared/presentation/hooks/useAuth';
 import { UserRoleHelper } from 'src/shared/presentation/helpers/user-role.helper';
+import Button from 'src/shared/presentation/components/Button/Button';
 
 interface AssetListProps {
-  assets: WalletAsset[];
+  assets: Asset[];
   // balances: Record<string, number>;
   isTraderWallet?: boolean;
   onDeposit?: (symbol: string) => void;
@@ -17,16 +17,15 @@ interface AssetListProps {
 export const AssetList = ({ assets, isTraderWallet = false, onDeposit, onWithdraw, onCredit, onDebit }: AssetListProps) => {
   const { profile } = useAuth();
   const isAdmin = UserRoleHelper.isAdmin(profile!.role);
-console.log(assets)
+
   return (
     <div className={styles.container}>
       {assets.map((asset) => {
-        const balance = asset.balance || 0;
-        const fiatValue = asset.balanceUsd;
+        const balance = 0;
+        const fiatValue = 0;
 
         return (
           <div key={asset.symbol} className={styles.card}>
-            {/* Left: Asset Details */}
             <div className={styles.assetInfo}>
               <div className={styles.header}>
                 {asset.iconUrl && (
@@ -55,7 +54,7 @@ console.log(assets)
               ) : (
                 <>
                   {
-                    asset.isWithdrawalEnabled
+                    asset.isDepositEnabled
                     ? <Button variant="secondary" onClick={() => onWithdraw?.(asset.symbol)}>Withdrawal</Button>
                     : null
                   }

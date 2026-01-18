@@ -2,12 +2,11 @@ import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { adminRepository } from 'src/modules/admin/infrastructure/repositories/admin.repository';
 import type { Wallet } from 'src/modules/wallet/domain/wallet.types';
-import { AssetList } from 'src/modules/wallet/presentation/components/AssetTable/AssetList';
 import Button from 'src/shared/presentation/components/Button/Button';
 import { useToast } from 'src/shared/presentation/hooks/useToast';
 import { AdminDepositModal } from '../../../components/AdminDepositModal/AdminDepositModal';
-import { AdminCreditModal } from '../../../components/AdminCreditModal/AdminCreditModal';
-import { AdminDebitModal } from '../../../components/AdminDebitModal/AdminDebitModal';
+import { formatCurrency } from 'src/shared/utils/format.utils';
+import styles from './TraderWalletPage.module.css';
 
 export const TraderWalletsPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -15,8 +14,9 @@ export const TraderWalletsPage = () => {
   const [wallet, setWallet] = useState<Wallet | null>(null);
   const [isDepositModalOpen, setDepositModalOpen] = useState(false);
   const { showSuccess } = useToast();
-  const [creditSymbol, setCreditSymbol] = useState<string | null>(null);
-  const [debitSymbol, setDebitSymbol] = useState<string | null>(null);
+
+  // Note: Unused states (credit/debit) removed for cleanliness 
+  // based on the simplified view you requested.
 
   const fetchWallet = useCallback(() => {
     if (id) {
@@ -34,58 +34,38 @@ export const TraderWalletsPage = () => {
     fetchWallet(); // Refresh balances
   };
 
-  const handleDebitSuccess = () => {
-    showSuccess("Wallet debited successfully");
-    setDebitSymbol(null);
-    fetchWallet();
-  };
-
-  if (!wallet) return <div>Loading Wallets...</div>;
+  if (!wallet) {
+    return <div className={styles.loading}>Loading Wallet...</div>;
+  }
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h2 style={{ fontSize: '1.8rem', fontWeight: 600 }}>Assets & Balances</h2>
-        <Button onClick={() => setDepositModalOpen(true)}>
-          + Credit Balance
-        </Button>
+    <div className={styles.container}>
+      <h2 className={styles.sectionTitle}>Wallet Overview</h2>
+
+      {/* BALANCE CARD */}
+      <div className={styles.balanceCard}>
+        <div>
+          <div className={styles.label}>Total Equity</div>
+          <div className={styles.amount}>
+            {formatCurrency(wallet.usdBalance)}
+            <span className={styles.currency}>USD</span>
+          </div>
+        </div>
+
+        <div>
+          <Button variant="primary" onClick={() => setDepositModalOpen(true)}>
+            + Credit / Deposit
+          </Button>
+        </div>
       </div>
 
-      {/* Reusing AssetList but disabling user actions since we are admin */}
-      {/* <div style={{ opacity: 0.8, pointerEvents: 'none' }}> */}
-        <AssetList
-          assets={wallet.assets}
-          onCredit={(symbol)=> setCreditSymbol(symbol)}
-          onDebit={(symbol)=> setDebitSymbol(symbol)}
-        />
-      {/* </div> */}
-
+      {/* Admin Deposit Modal */}
       {isDepositModalOpen && id && (
         <AdminDepositModal
           userId={id}
           isOpen={isDepositModalOpen}
           onClose={() => setDepositModalOpen(false)}
           onSuccess={handleCreditSuccess}
-        />
-      )}
-
-      {creditSymbol && id && (
-        <AdminCreditModal
-          userId={id}
-          symbol={creditSymbol}
-          isOpen={!!creditSymbol}
-          onClose={() => setCreditSymbol(null)}
-          onSuccess={handleCreditSuccess}
-        />
-      )}
-
-      {debitSymbol && id && (
-        <AdminDebitModal
-          userId={id}
-          symbol={debitSymbol}
-          isOpen={!!debitSymbol}
-          onClose={() => setDebitSymbol(null)}
-          onSuccess={handleDebitSuccess}
         />
       )}
     </div>

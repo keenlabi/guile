@@ -16,6 +16,7 @@ import LandingPage from 'src/modules/landing/pages/LandingPage';
 import { UserProfilePage } from 'src/modules/user/presentation/pages/UserProfilePage/UserProfilePage';
 import { KycPage } from 'src/modules/user/presentation/pages/KycPage/KycPage';
 import { WithdrawalsPage } from 'src/modules/admin/presentation/pages/Withdrawals/WithdrawalsPage';
+import { TraderHistoryPage } from 'src/modules/admin/presentation/pages/Traders/TraderHistoryPage/TraderHistoryPage';
 
 const router = createBrowserRouter([
   {
@@ -50,8 +51,7 @@ const router = createBrowserRouter([
               // Default view for a trader is their wallet
               { index: true, element: <Navigate to="wallets" replace /> },
               { path: 'wallets', element: <TraderWalletsPage /> },
-              { path: 'overview', element: <div>Trader Overview (Coming Soon)</div> },
-              { path: 'activity', element: <div>Trader Activity (Coming Soon)</div> },
+              { path: 'predictions', element: <TraderHistoryPage /> }
             ]
           },
           {

@@ -56,7 +56,7 @@ export const AdminPredictionList = () => {
 };
 
 // --- SUB-COMPONENT ---
-const ResolutionCard = ({ prediction, onResolve }: { prediction: Prediction, onResolve: (id: string) => void }) => {
+export const ResolutionCard = ({ prediction, onResolve }: { prediction: Prediction, onResolve: (id: string) => void }) => {
   const { showError } = useToast();
   const [outcome, setOutcome] = useState<'WIN' | 'LOSS' | null>(null);
   // const [openPrice, setOpenPrice] = useState<number>(prediction.openPrice);

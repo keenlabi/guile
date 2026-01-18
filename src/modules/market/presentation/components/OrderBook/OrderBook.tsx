@@ -9,8 +9,9 @@ interface OrderBookItem {
 }
 
 export const OrderBook = ({ symbol }: { symbol: string }) => {
-  const [bids, setBids] = useState<OrderBookItem[]>([]);
-  const [asks, setAsks] = useState<OrderBookItem[]>([]);
+  
+  const [, setBids] = useState<OrderBookItem[]>([]);
+  const [, setAsks] = useState<OrderBookItem[]>([]);
 
   function processOrderBookData (
     data: string[][], 

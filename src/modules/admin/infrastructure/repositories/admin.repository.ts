@@ -10,6 +10,7 @@ export interface TraderSummary {
   email: string;
   role: string;
   status: 'active' | 'suspended';
+  isManaged: boolean;
   createdAt: string;
   firstName: string | null;
   lastName: string | null;
@@ -45,7 +46,7 @@ export const adminRepository = {
     return data;
   },
 
-  creditUserWalletNaira: async (userId: string, symbol: string, amountUsd: number) => {
+  creditUserWallet: async (userId: string, symbol: string, amountUsd: number) => {
     const response = await apiClient.post<ApiResponse<void>>('/api/wallets/credit', { 
       userId,
       symbol, 

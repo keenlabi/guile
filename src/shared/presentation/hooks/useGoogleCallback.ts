@@ -1,21 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 // import authRepository from '../../../modules/auth/infrastructure/repositories/auth.repository';
-import { useAuth } from './useAuth';
 // import { GoogleExchangeCodeForTokenUseCase } from '../../../modules/auth/application/use-cases/google-exchange-code-for-token';
 
 export function useGoogleCallback() {
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-  const { loginWithGoogle } = useAuth();
-  const [error, setError] = useState<string | null>(null);
+  const [error,] = useState<string | null>(null);
 
   useEffect(() => {
     const code = searchParams.get('code');
     const errorParam = searchParams.get('error');
 
     if (errorParam) {
-      setError('Google authentication failed. Please try again.');
+      // setError('Google authentication failed. Please try again.');
       return;
     }
 
@@ -33,7 +30,7 @@ export function useGoogleCallback() {
         //     }
         // });
     }
-  }, [searchParams, loginWithGoogle, navigate]);
+  }, [searchParams]);
 
   return { error, isLoading: !error };
 }

@@ -94,3 +94,25 @@
   background-color: #FEF3F2;
   color: #B42318;
 }
+
+.aiBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(252, 213, 53, 0.15); /* Yellow Tint */
+  color: #FCD535; /* Brand Yellow */
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 1px solid rgba(252, 213, 53, 0.3);
+}
+
+.manualBadge {
+  color: #5e6673;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding-left: 4px;
+}

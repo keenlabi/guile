@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import styles from "./TraderProfileLayout.module.css";
 import { Outlet, NavLink, useParams, useNavigate } from 'react-router-dom';
 import { adminRepository } from 'src/modules/admin/infrastructure/repositories/admin.repository';
 import type { UserProfile } from 'src/modules/auth/domain/models/user';
@@ -36,7 +37,7 @@ export const TraderProfileLayout = () => {
 
       {/* Horizontal Subnav */}
       <div style={{ display: 'flex', gap: '2.4rem', borderBottom: '1px solid #eee', marginBottom: '2.4rem' }}>
-        <NavLink 
+        {/* <NavLink 
           to={`/admin/traders/${id}/overview`}
           style={({ isActive }) => ({ 
             padding: '1rem 0', 
@@ -46,9 +47,9 @@ export const TraderProfileLayout = () => {
           })}
         >
           Overview
-        </NavLink>
+        </NavLink> */}
         <NavLink 
-          to={`/admin/traders/${id}/wallets`}
+          to={`/admin/traders/${id}/wallet`}
           style={({ isActive }) => ({ 
             padding: '1rem 0', 
             borderBottom: isActive ? '2px solid black' : '2px solid transparent',
@@ -57,6 +58,12 @@ export const TraderProfileLayout = () => {
           })}
         >
           Wallets
+        </NavLink>
+        <NavLink 
+          to={`/admin/traders/${id}/predictions`} // <--- NEW LINK
+          className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}
+        >
+          Predictions
         </NavLink>
         <NavLink 
           to={`/admin/traders/${id}/activity`}

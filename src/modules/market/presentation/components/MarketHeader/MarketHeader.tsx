@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './MarketHeader.module.css';
 import type { MarketPair } from 'src/modules/market/domain/market.constants';
 import { SymbolSelector } from '../SymbolSelector/SymbolSelector';
@@ -55,7 +55,7 @@ export const MarketHeader = ({
     <header className={styles.header}>
       {/* 1. LEFT: Navigation */}
       <div className={styles.leftGroup}>
-        <div className={styles.avatar}>{profile?.email[0]}</div>              
+        <Link to={ROUTES.PROFILE} className={styles.avatar}>{profile?.email[0]}</Link>
         
         {/* Symbol Info (Moved from old text header to here) */}
         <div className={styles.symbolInfo}>

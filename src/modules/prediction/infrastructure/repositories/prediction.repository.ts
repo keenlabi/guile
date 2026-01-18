@@ -26,6 +26,13 @@ export const predictionRepository = {
     return data.data;
   },
 
+  getPredictionsByUserId: async (userId: string): Promise<Prediction[]> => {
+    // Ensure your backend has this endpoint, or uses a query param ?userId=...
+    const { data } = await apiClient.get<ApiResponse<Prediction[]>>(`/api/admin/predictions/user/${userId}`);
+    console.log(data)
+    return data.data;
+  },
+
   cancelPrediction: async (id: string): Promise<void> => {
     // Assuming DELETE or specialized endpoint
     await apiClient.patch(`/api/predictions/${id}`);

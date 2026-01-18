@@ -1,0 +1,79 @@
+.container {
+  padding-top: 1rem;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #EAECEF;
+}
+
+.tableWrapper {
+  background-color: #1e2329;
+  border: 1px solid #363c4e;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.table th {
+  padding: 1.6rem 2.4rem;
+  background-color: #0b0e11;
+  border-bottom: 1px solid #363c4e;
+  font-size: 1.3rem;
+  color: #848e9c;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.table td {
+  padding: 1.6rem 2.4rem;
+  border-bottom: 1px solid #2b3139;
+  color: #EAECEF;
+  font-size: 1.4rem;
+}
+
+.table tr:last-child td { border-bottom: none; }
+.table tr:hover { background-color: #2a2f38; }
+
+.loading, .empty {
+  padding: 32px;
+  text-align: center;
+  color: #848e9c;
+  font-size: 1.4rem;
+}
+
+/* Utils */
+.symbol { font-weight: 700; }
+.date { color: #848e9c; font-size: 1.3rem; font-family: 'Roboto Mono'; }
+.textGreen { color: #0ecb81; }
+.textRed { color: #f6465d; }
+.textMuted { color: #5e6673; }
+
+/* Badges */
+.badgeWin {
+  background: rgba(14, 203, 129, 0.15); color: #0ecb81;
+  padding: 4px 10px; border-radius: 4px; font-size: 1.1rem; font-weight: 700; text-transform: uppercase;
+}
+.badgeLoss {
+  background: rgba(246, 70, 93, 0.15); color: #f6465d;
+  padding: 4px 10px; border-radius: 4px; font-size: 1.1rem; font-weight: 700; text-transform: uppercase;
+}
+.badgePending {
+  background: rgba(240, 185, 11, 0.15); color: #FCD535;
+  padding: 4px 10px; border-radius: 4px; font-size: 1.1rem; font-weight: 700; text-transform: uppercase;
+}
