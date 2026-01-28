@@ -3,6 +3,7 @@ import type { UserProfile } from "src/modules/auth/domain/models/user";
 import { walletRepository } from "src/modules/wallet/infrastructure/repositories/wallet.repository"
 import apiClient from "src/shared/infrastructure/http/api-client";
 import type { ApiResponse } from "src/shared/domain/model/api-response.model";
+import type { KycRequest } from "src/modules/user/domain/kyc.types";
 
 export interface TraderSummary {
   id: string;
@@ -18,9 +19,9 @@ export interface TraderSummary {
 
 export const adminRepository = {
   getPendingWithdrawals: async (): Promise<Transaction[]> => {
-    // Note: The endpoint path matches the WalletController in your backend
     const { data } = await apiClient.get<ApiResponse<Transaction[]>>('/api/wallets/withdrawals/pending');
-    return data.data;
+    // Safety check for array
+    return Array.isArray(data.data) ? data.data : [];
   },
 
   processWithdrawal: async (id: string, action: 'APPROVE' | 'REJECT', txHash?: string) => {
@@ -33,7 +34,7 @@ export const adminRepository = {
 
   getTraders: async (): Promise<TraderSummary[]> => {
     const { data } = await apiClient.get<ApiResponse<TraderSummary[]>>('/api/profiles/traders');
-    return data.data;
+    return Array.isArray(data.data) ? data.data : [];
   },
 
   async getProfileByUserId(userId: string): Promise<UserProfile> {
@@ -52,8 +53,7 @@ export const adminRepository = {
       symbol, 
       amountUsd
     });
-    console.log(response)
-    return response
+    return response;
   },
   
   debitUserWallet: async (userId: string, symbol: string, amountUsd: number) => {
@@ -62,5 +62,52 @@ export const adminRepository = {
       symbol, 
       amountUsd 
     });
+  },
+
+  // --- KYC METHODS (Updated with Safe Mapping) ---
+
+  getPendingKyc: async (): Promise<KycRequest[]> => {
+    // 1. Get the raw response data
+    const response = await apiClient.get<ApiResponse<KycRequest[]>>('/api/admin/kyc/pending');
+    const rawData = response.data.data;
+
+
+    // 3. Map snake_case to camelCase
+    return rawData.map((item: any) => ({
+      id: item.id,
+      userId: item.user_id,
+      firstName: item.first_name,
+      lastName: item.last_name,
+      dob: item.dob,
+      country: item.country,
+      documentType: item.document_type,
+      documentFrontUrl: item.document_front_url,
+      documentBackUrl: item.document_back_url,
+      selfieUrl: item.selfie_url,
+      status: item.status,
+      rejectionReason: item.rejection_reason,
+      createdAt: item.created_at,
+      user: item.user ? {
+        id: item.user.id,
+        email: item.user.email,
+        role: item.user.role,
+        status: item.user.status,
+        emailVerified: item.user.email_verified
+      } : {
+        id: 'unknown',
+        email: 'Unknown User',
+        role: 'trader',
+        status: 'unknown',
+        emailVerified: false
+      }
+    }));
+  },
+
+  reviewKyc: async (id: string, action: 'APPROVE' | 'REJECT', reason?: string) => {
+    const { data } = await apiClient.put(`/api/admin/kyc/${id}/review`, { 
+      action, 
+      reason 
+    });
+    return data;
   }
 };

@@ -230,3 +230,66 @@
   z-index: 1;
   pointer-events: none;
 }
+
+/* ... Existing container, card, header, title ... */
+
+/* Status Badges */
+.verifiedBadge {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 1.2rem; fontWeight: 600; padding: 4px 12px; border-radius: 20px;
+  background-color: rgba(14, 203, 129, 0.1); color: #0ecb81; border: 1px solid rgba(14, 203, 129, 0.2);
+}
+
+.unverifiedBadge {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 1.2rem; fontWeight: 600; padding: 4px 12px; border-radius: 20px;
+  background-color: rgba(246, 70, 93, 0.1); color: #f6465d; border: 1px solid rgba(246, 70, 93, 0.2);
+}
+
+/* --- BANNER VARIANTS --- */
+.verificationBanner {
+  display: flex; align-items: center; justify-content: space-between;
+  border-radius: 12px; padding: 2.4rem; position: relative; overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+/* 1. Default (Greenish/Dark) */
+.bannerDefault {
+  background: linear-gradient(135deg, #163300 0%, #051806 100%);
+  border: 1px solid #22c55e;
+  box-shadow: 0 4px 20px rgba(34, 197, 94, 0.15);
+}
+
+/* 2. Pending (Yellow/Dark) */
+.bannerPending {
+  background: linear-gradient(135deg, #332b00 0%, #1a1600 100%);
+  border: 1px solid #FCD535;
+  box-shadow: 0 4px 20px rgba(252, 213, 53, 0.15);
+}
+
+/* 3. Rejected (Red/Dark) */
+.bannerRejected {
+  background: linear-gradient(135deg, #330009 0%, #1a0005 100%);
+  border: 1px solid #f6465d;
+  box-shadow: 0 4px 20px rgba(246, 70, 93, 0.15);
+}
+
+/* Content & Buttons */
+.bannerContent { position: relative; z-index: 2; max-width: 65%; }
+.bannerContent h3 {
+  font-size: 1.8rem; font-weight: 700; color: #ffffff; margin-bottom: 0.8rem;
+  display: flex; align-items: center; gap: 8px;
+}
+.bannerContent p { font-size: 1.4rem; color: #d1d4dc; margin: 0; line-height: 1.5; }
+
+.bannerBtn {
+  position: relative; z-index: 2; background-color: #22c55e; color: #000;
+  border: none; border-radius: 8px; padding: 1.2rem 2.4rem;
+  font-size: 1.4rem; font-weight: 700; cursor: pointer;
+  display: flex; align-items: center; gap: 8px; transition: all 0.2s ease;
+}
+.bannerBtn:hover { transform: translateY(-2px); opacity: 0.9; }
+
+.btnRetry { background-color: #f6465d; color: white; }
+
+/* ... Rest of existing styles (avatar, forms, inputs) ... */

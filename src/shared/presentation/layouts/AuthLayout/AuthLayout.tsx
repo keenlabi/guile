@@ -11,17 +11,16 @@ interface AuthLayoutProps {
 
 export const AuthLayout = ({ children, title, subtitle, illustration }: AuthLayoutProps) => {
   return (
-    <div>
+    <div className={styles.authLayoutPage}>
       <Navbar />
       <div className={styles.container}>
-        {/* LEFT: Black Banner */}
         <div className={styles.banner}>
           <div className={styles.bannerContent}>
             <h1 className={styles.bannerTitle}>{title || "$15,000 Welcome Rewards"}</h1>
             <p className={styles.bannerText}>
               {subtitle || "Grab up to $15,000 Welcome Rewards to kickstart your crypto investing journey!"}
             </p>
-            {/* Placeholder for the gift box image */}
+
             <img 
               src={illustration} 
               alt="Welcome Rewards" 
@@ -30,7 +29,7 @@ export const AuthLayout = ({ children, title, subtitle, illustration }: AuthLayo
           </div>
         </div>
 
-        {/* RIGHT: Form Area */}
+
         <div className={styles.formSide}>
           <div className={styles.formWrapper}>
             {children}

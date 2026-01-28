@@ -6,18 +6,27 @@ import { useAuth } from '../../hooks/useAuth';
 import { UserRoleHelper } from '../../helpers/user-role.helper';
 
 // --- ICONS ---
-import OverviewIcon from 'src/shared/presentation/assets/icons/expand.svg?react';
 import MarketIcon from 'src/shared/presentation/assets/icons/market.svg?react'; 
 import WalletIcon from 'src/shared/presentation/assets/icons/wallet.svg?react'; 
+
 import authRepository from 'src/modules/auth/infrastructure/repositories/auth.repository';
 import { useToast } from '../../hooks/useToast';
+import { FileTextIcon, UsersRoundIcon } from 'lucide-react';
 
-// Simple inline SVG for Logout to match your flat style
+// Inline SVG for Logout
 const LogoutIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
     <polyline points="16 17 21 12 16 7" />
     <line x1="21" y1="12" x2="9" y2="12" />
+  </svg>
+);
+
+// NEW: Inline SVG for Predictions (Trending Up)
+const PredictionsIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+    <polyline points="17 6 23 6 23 12"></polyline>
   </svg>
 );
 
@@ -50,7 +59,7 @@ function SidebarItem({ to, icon, label, badgeCount }: SidebarItemProps) {
 
 // --- MAIN COMPONENT ---
 export function Sidebar() {
-  const { profile, setLogout } = useAuth(); // Assuming logout is exposed here
+  const { profile, setLogout } = useAuth(); 
   const navigate = useNavigate();
   const isAdmin = profile ? UserRoleHelper.isAdmin(profile.role) : false;
   const { showError } = useToast();
@@ -79,12 +88,6 @@ export function Sidebar() {
         </div>
 
         <nav className={styles.nav}>
-          {/* <SidebarItem 
-            to={ROUTES.DASHBOARD} 
-            label="Overview" 
-            icon={<OverviewIcon />} 
-          /> */}
-
           <SidebarItem 
             to={ROUTES.MARKET} 
             label="Market" 
@@ -102,20 +105,28 @@ export function Sidebar() {
         {isAdmin && (
           <nav className={styles.nav} style={{ marginTop: '24px' }}>
             <div className={styles.sectionLabel}>Admin</div>
+            
+            {/* UPDATED ICONS HERE */}
             <SidebarItem 
               to={ROUTES.ADMIN_TRADERS} 
               label="Traders Directory" 
-              icon={<OverviewIcon />} 
+              icon={<UsersRoundIcon />} 
             />
             <SidebarItem 
               to={ROUTES.ADMIN_PREDICTION_LIST} 
               label="Predictions"
-              icon={<OverviewIcon />} 
+              icon={<PredictionsIcon />} 
             />
+            
             <SidebarItem 
               to={ROUTES.ADMIN_WITHDRAWALS} 
               label="Withdrawals"
-              icon={<WalletIcon />} // Reusing WalletIcon for now
+              icon={<WalletIcon />} 
+            />
+            <SidebarItem 
+              to={ROUTES.ADMIN_KYC} 
+              label="KYC Requests" 
+              icon={<FileTextIcon />}
             />
           </nav>
         )}
@@ -123,16 +134,6 @@ export function Sidebar() {
 
       {/* 2. BOTTOM SECTION (Settings + User + Logout) */}
       <div className={styles.bottomSection}>
-        
-        {/* Settings Link */}
-        {/* <nav className={styles.nav}>
-          <SidebarItem 
-            to={ROUTES.SETTINGS} 
-            label="Settings" 
-            icon={<SettingsIcon />} 
-          />
-        </nav> */}
-
         <div className={styles.divider} />
 
         {/* User Profile Card */}

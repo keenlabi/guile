@@ -1,8 +1,14 @@
 import apiClient from "src/shared/infrastructure/http/api-client";
-import type { KycResponse, KycSubmissionData } from "../../domain/kyc.types";
+import type { KycResponse, KycStatusResponse, KycSubmissionData } from "../../domain/kyc.types";
 import type { ApiResponse } from "src/shared/domain/model/api-response.model";
 
 export const userRepository = {
+  async getKycStatus(): Promise<KycStatusResponse> {
+    // Assuming the endpoint is prefixed with /api like others
+    const { data } = await apiClient.get<ApiResponse<KycStatusResponse>>('/api/kyc/status');
+    return data.data;
+  },
+
   async toggleAiMode(enable: boolean): Promise<{ isManaged: boolean; message: string }> {
     const { data } = await apiClient.put<ApiResponse<{ isManaged: boolean; message: string }>>(
       '/api/users/managed-mode', 

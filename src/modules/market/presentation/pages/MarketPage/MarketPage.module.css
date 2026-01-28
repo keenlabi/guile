@@ -67,7 +67,7 @@
 .orderForm {
   width: 100%;
   position: absolute;
-  bottom: 30px;
+  bottom: 0px;
   /* width: 200px; */
   background-color: transparent;
   /* height: 40px; */

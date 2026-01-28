@@ -18,4 +18,5 @@ export const ROUTES = {
   ADMIN_TRADER_DETAIL: '/admin/traders/:id',
   ADMIN_PREDICTION_LIST: '/admin/prediction/list',
   ADMIN_WITHDRAWALS: '/admin/withdrawals',
+  ADMIN_KYC: '/admin/kyc',
 };

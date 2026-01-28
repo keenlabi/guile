@@ -17,6 +17,7 @@ import { UserProfilePage } from 'src/modules/user/presentation/pages/UserProfile
 import { KycPage } from 'src/modules/user/presentation/pages/KycPage/KycPage';
 import { WithdrawalsPage } from 'src/modules/admin/presentation/pages/Withdrawals/WithdrawalsPage';
 import { TraderHistoryPage } from 'src/modules/admin/presentation/pages/Traders/TraderHistoryPage/TraderHistoryPage';
+import { KycRequestsPage } from 'src/modules/admin/presentation/pages/KycRequests/KycRequestsPage';
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,7 @@ const router = createBrowserRouter([
             path: ROUTES.ADMIN_WITHDRAWALS, 
             element: <WithdrawalsPage /> 
           },
+          { path: ROUTES.ADMIN_KYC, element: <KycRequestsPage /> },
         ]
       },
     ]

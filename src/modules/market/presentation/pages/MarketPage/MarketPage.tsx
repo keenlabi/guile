@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import styles from './MarketPage.module.css';
 
 // --- Components ---
-import { CryptoChart, type CryptoChartHandle } from 'src/shared/presentation/components/CryptoChart/CryptoChart';
+import { type CryptoChartHandle } from 'src/shared/presentation/components/CryptoChart/CryptoChart';
 import { MarketHeader } from '../../components/MarketHeader/MarketHeader';
 import { OrderForm } from 'src/modules/trade/presentation/components/OrderForm/OrderForm';
 import { MarketActivityBar } from '../../components/MarketActivityBar/MarketActivityBar';
@@ -13,6 +13,7 @@ import type { ChartStyleType } from '../../components/ChatTypeDropdown/ChartType
 import { binanceService } from 'src/modules/market/infrastructure/services/binance.service';
 import { walletRepository } from 'src/modules/wallet/infrastructure/repositories/wallet.repository';
 import type { MarketPair } from 'src/modules/market/domain/market.constants';
+import { CryptoChartD3 } from 'src/shared/presentation/components/CryptoChart/CryptoChartD3';
 
 export const MarketPage = () => {
   // --- STATE ---
@@ -157,8 +158,8 @@ export const MarketPage = () => {
 
         <div className={styles.chartWrapper}>
           {activeSymbol && (
-            <CryptoChart 
-                ref={chartRef} 
+            <CryptoChartD3
+                ref={chartRef}
                 symbol={activeSymbol}
                 chartType={chartType}
                 interval={chartInterval} 

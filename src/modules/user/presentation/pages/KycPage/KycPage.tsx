@@ -12,24 +12,22 @@ interface FileState {
 }
 
 export const KycPage = () => {
-  
   const navigate = useNavigate();
-  // const context = useContext(AuthContext);
-
-  // const [isLoading, setIsLoading] = useState(false);
+  
+  // State
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
-  const [formData, setFormData] = useState<KycSubmissionData>({
+  // Text Data State
+  const [formData, setFormData] = useState<Omit<KycSubmissionData, 'documentFront' | 'documentBack' | 'selfie'>>({
     firstName: '',
     lastName: '',
     dob: '',
     country: '',
     documentType: KycDocumentType.ID_CARD,
-    documentFront: null,
-    documentBack: null
   });
 
+  // File Data State
   const [frontDoc, setFrontDoc] = useState<FileState>({ file: null, previewUrl: null });
   const [backDoc, setBackDoc] = useState<FileState>({ file: null, previewUrl: null });
   const [selfie, setSelfie] = useState<FileState>({ file: null, previewUrl: null });
@@ -70,42 +68,34 @@ export const KycPage = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
-    // setIsLoading(true);
 
-    // if (!frontDoc.file) {
-    //   setError('Front of document is required.');
-    //   setIsLoading(false);
-    //   return;
-    // }
+    // 1. Validation: Ensure required files are present
+    if (!frontDoc.file) {
+      setError('Front of document is required.');
+      return;
+    }
 
     try {
-      // const data = new FormData();
-      // // Append text fields
-      // Object.entries(formData).forEach(([key, value]) => {
-      //   data.append(key, value);
-      // });
-
-      // // Append files
-      // data.append('documentFront', frontDoc.file);
-      // if (backDoc.file) data.append('documentBack', backDoc.file);
-      // if (selfie.file) data.append('selfie', selfie.file);
+      // 2. Construct the complete payload by merging text state and file state
+      const payload: KycSubmissionData = {
+        ...formData,
+        documentFront: frontDoc.file,
+        documentBack: backDoc.file,
+        selfie: selfie.file
+      };
     
-      // Construct the data object
-      await submitKyc(formData);
+      // 3. Submit
+      const isSuccessful = await submitKyc(payload);
 
-      // if (!response.ok) {
-      //   const errorData = await response.json();
-      //   throw new Error(errorData.message || 'KYC submission failed');
-      // }
-
-      setSuccess(true);
-      // await context.refreshProfile();
-      setTimeout(() => {
-        navigate(ROUTES.PROFILE);
-      }, 2000);
+      if (isSuccessful) {
+        setSuccess(true);
+        setTimeout(() => {
+          navigate(ROUTES.PROFILE);
+        }, 3000);
+      }
 
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message || "Something went wrong");
     }
   };
 
@@ -200,9 +190,9 @@ export const KycPage = () => {
               {/* Selfie Upload */}
                <FileUpload
                 id="selfie"
-                label="Back Side"
+                label="Selfie" // Fixed Label (was "Back Side")
                 fileState={selfie}
-                required
+                required={false} // Usually optional, but set to true if needed
                 onFileChange={(e) => handleFileChange(e, setSelfie)}
                 onClear={() => clearFile(setSelfie)}
               />
@@ -218,7 +208,7 @@ export const KycPage = () => {
   );
 };
 
-// Helper Component for File Upload
+// Helper Component for File Upload (Unchanged)
 interface FileUploadProps {
   id: string;
   label: string;

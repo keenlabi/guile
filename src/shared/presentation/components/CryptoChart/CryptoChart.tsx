@@ -6,6 +6,7 @@ import {
   type ISeriesApi,
   type IChartApi,
   type UTCTimestamp,
+  LineStyle,
 } from 'lightweight-charts';
 import { binanceService } from 'src/modules/market/infrastructure/services/binance.service';
 import { useBinanceWebSocket } from 'src/shared/presentation/hooks/useBinanceWebSocket'; 
@@ -24,29 +25,53 @@ interface Props {
   interval?: string;
 }
 
-// 1. CONFIGURATION
-const UPDATE_FREQUENCY_MS = 100; // 10 ticks per second
+// --- CONFIGURATION ---
+const UPDATE_FREQUENCY_MS = 100; 
+const TICKS_PER_SECOND = 10;
+
+// X-AXIS ZOOM: 4 Minutes (240s)
+// This squeezes ~24 vertical grid lines onto the screen (very dense).
+const VISIBLE_SECONDS = 240;     
+const VISIBLE_TICKS = VISIBLE_SECONDS * TICKS_PER_SECOND; 
+
+// Y-AXIS ZOOM: +/- $28 (Total $56 Height)
+// This packs the $2 lines much tighter pixel-wise.
+const MONITOR_WINDOW = 28;       
 
 const THEME = {
   bg: '#0f0f0f',           
   grid: '#242832',         
   line: '#2862ff',         
-  areaTop: '#182545',      
-  areaBottom: 'rgba(24, 37, 69, 0.0)', 
-  text: '#848e9c',
+  areaTop: 'rgba(40, 98, 255, 0.3)',      
+  areaBottom: 'rgba(40, 98, 255, 0.0)', 
+  text: '#EAECEF',
 };
 
-export const CryptoChart = forwardRef<CryptoChartHandle, Props>(({ symbol, chartType = 'area', interval = '1m' }, ref) => {
+// Helper: Generate jagged, realistic micro-movements
+const generateMicroTicks = (start: number, end: number, steps: number) => {
+    const points = [];
+    let current = start;
+    const stepSize = (end - start) / steps;
+    
+    for (let i = 0; i < steps; i++) {
+        const noise = (Math.random() - 0.5) * (Math.abs(stepSize) * 3); 
+        current += stepSize + noise;
+        points.push(current);
+    }
+    return points;
+};
+
+export const CryptoChart = forwardRef<CryptoChartHandle, Props>(({ symbol, chartType = 'area' }, ref) => {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
   const seriesRef = useRef<ISeriesApi<any> | null>(null);
   
   const targetPriceRef = useRef<number | null>(null);
   const displayedPriceRef = useRef<number | null>(null);
-  const dataCountRef = useRef<number>(0); 
-  
+  const viewCenterRef = useRef<number | null>(null);
   const currentCandleRef = useRef<any>(null);
   const dotRef = useRef<HTMLDivElement>(null);
+  const totalBarsRef = useRef<number>(0);
 
   useImperativeHandle(ref, () => ({
     takeScreenshot: () => { 
@@ -78,9 +103,8 @@ export const CryptoChart = forwardRef<CryptoChartHandle, Props>(({ symbol, chart
       return;
     }
     const data = currentCandleRef.current;
-    const time = data.time;
-    // @ts-ignore
-    const coordinateX = chartRef.current.timeScale().timeToCoordinate(time);
+
+    const coordinateX = chartRef.current.timeScale().timeToCoordinate(data.time);
     const val = data.value !== undefined ? data.value : data.close;
     const coordinateY = seriesRef.current.priceToCoordinate(val);
 
@@ -99,33 +123,40 @@ export const CryptoChart = forwardRef<CryptoChartHandle, Props>(({ symbol, chart
     const chart = createChart(chartContainerRef.current, {
       width: chartContainerRef.current.clientWidth,
       height: chartContainerRef.current.clientHeight,
-      kineticScroll: { touch: true, mouse: true },
+      kineticScroll: { touch: false, mouse: false },
+      handleScale: { axisPressedMouseMove: false, mouseWheel: false, pinch: false }, 
+      handleScroll: { mouseWheel: false, pressedMouseMove: false, vertTouchDrag: false, horzTouchDrag: false }, 
       layout: { 
         background: { type: ColorType.Solid, color: THEME.bg }, 
         textColor: THEME.text,
+        fontSize: 9, // Small font allows dense labels to fit
         fontFamily: "'Roboto Mono', monospace", 
       },
       grid: { 
-        vertLines: { color: THEME.grid, style: 1 }, 
-        horzLines: { color: THEME.grid, style: 1 } 
+        vertLines: { color: THEME.grid, style: LineStyle.Dotted }, 
+        horzLines: { color: THEME.grid, style: LineStyle.Dotted } 
       },
       crosshair: { mode: CrosshairMode.Normal },
       timeScale: { 
         borderColor: THEME.grid, 
         timeVisible: true, 
         secondsVisible: true,
-        barSpacing: 6,
-        minBarSpacing: 1, 
-        rightOffset: 20, 
-        shiftVisibleRangeOnNewBar: true,
+        fixLeftEdge: true, 
+        rightOffset: 10, 
+        shiftVisibleRangeOnNewBar: false, 
+        
+        // 10-Second Grid
         tickMarkFormatter: (tickTime: number) => {
-           const safeTick = Math.round(tickTime);
-           const date = new Date(safeTick * UPDATE_FREQUENCY_MS); 
-           const seconds = date.getSeconds();
-           // Show label at 00, 15, 30, 45
-           if (seconds % 15 === 0) {
+           const timeInMs = Math.round(tickTime * UPDATE_FREQUENCY_MS);
+           const remainder = Math.abs(timeInMs % 10000); // 10s check
+           
+           if (remainder < 50 || Math.abs(remainder - 10000) < 50) {
+              const date = new Date(timeInMs);
               return date.toLocaleTimeString('en-GB', { 
-                 hour12: false, minute: '2-digit', second: '2-digit' 
+                 hour12: false, 
+                 hour: '2-digit', 
+                 minute: '2-digit', 
+                 second: '2-digit' 
               });
            }
            return '';
@@ -133,31 +164,26 @@ export const CryptoChart = forwardRef<CryptoChartHandle, Props>(({ symbol, chart
       },
       rightPriceScale: { 
         borderColor: THEME.grid,
+        visible: true,
         autoScale: true, 
-        // KEY CHANGE: Increased margins to dampen the auto-zoom
-        // The line will stay in the middle 40% of the screen.
-        scaleMargins: { top: 0.3, bottom: 0.3 } 
+        scaleMargins: { top: 0.05, bottom: 0.05 } 
       },
       localization: {
         timeFormatter: (tickTime: number) => {
           const date = new Date(tickTime * UPDATE_FREQUENCY_MS); 
           return date.toLocaleTimeString('en-GB', { 
-             hour12: false, minute: '2-digit', second: '2-digit' 
+             hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' 
           });
         },
         priceFormatter: (price: number) => {
-          return new Intl.NumberFormat('en-US', {
-             minimumFractionDigits: 2,
-             maximumFractionDigits: 2,
-          }).format(price);
+          if (Math.abs(price % 2) < 0.1) {
+             return price.toFixed(0); 
+          }
+          return ''; 
         }
       },
     });
     chartRef.current = chart;
-
-    chart.timeScale().subscribeVisibleLogicalRangeChange(() => {
-      updateDotPosition();
-    });
 
     const resizeObserver = new ResizeObserver((entries) => {
       if (entries[0]?.target) {
@@ -176,20 +202,27 @@ export const CryptoChart = forwardRef<CryptoChartHandle, Props>(({ symbol, chart
     };
   }, [updateDotPosition]);
 
-  // --- SERIES SETUP ---
+  // --- SERIES INIT ---
   useEffect(() => {
     if (!chartRef.current) return;
     if (seriesRef.current) chartRef.current.removeSeries(seriesRef.current);
 
     let newSeries: ISeriesApi<any>;
-    const commonOptions: any = { lineWidth: 3 }; 
-    const precisionOptions = {
-        priceFormat: { minMove: 0.01, precision: 2 }
-    };
+    const commonOptions: any = { lineWidth: 2 }; 
+    const precisionOptions = { priceFormat: { type: 'price', minMove: 2, precision: 0 } };
+    const seriesOptions = { ...commonOptions, ...precisionOptions };
 
-    const seriesOptions = {
-        ...commonOptions,
-        ...precisionOptions,
+    seriesOptions.autoscaleInfoProvider = () => {
+        const center = viewCenterRef.current;
+        if (center !== null) {
+            return {
+                priceRange: {
+                    minValue: center - MONITOR_WINDOW,
+                    maxValue: center + MONITOR_WINDOW,
+                },
+            };
+        }
+        return null;
     };
 
     switch (chartType) {
@@ -209,39 +242,89 @@ export const CryptoChart = forwardRef<CryptoChartHandle, Props>(({ symbol, chart
         break;
     }
     seriesRef.current = newSeries;
-    
-    // Reset
-    dataCountRef.current = 0;
-    targetPriceRef.current = null;
-    displayedPriceRef.current = null;
-    setTimeout(updateDotPosition, 50);
-  }, [chartType, updateDotPosition]);
 
-  // --- HEARTBEAT & PHYSICS ---
+    const initData = async () => {
+        try {
+            const candles = await binanceService.getCandles(symbol, '1s'); 
+            const historyPoints = [];
+            
+            for (let i = 0; i < candles.length; i++) {
+                const candle = candles[i];
+                const startTick = Math.floor(candle.time * TICKS_PER_SECOND);
+                
+                const startP = i > 0 ? candles[i-1].close : candle.open;
+                const endP = candle.close;
+                
+                const microPrices = generateMicroTicks(startP, endP, TICKS_PER_SECOND);
+
+                for (let j = 0; j < TICKS_PER_SECOND; j++) {
+                    const tickTime = (startTick + j) as UTCTimestamp;
+                    const price = microPrices[j];
+                    
+                    if (chartType === 'line' || chartType === 'area') {
+                        historyPoints.push({ time: tickTime, value: price });
+                    } else {
+                        historyPoints.push({ time: tickTime, open: price, high: price, low: price, close: price });
+                    }
+                }
+            }
+
+            newSeries.setData(historyPoints);
+            
+            if (historyPoints.length > 0) {
+              const last = historyPoints[historyPoints.length - 1];
+              const lastPrice = (chartType === 'line' || chartType === 'area') ? last.value : last.close;
+
+              // FIX: Add '?? null' to handle undefined
+              targetPriceRef.current = lastPrice ?? null;
+              displayedPriceRef.current = lastPrice ?? null;
+              viewCenterRef.current = lastPrice ?? null;
+            }
+
+            if (chartRef.current && totalBarsRef.current > VISIBLE_TICKS) {
+                chartRef.current.timeScale().setVisibleLogicalRange({
+                    from: totalBarsRef.current - VISIBLE_TICKS,
+                    to: totalBarsRef.current
+                });
+            } else {
+                chartRef.current?.timeScale().scrollToPosition(0, true);
+            }
+
+            requestAnimationFrame(updateDotPosition);
+
+        } catch (e) {
+            console.error("Failed to load history", e);
+        }
+    };
+
+    initData();
+
+  }, [chartType, symbol, updateDotPosition]);
+
+  // --- LIVE LOOP ---
   useEffect(() => {
     const intervalId = setInterval(() => {
-      if (!seriesRef.current || !targetPriceRef.current) return;
+      if (!seriesRef.current || !targetPriceRef.current || !chartRef.current) return;
 
       if (displayedPriceRef.current === null) displayedPriceRef.current = targetPriceRef.current;
       
-      const factor = 0.2; 
       const diff = targetPriceRef.current - displayedPriceRef.current;
-      
-      if (Math.abs(diff) > 0.00001) {
-         displayedPriceRef.current += diff * factor;
+      if (Math.abs(diff) < 0.5) {
+          displayedPriceRef.current = targetPriceRef.current;
       } else {
-         displayedPriceRef.current = targetPriceRef.current;
+          displayedPriceRef.current += diff * 0.3; 
       }
 
-      const nowTick = Math.floor(Date.now() / UPDATE_FREQUENCY_MS); 
+      const now = Date.now();
+      const nowTick = Math.floor(now / UPDATE_FREQUENCY_MS) as UTCTimestamp;
       const price = displayedPriceRef.current;
 
+      viewCenterRef.current = price;
+
       const newPoint = { 
-         time: nowTick as UTCTimestamp, 
+         time: nowTick, 
          open: price, high: price, low: price, close: price 
       };
-
-      dataCountRef.current++;
 
       const isLine = chartType === 'line' || chartType === 'area';
       if (isLine) {
@@ -251,6 +334,15 @@ export const CryptoChart = forwardRef<CryptoChartHandle, Props>(({ symbol, chart
         seriesRef.current.update(newPoint);
         currentCandleRef.current = newPoint;
       }
+      
+      totalBarsRef.current += 1;
+
+      if (totalBarsRef.current > VISIBLE_TICKS) {
+          chartRef.current.timeScale().setVisibleLogicalRange({
+              from: totalBarsRef.current - VISIBLE_TICKS,
+              to: totalBarsRef.current
+          });
+      }
 
       updateDotPosition();
 
@@ -259,48 +351,10 @@ export const CryptoChart = forwardRef<CryptoChartHandle, Props>(({ symbol, chart
     return () => clearInterval(intervalId);
   }, [chartType, updateDotPosition]);
 
-  // --- WEBSOCKET ---
   const handleSocketTick = useCallback((price: number) => {
     targetPriceRef.current = price;
   }, []);
   useBinanceWebSocket(symbol, handleSocketTick);
-
-  // --- HISTORY ---
-  useEffect(() => {
-    const fetchHistory = async () => {
-      try {
-        const data = await binanceService.getCandles(symbol, interval);
-        if (seriesRef.current && data.length > 0) {
-           const formatted = data.map((d: any) => {
-             const tick = Math.floor(d.time / UPDATE_FREQUENCY_MS) as UTCTimestamp;
-             if (chartType === 'line' || chartType === 'area') {
-                return { time: tick, value: parseFloat(d.close) };
-             }
-             return {
-                 time: tick,
-                 open: parseFloat(d.open), high: parseFloat(d.high), low: parseFloat(d.low), close: parseFloat(d.close)
-             };
-           });
-           
-           formatted.sort((a: any, b: any) => a.time - b.time);
-           seriesRef.current.setData(formatted);
-
-           const lastData = formatted[formatted.length - 1];
-           const lastPrice = (chartType === 'line' || chartType === 'area') ? lastData.value : lastData.close;
-           
-           targetPriceRef.current = lastPrice;
-           displayedPriceRef.current = lastPrice;
-           currentCandleRef.current = lastData;
-
-           if (chartRef.current) {
-              chartRef.current.timeScale().fitContent(); 
-           }
-           requestAnimationFrame(updateDotPosition);
-        }
-      } catch (e) { console.error(e); }
-    };
-    fetchHistory();
-  }, [symbol, interval, chartType, updateDotPosition]);
 
   return (
     <div ref={chartContainerRef} className={styles.chartContainer}>

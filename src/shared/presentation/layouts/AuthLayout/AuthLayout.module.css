@@ -1,9 +1,14 @@
+.authLayoutPage {
+  height: 100vh;
+  /* display: flex;
+  flex-direction: column; */
+}
+
 .container {
+  height: 100%;
   display: flex;
-  min-height: 100vh;
   width: 100%;
   background-color: var(--color-bg-page); /* Defaults to white */
-  margin-top: 64px;
 }
 
 /* --- LEFT SIDE: The Brand Banner --- */
@@ -22,7 +27,7 @@
 }
 
 .bannerContent {
-  margin-top: 30%;
+  margin-top: 10%;
 }
 
 .bannerTitle {
@@ -106,8 +111,9 @@
 }
 
 .giftImage {
-  width: 70%;
-  margin-inline: auto;
+  width: auto;
+  height: 350px;
+  margin-inline: 10% auto;
 }
 
 /* Responsive Breakpoints */
