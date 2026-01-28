@@ -1,5 +1,15 @@
 import { useEffect, useRef } from 'react';
 
+// MAPPING: Internal Symbol -> Binance Symbol
+const SYMBOL_MAP: Record<string, string> = {
+  'XAUUSDT': 'PAXGUSDT',
+};
+
+const resolveSymbol = (symbol: string): string => {
+  const upper = symbol.toUpperCase();
+  return SYMBOL_MAP[upper] || upper;
+};
+
 export const useBinanceWebSocket = (
   symbol: string, 
   onUpdate: (price: number, time: number) => void
@@ -7,7 +17,9 @@ export const useBinanceWebSocket = (
   const wsRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
-    const cleanSymbol = symbol.toLowerCase();
+    // 1. Resolve internal symbol (XAUUSDT) to Binance symbol (PAXGUSDT)
+    const cleanSymbol = resolveSymbol(symbol).toLowerCase();
+    
     // SWITCH: From 'kline_1h' to 'aggTrade' (Real-time ticks)
     const url = `wss://stream.binance.com:9443/ws/${cleanSymbol}@aggTrade`;
     

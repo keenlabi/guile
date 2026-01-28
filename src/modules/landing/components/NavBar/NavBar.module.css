@@ -1,146 +1,144 @@
-/* --- NAVBAR --- */
+/* src/modules/landing/components/NavBar/NavBar.module.css */
+
 .navbar {
   position: fixed;
   top: 0;
   width: 100%;
-  padding-inline: 5px;
+  height: 80px;
   z-index: 50;
-  background-color: rgba(15, 17, 20, 0.9);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border-color);
-  height: 64px;
+  background: rgba(11, 14, 17, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
   align-items: center;
 }
 
-.navContent {
+.maxWidthWrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
 }
 
 .logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: -0.05em;
-  color: var(--text-white);
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -1px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  text-decoration: none;
 }
 
-.logo span {
-  color: var(--primary-green);
-}
+.logo span { color: #0ecb81; }
 
 .desktopMenu {
   display: none;
 }
 
 .desktopMenu a {
-  color: #d1d5db;
+  color: #848e9c;
   text-decoration: none;
-  padding: 0.5rem 0.75rem;
-  font-size: 1.6rem;
   font-weight: 500;
-  transition: color 0.2s;
+  font-size: 15px;
+  padding: 8px 16px;
+  transition: all 0.2s;
+  border-radius: 6px;
 }
 
 .desktopMenu a:hover {
-  color: var(--primary-green);
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .authButtons {
   display: none;
   align-items: center;
-  gap: 1rem;
+  gap: 16px;
 }
 
 .btnLogin {
   background: none;
   border: none;
-  color: var(--text-white);
-  font-weight: 500;
+  color: #EAECEF;
+  font-weight: 600;
   cursor: pointer;
+  font-size: 15px;
+  transition: color 0.2s;
 }
 
-.btnLogin:hover {
-  color: var(--primary-green);
-}
+.btnLogin:hover { color: #0ecb81; }
 
 .btnSignup {
-  background-color: var(--primary-green);
+  background: #0ecb81;
   color: #000;
   font-weight: 700;
-  padding: 0.5rem 1.5rem;
-  border-radius: 9999px;
+  padding: 10px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
   border: none;
   cursor: pointer;
-  transition: background-color 0.2s;
+  font-size: 14px;
 }
 
 .btnSignup:hover {
-  background-color: var(--primary-green-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(14, 203, 129, 0.4);
 }
 
 .mobileToggle {
   background: none;
   border: none;
-  color: var(--text-gray);
+  color: #fff;
   cursor: pointer;
+  display: block;
 }
 
+/* Mobile Menu */
 .mobileMenu {
-  background-color: var(--bg-secondary);
-  border-bottom: 1px solid var(--border-color);
-  padding: 1rem;
+  position: absolute;
+  top: 80px;
+  left: 0;
+  width: 100%;
+  background-color: #13171c;
+  border-bottom: 1px solid #2b3139;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .mobileLink {
-  display: block;
-  color: #d1d5db;
+  color: #d1d4dc;
   text-decoration: none;
-  padding: 0.75rem;
+  padding: 12px;
   font-weight: 500;
+  border-radius: 4px;
+}
+
+.mobileLink:hover {
+  background-color: rgba(255,255,255,0.05);
 }
 
 .btnMobileSignup {
-  width: 100%;
-  background-color: var(--primary-green);
+  background: #0ecb81;
   color: #000;
   font-weight: 700;
-  padding: 0.75rem;
-  border-radius: 0.25rem;
+  padding: 12px;
+  border-radius: 6px;
   border: none;
-  margin-top: 1rem;
+  margin-top: 12px;
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {
-    .navbar {
-        padding-inline: 20px;
-    }
-    .logo {
-        font-size: 2rem;
-    }
-    .mobileToggle { display: none; }
-    .desktopMenu { 
-        display: block; 
-        margin-left: 2.5rem;
-    }
-    .desktopMenu a { 
-        margin-right: 1.5rem; 
-    }
-
-    .authButtons {
-        display: flex;
-        align-items: center;
-        gap: 2rem;
-        font-size: 1.6rem;
-    }
-    .btnLogin {
-        font-weight: 500;
-        cursor: pointer;
-    }
-
-    .btnLogin:hover {
-        color: var(--primary-green);
-    }
+  .desktopMenu { display: flex; align-items: center; gap: 8px; }
+  .authButtons { display: flex; }
+  .mobileToggle { display: none; }
 }

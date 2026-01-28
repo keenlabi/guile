@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import { ROUTES } from '../../routes/routes';
 import { useAuth } from '../../hooks/useAuth';
@@ -83,9 +83,9 @@ export function Sidebar() {
       
       {/* 1. TOP SECTION (Logo + Navigation) */}
       <div className={styles.topSection}>
-        <div className={styles.logoWrapper}>
-          <h2 style={{ color: '#EAECEF', margin: 0, paddingLeft: '8px' }}>GUILE</h2>
-        </div>
+        <Link to={ROUTES.ROOT} className={styles.logoWrapper}>
+          <h2 style={{ color: '#EAECEF', margin: 0, paddingLeft: '8px' }}>LUMEX</h2>
+        </Link>
 
         <nav className={styles.nav}>
           <SidebarItem 

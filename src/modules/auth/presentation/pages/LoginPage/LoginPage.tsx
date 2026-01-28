@@ -5,7 +5,7 @@ import BlockStackIllustration from "src/shared/presentation/assets/images/blocks
 export const LoginPage = () => {
   return (
     <AuthLayout
-      title={<div>Guile Onchain. <br /> Go Fast, Go Full, Go Profit!</div>}
+      title={<div>Lumex Onchain. <br /> Go Fast, Go Full, Go Profit!</div>}
       subtitle={"Trading Spot % Futures Assets Quickly and Effortlessly"}
       illustration={BlockStackIllustration}
     >

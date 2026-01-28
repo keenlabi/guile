@@ -5,13 +5,15 @@ import SocialProof from '../components/SocialProof/SocialProof';
 import Features from '../components/Features/Features';
 import Footer from '../components/Footer/Footer';
 
-// --- MAIN PAGE LAYOUT ---
 export const LandingPage = () => {
   return (
     <div className={styles.container}>
+      {/* Global Background Effect */}
+      <div className={styles.bgGlow} />
+
       <Navbar />
       <HeroSection />
-      {/* <MarketTicker /> */}
+      {/* Moved SocialProof (Stats) under Hero as requested in design */}
       <SocialProof />
       <Features />
       <Footer />

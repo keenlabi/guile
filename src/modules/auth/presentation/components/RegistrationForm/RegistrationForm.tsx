@@ -23,7 +23,7 @@ export function RegistrationForm() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <h2 className={styles.title}>Welcome to Guile</h2>
+        <h2 className={styles.title}>Welcome to Lumex</h2>
       </header>
 
       <Form submit={submit} className={styles.form}>

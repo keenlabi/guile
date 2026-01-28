@@ -1,58 +1,53 @@
-/* --- TRUST / SOCIAL PROOF --- */
-.trustSection {
-  background-color: var(--bg-secondary);
-  padding: 2.5rem 0;
-  border-bottom: 1px solid var(--border-color);
+/* src/modules/landing/components/SocialProof/SocialProof.module.css */
+
+.statsSection {
+  padding: 40px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(0,0,0,0.2);
+  backdrop-filter: blur(5px);
+  margin-top: 40px;
 }
 
 .maxWidthWrapper {
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 20px;
 }
 
-.trustGrid {
+.statsGrid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 2rem;
+  justify-content: center;
+  gap: 60px;
 }
 
-.trustItem {
-  display: flex;
-  align-items: center;
-  gap: 1.6rem;
-  opacity: 0.9;
-  transition: opacity 0.3s;
-  margin-inline: auto;
+.statItem {
+  text-align: center;
+  min-width: 150px;
 }
 
-.trustItem:hover {
-  opacity: 1;
+.statValue {
+  display: block;
+  font-size: 36px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 8px;
+  font-family: 'Inter', sans-serif;
 }
 
-.trustIcon {
-  color: var(--text-white);
-}
-.trustText {
-  color: var(--text-white);
-  font-size: 1.3rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
+.statLabel {
+  font-size: 14px;
+  color: #848e9c;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
 }
 
-@media (min-width: 768px) {
-  .maxWidthWrapper {
-    padding: 0 5rem;
-  }
-  .trustGrid {
-    gap: 1.5rem;
-  }
-  .trustItem {
-    gap: 0.5rem;
-  }
-  .trustText {
-    font-size: 1.4rem;
-    letter-spacing: 0.02em;
+@media (max-width: 768px) {
+  .statsGrid {
+    gap: 40px;
+    flex-direction: column;
+    align-items: center;
   }
 }

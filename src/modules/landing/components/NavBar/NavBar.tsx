@@ -1,30 +1,51 @@
 import styles from "./NavBar.module.css";
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Zap } from 'lucide-react';
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ROUTES } from "src/shared/presentation/routes/routes";
+import { useAuth } from "src/shared/presentation/hooks/useAuth";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+
+  const handleNav = (path: string) => {
+    navigate(path);
+    setIsOpen(false);
+  };
 
   return (
     <nav className={styles.navbar}>
-      <div className={`${styles.maxWidthWrapper} ${styles.navContent}`}>
-        <div className={styles.logo}>
-          CRYPTO<span>EX</span>
+      <div className={styles.maxWidthWrapper}>
+        <div className={styles.logo} onClick={() => navigate('/')}>
+          <Zap size={24} fill="#0ecb81" stroke="none" />
+          LUMEX
         </div>
 
         {/* Desktop Links */}
         <div className={styles.desktopMenu}>
-          {['Markets', 'Futures', 'Spot', 'Earn', 'Learn'].map((item) => (
-            <a key={item} href="#">{item}</a>
-          ))}
+          <a onClick={() => handleNav(ROUTES.MARKET)} href="#">Markets</a>
+          <a href="#features">Features</a>
+          <a href="#">Support</a>
         </div>
 
         {/* Auth Buttons */}
         <div className={styles.authButtons}>
-          <Link to={ROUTES.LOGIN} className={styles.btnLogin}>Log In</Link>
-          <Link to={ROUTES.SIGNUP} className={styles.btnSignup}>Sign Up</Link>
+          {!isAuthenticated ? (
+            <>
+              <button onClick={() => navigate(ROUTES.LOGIN)} className={styles.btnLogin}>
+                Log In
+              </button>
+              <button onClick={() => navigate(ROUTES.SIGNUP)} className={styles.btnSignup}>
+                Register
+              </button>
+            </>
+          ) : (
+             <button onClick={() => navigate(ROUTES.MARKET)} className={styles.btnSignup}>
+                Dashboard
+              </button>
+          )}
         </div>
 
         {/* Mobile Toggle */}
@@ -35,13 +56,18 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div style={{ position: 'absolute', top: '64px', width: '100%', zIndex: 40 }}>
-          <div className={styles.mobileMenu}>
-            {['Markets', 'Futures', 'Spot', 'Earn'].map((item) => (
-              <a key={item} href="#" className={styles.mobileLink}>{item}</a>
-            ))}
-            <button className={styles.btnMobileSignup}>Sign Up</button>
-          </div>
+        <div className={styles.mobileMenu}>
+          <a onClick={() => handleNav(ROUTES.MARKET)} className={styles.mobileLink}>Markets</a>
+          <a href="#features" className={styles.mobileLink} onClick={() => setIsOpen(false)}>Features</a>
+          
+          {!isAuthenticated ? (
+            <>
+                <button onClick={() => handleNav(ROUTES.LOGIN)} className={styles.mobileLink} style={{textAlign:'left', background:'none', border:'none'}}>Log In</button>
+                <button onClick={() => handleNav(ROUTES.SIGNUP)} className={styles.btnMobileSignup}>Sign Up</button>
+            </>
+          ) : (
+            <button onClick={() => handleNav(ROUTES.MARKET)} className={styles.btnMobileSignup}>Go to Dashboard</button>
+          )}
         </div>
       )}
     </nav>

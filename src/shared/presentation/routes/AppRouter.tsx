@@ -20,10 +20,11 @@ import { TraderHistoryPage } from 'src/modules/admin/presentation/pages/Traders/
 import { KycRequestsPage } from 'src/modules/admin/presentation/pages/KycRequests/KycRequestsPage';
 
 const router = createBrowserRouter([
+  { path: ROUTES.ROOT, element: <LandingPage />, index: true },
+  
   {
     element: <PublicRoute />,
     children: [
-      { path: ROUTES.ROOT, element: <LandingPage />, index: true },
       { path: ROUTES.LOGIN, element: <LoginPage /> },
       { path: ROUTES.SIGNUP, element: <RegistrationPage /> },
     ]

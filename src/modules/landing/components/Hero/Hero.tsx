@@ -1,40 +1,52 @@
 import styles from "./Hero.module.css";
-import { Globe, ShieldCheck } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import CoinBasket from "src/shared/presentation/assets/images/coin-basket.png"
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "src/shared/presentation/routes/routes";
+import { useAuth } from "src/shared/presentation/hooks/useAuth";
 
 export function HeroSection() {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+
+  const handlePrimaryClick = () => {
+    if (isAuthenticated) {
+      navigate(ROUTES.MARKET);
+    } else {
+      navigate(ROUTES.SIGNUP);
+    }
+  };
+
   return (
     <div className={styles.heroSection}>
-      {/* Background Gradients */}
-      <div className={`${styles.heroGlow} ${styles.glowGreen}`} />
-      <div className={`${styles.heroGlow} ${styles.glowBlue}`} />
-
-      <div className={`${styles.maxWidthWrapper} ${styles.heroContent}`}>
+      <div className={styles.maxWidthWrapper}>
+        
         {/* Left: Text */}
         <div className={styles.heroText}>
+          <div className={styles.badge}>v2.0 Now Live</div>
+          
           <h1 className={styles.title}>
-            Next Gen <br />
-            Trading Platform
+            Trade the financial market with <br />
+            <span>Zero Latency.</span>
           </h1>
-          {/* UPDATED COPY: Focus on Trade/Invest, removed "Buy" */}
+          
           <p className={styles.subtitle}>
-            Trade, invest, and speculate on cryptocurrency prices with the fastest execution engine and real-time market data.
+            Experience the world's fastest trading engine. Buy, sell, and trade cryptocurrencies with institutional-grade security and deep liquidity.
           </p>
 
-          <div className={styles.heroForm}>
-            <input type="email" placeholder="Email Address" className={styles.emailInput} />
-            <button className={styles.ctaButton}>Join Now</button>
-          </div>
-          
-          <div className={styles.trustBadges}>
-             <div className={styles.badge}><ShieldCheck size={18} color="#22c55e" /> Secure Platform</div>
-             <div className={styles.badge}><Globe size={18} color="#22c55e" /> 24/7 Markets</div>
+          <div className={styles.ctaGroup}>
+            <button onClick={handlePrimaryClick} className={styles.btnPrimary}>
+              {isAuthenticated ? 'Go to Dashboard' : 'Start Trading'} <ArrowRight size={20} />
+            </button>
+            <button className={styles.btnSecondary} onClick={() => navigate(ROUTES.MARKET)}>
+              View Live Markets
+            </button>
           </div>
         </div>
 
         {/* Right: Visual */}
         <div className={styles.heroVisualWrapper}>
-            <img src={CoinBasket} className={styles.heroVisual} />
+            <img src={CoinBasket} className={styles.heroVisual} alt="Crypto Basket" />
         </div>
       </div>
     </div>
